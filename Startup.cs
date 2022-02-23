@@ -47,10 +47,16 @@ namespace project
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
+            {   
+                endpoints.MapControllerRoute(
+                    "database",
+                    "DataBase/{action}",
+                    new {controller = "DataBase", action = "Init"}
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );                        
             });
         }
     }

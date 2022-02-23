@@ -3,15 +3,15 @@
     <head>
         <meta charset="utf-8" />
         <title>Web chat</title>
-        <link rel="stylesheet" href="../../wwwroot/css/layout.css"/>
-        <link rel="stylesheet" href="../../wwwroot/lib/icon/fontawesome-free-6.0.0-web/css/all.css">
+        <link rel="stylesheet" href="~/css/layout.css"/>
+        <link rel="stylesheet" href="~/lib/icon/fontawesome-free-6.0.0-web/css/all.css">
     </head>
     <body>
         <header>
             
         </header>
         <main>
-            <!-- @RenderBody() -->
+            @RenderBody()
             <div class="body">
                 <div class="title">
                     Web Chat Trực Tuyến
@@ -27,7 +27,8 @@
                         <div>
                             <i class="fa-brands fa-google"></i>
                             <a>Google</a>
-                        </div>                       
+                        </div>
+                        <div id="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>                       
                     </div>
                     <p class="title-2">Hoặc sử dụng tài khoản của bạn</p>
                     <form class="login-form">
@@ -46,7 +47,7 @@
                             </div>
                         </div>
                         <button type="submit">Đăng nhập</button>
-                    </form>
+                    </form>                   
                 </div>
             </div>
         </main>
@@ -55,4 +56,11 @@
         </footer>
     </body>
 </html>
-<script src="../../wwwroot/js/layout.js"></script>
+
+<!-- link scripts -->
+<script src="~/js/ramdomBackground.js"></script>
+<script src="~/js/layout.js"></script>
+
+<!-- other login -->
+<meta name="google-signin-client_id" content="534298276644-p69i2p8u2qjqdfgfbl168li06c4m0msg.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

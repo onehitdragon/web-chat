@@ -15622,6 +15622,16 @@
       "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\DataBase\\Init.cshtml",
+      "TargetPath": "Views\\DataBase\\Init.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
