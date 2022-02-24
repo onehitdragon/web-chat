@@ -7,52 +7,12 @@
         <link rel="stylesheet" href="~/lib/icon/fontawesome-free-6.0.0-web/css/all.css">
     </head>
     <body>
-        <header>
-            
+        <header>          
         </header>
         <main>
             @RenderBody()
-            <div class="body">
-                <div class="title">
-                    Web Chat Trực Tuyến
-                </div>
-                <div class="body__main">
-                    <p class="title">Đăng Nhập</p>
-                    <p class="title-2">Đăng nhập với</p>
-                    <div class="other-login">
-                        <div>
-                            <i class="fa-brands fa-facebook-f"></i>
-                            <a>Facebook</a>
-                        </div>
-                        <div>
-                            <i class="fa-brands fa-google"></i>
-                            <a>Google</a>
-                        </div>
-                        <div id="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>                       
-                    </div>
-                    <p class="title-2">Hoặc sử dụng tài khoản của bạn</p>
-                    <form class="login-form">
-                        <div class="login-form__row login-form__row--normal">
-                            <input type="text" placeholder="Email">
-                        </div>
-                        <div class="login-form__row login-form__row--normal">
-                            <input type="text" placeholder="Mật khẩu">
-                        </div>
-                        <div class="login-form__row login-form__row--custom">
-                            <div>
-                                <input type="checkbox" /> Nhớ mật khẩu
-                            </div>
-                            <div>
-                                <a>Quên mật khẩu</a>  
-                            </div>
-                        </div>
-                        <button type="submit">Đăng nhập</button>
-                    </form>                   
-                </div>
-            </div>
         </main>
         <footer>
-
         </footer>
     </body>
 </html>

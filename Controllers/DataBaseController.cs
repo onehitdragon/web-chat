@@ -1,17 +1,27 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using project.Models.DataService;
+using project.DataService;
 
 namespace project.Controllers
 {
     public class DatabaseController : Controller{
+        private readonly DataProvider dataProvider = DataProvider.GetInstance();
+        private readonly DataBaseInit dataBaseInit = DataBaseInit.GetInstance();
         public IActionResult Init(){
-            DataProvider dataProvider = DataProvider.GetInstance();
             bool isSuccess = dataProvider.TestConnectionToDB();
             if(isSuccess){
-                DataBaseInit dataBaseInit = DataBaseInit.GetInstance();
                 dataBaseInit.InitChatAppDB();
                 Console.WriteLine("call init");
+            }
+            
+            ViewData["isSuccess"] = isSuccess;           
+            return View();
+        }
+        public IActionResult Drop(){
+            bool isSuccess = dataProvider.TestConnectionToDB();
+            if(isSuccess){
+                dataBaseInit.DropChatAppDB();
+                Console.WriteLine("call drop");
             }
             
             ViewData["isSuccess"] = isSuccess;           

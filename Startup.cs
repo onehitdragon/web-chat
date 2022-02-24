@@ -49,6 +49,11 @@ namespace project
             app.UseEndpoints(endpoints =>
             {   
                 endpoints.MapControllerRoute(
+                    "account",
+                    "account/{action}",
+                    new {controller = "Account", action = "Login"}
+                );
+                endpoints.MapControllerRoute(
                     "database",
                     "DataBase/{action}",
                     new {controller = "DataBase", action = "Init"}

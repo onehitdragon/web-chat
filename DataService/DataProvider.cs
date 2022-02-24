@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient;
 using System.Data;
-namespace project.Models.DataService{
+namespace project.DataService{
     public class DataProvider{
         private static DataProvider instance;
         private string connectionStr = DataBaseConfig.mySqlConnectionStr;
@@ -46,6 +46,9 @@ namespace project.Models.DataService{
             connect.Close();
 
             return tb;
+        }
+        public bool HasRow(string query){
+            return GetDataTable(query).Rows.Count > 0 ? true : false;
         }
     }
 }

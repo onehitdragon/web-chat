@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using project.Models;
-using project.Models.DataService;
+using project.DataService;
 using System.Data;
 
 namespace project.Controllers

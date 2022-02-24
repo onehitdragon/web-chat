@@ -1,6 +1,7 @@
-namespace project.Models.DataService{
+namespace project.DataService{
     public class DataBaseInit{
         private static DataBaseInit instance;
+        private readonly DataProvider dataProvider = DataProvider.GetInstance();
         private DataBaseInit(){}
         public static DataBaseInit GetInstance(){
             if(instance == null){
@@ -10,7 +11,6 @@ namespace project.Models.DataService{
         }
         //
         public void InitChatAppDB(){
-            DataProvider dataProvider = DataProvider.GetInstance();
             // create database
             string query = "CREATE DATABASE IF NOT EXISTS chatapp";
             dataProvider.ExcuteQueryNonDB(query);    
@@ -25,18 +25,20 @@ namespace project.Models.DataService{
                 +"Email varchar(100),"
                 +"Password varchar(100),"
                 +"Phone varchar(13),"
-                +"TimeCreated DateTime"
+                +"TimeCreated DateTime,"
+                +"UNIQUE(Email), UNIQUE(Phone)"
             +");";           
             dataProvider.ExcuteQuery(query);
             
             // init user data
             query = "SELECT * FROM Users";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
-                query = "INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'B',N'Nguyễn','1997/1/15',1,'B@gmail.com', '12345', '08614242451', CURRENT_TIMESTAMP());"
-                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'C',N'Trần','1999/5/23',0,'C@gmail.com', '12345', '08614242451', CURRENT_TIMESTAMP());"
-                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'G',N'Trần','2001/6/5',0,'G@gmail.com', '12345', '08614242451', CURRENT_TIMESTAMP());"
-                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'A',N'Ngọc','1999/2/16',1,'A@gmail.com', '12345', '08614242451', CURRENT_TIMESTAMP());"
-                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'Z',N'Huỳnh','2005/11/29',0,'Z@gmail.com', '12345', '08614242451', CURRENT_TIMESTAMP());";
+                query = "INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'B',N'Nguyễn','1997/1/15',1,'B@gmail.com', MD5('12345'), '08684242451', CURRENT_TIMESTAMP());"
+                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'admin',N'admin','1999/5/23',0,'admin', MD5('admin'), '28614242451', CURRENT_TIMESTAMP());"
+                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'C',N'Trần','1999/5/23',0,'C@gmail.com', MD5('12345'), '08614242451', CURRENT_TIMESTAMP());"
+                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'G',N'Trần','2001/6/5',0,'G@gmail.com', MD5('12345'), '68614142451', CURRENT_TIMESTAMP());"
+                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'A',N'Ngọc','1999/2/16',1,'A@gmail.com', MD5('12345'), '58614242451', CURRENT_TIMESTAMP());"
+                    +"INSERT INTO Users(FirstName, LastName, BirthDay, Gender, Email, Password, Phone, TimeCreated) VALUES(N'Z',N'Huỳnh','2005/11/29',0,'Z@gmail.com', MD5('12345'), '18614242451', CURRENT_TIMESTAMP());";
                 dataProvider.ExcuteQuery(query);
             }
 
@@ -140,6 +142,10 @@ namespace project.Models.DataService{
             // dataProvider.ExcuteQuery(query);
 
 
-        }  
+        }
+        public void DropChatAppDB(){
+            string query = "DROP DATABASE IF EXISTS chatapp";
+            dataProvider.ExcuteQueryNonDB(query);
+        }
     }
 }
