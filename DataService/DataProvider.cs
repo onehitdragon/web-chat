@@ -2,25 +2,35 @@ using MySql.Data.MySqlClient;
 using System.Data;
 namespace project.DataService{
     public class DataProvider{
-        private static DataProvider instance;
         private string connectionStr = DataBaseConfig.mySqlConnectionStr;
-        private DataProvider(){}
-        public static DataProvider GetInstance(){
-            if(instance == null){
-                instance = new DataProvider();
-            }
-            return instance;
-        }
-        public bool TestConnectionToDB(){
+        public bool TestConnectionToMySql(){
             try{
                 MySqlConnection connect = new MySqlConnection(DataBaseConfig.mySqlConnectionStrNoDB);
                 connect.Open();
+                connect.Close();
             }
             catch{
                 return false;
             }
             return true;
         }
+        public bool TestConnectionToDB(){
+            try{
+                MySqlConnection connect = new MySqlConnection(DataBaseConfig.mySqlConnectionStr);
+                connect.Open();
+                connect.Close();
+            }
+            catch{
+                return false;
+            }
+            return true;
+        }
+        public bool TestConnect(){
+            if(TestConnectionToMySql() && TestConnectionToDB()){
+                return true;
+            }
+            return false;
+        }       
         //
         public void ExcuteQuery(string query){
             MySqlConnection connect = new MySqlConnection(connectionStr);

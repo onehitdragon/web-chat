@@ -1,8 +1,9 @@
 using project.Repository;
 namespace project.Models{
     public abstract class Account{
-        private string email;
-        private string password;
+        protected string email;
+        protected string password;
+        protected static IAccountRepository accountRepository = new AccountRepository();
         public string Email{
             get {
                 return email;
@@ -19,19 +20,31 @@ namespace project.Models{
                 password = value;
             }
         }
+        public Account(){}
+        public Account(string email){
+            this.email = email;
+        }
         public Account(string email, string password){
             this.email = email;
             this.password = password;           
         }
-        public bool CheckWrongAccount(){
-            IAccountRepository accountRepository = new AccountRepository();
-            if(accountRepository.GetAccount(this) != null){
+        public static bool CheckWrongAccount(Account account){ 
+            if(accountRepository.GetAccount(account) != null){
                 return false;
             }
             return true;
         }
+        public static bool CheckExistAccount(Account account){
+            if(accountRepository.GetAccountWithEmail(account) != null){
+                return true;
+            }
+            return false;
+        }
         public abstract string GetDefaultUrl();
-        public bool isAdmin(){
+        public static bool IsAdmin(Account account){
+            if(account.email == "admin"){
+                return true;
+            }
             return false;
         }
     }

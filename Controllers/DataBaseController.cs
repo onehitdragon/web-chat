@@ -5,10 +5,10 @@ using project.DataService;
 namespace project.Controllers
 {
     public class DatabaseController : Controller{
-        private readonly DataProvider dataProvider = DataProvider.GetInstance();
+        private readonly DataProvider dataProvider = new DataProvider();
         private readonly DataBaseInit dataBaseInit = DataBaseInit.GetInstance();
         public IActionResult Init(){
-            bool isSuccess = dataProvider.TestConnectionToDB();
+            bool isSuccess = dataProvider.TestConnectionToMySql();
             if(isSuccess){
                 dataBaseInit.InitChatAppDB();
                 Console.WriteLine("call init");

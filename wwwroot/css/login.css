@@ -145,7 +145,7 @@
 }
 .body > .body__main .login-form .loading{
     width: 38px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .body > .body__main .login-form > button[type='button']{
     width: 100%;
@@ -157,6 +157,9 @@
     color: white;
     font-size: 15.5px;
     margin-bottom: 15px;
+}
+.body > .body__main .login-form > button[name='login']{
+    margin-bottom: 10px;
 }
 .body > .body__main .login-form > button[type='button']:hover{
     opacity: .8;

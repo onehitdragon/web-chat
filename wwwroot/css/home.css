@@ -1,0 +1,19 @@
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+}
+.body > .body__main{
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.body > .body__main .body-left{
+    
+}
+.body > .body__main .body-right{
+
+}

@@ -17,9 +17,7 @@ namespace project.Controllers
         {            
             return View();
         }
-        public IActionResult StartSocket(){
-            SocketListener.StartSocket();
-            Console.WriteLine("Close Socket");           
+        public IActionResult StartSocket(){          
             return View();
         }
     }

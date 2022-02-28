@@ -1,7 +1,7 @@
 namespace project.DataService{
     public class DataBaseInit{
         private static DataBaseInit instance;
-        private readonly DataProvider dataProvider = DataProvider.GetInstance();
+        private readonly DataProvider dataProvider = new DataProvider();
         private DataBaseInit(){}
         public static DataBaseInit GetInstance(){
             if(instance == null){
@@ -17,7 +17,8 @@ namespace project.DataService{
 
             // create user table
             query = "CREATE TABLE IF NOT EXISTS Users("
-                +"id int PRIMARY KEY AUTO_INCREMENT,"
+                +"id BIGINT unsigned PRIMARY KEY AUTO_INCREMENT,"
+                +"AvatarUrl VARCHAR(100),"
                 +"FirstName VARCHAR(100) charset utf8,"
                 +"LastName VARCHAR(100) charset utf8,"
                 +"BirthDay date,"
@@ -26,7 +27,7 @@ namespace project.DataService{
                 +"Password varchar(100),"
                 +"Phone varchar(13),"
                 +"TimeCreated DateTime,"
-                +"UNIQUE(Email), UNIQUE(Phone)"
+                +"UNIQUE(Email)"
             +");";           
             dataProvider.ExcuteQuery(query);
             
@@ -44,7 +45,7 @@ namespace project.DataService{
 
             //create active table
             query = "CREATE TABLE IF NOT EXISTS UserActive ("
-                +"id int,"
+                +"id BIGINT unsigned,"
                 +"ActiveCode varchar(100),"
                 +"FOREIGN KEY (id) REFERENCES users(id)"           
             +")";
@@ -62,7 +63,7 @@ namespace project.DataService{
             query = "CREATE TABLE IF NOT EXISTS conversation("
                 +"Id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Title varchar(100) charset utf8,"
-                +"Creator_Id int,"
+                +"Creator_Id BIGINT unsigned,"
                 +"Create_at DateTime,"
                 +"Update_at DateTime,"
                 +"Delete_at DateTime,"
@@ -83,7 +84,7 @@ namespace project.DataService{
             query = "CREATE TABLE IF NOT EXISTS messages("
                 +"Id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Conversation_Id int,"
-                +"Sender_Id int,"
+                +"Sender_Id BIGINT unsigned,"
                 +"Message_Type ENUM('text','file'),"
                 +"Message varchar(255) charset utf8,"
                 +"Attachment_url varchar(255),"
@@ -111,7 +112,7 @@ namespace project.DataService{
             query = "CREATE TABLE IF NOT EXISTS participants("
                 +"id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Conversation_Id int,"
-                +"Users_Id int,"
+                +"Users_Id BIGINT unsigned,"
                 +"FOREIGN KEY (Conversation_Id) REFERENCES conversation(Id),"
                 +"FOREIGN KEY (Users_Id) REFERENCES users(id)"
             +")";

@@ -22,7 +22,6 @@
                 <i class="fa-brands fa-google"></i>
                 <a>Google</a>
             </div>
-            <div id="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>
         </div>
         <p class="title-2">Hoặc sử dụng tài khoản của bạn</p>
         <form class="login-form">
@@ -48,9 +47,18 @@
                 </div>
             </div>
             <img class="loading" src="~/img/gif/loader.gif">
-            <button type="button">Đăng nhập</button>
+            <button type="button" name="login">Đăng nhập</button>
+            <button type="button" name="register">Đăng ký</button>
         </form>
     </div>
 </div>
+
 <script src="~/js/ajax.js"></script>
-<script src="~/js/login.js"></script>
+<script src="~/js/messagePopup.js"></script>
+<script src="~/js/init.js"></script>
+
+<script src="~/js/login/login.js"></script>
+<script src="~/js/login/loginGoogle.js"></script>
+<meta name="google-signin-client_id" content="534298276644-p69i2p8u2qjqdfgfbl168li06c4m0msg.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="~/js/login/loginFacebook.js"></script>

@@ -3,11 +3,8 @@ namespace project.Models{
         public AdminAccount(string email, string password):base(email, password){
 
         }
-        public override string GetDefaultUrl(){
+        override public string GetDefaultUrl(){
             return "/Admin";
-        }
-        new public bool isAdmin(){
-            return true;
         }
     }
 }
