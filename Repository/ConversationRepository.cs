@@ -1,0 +1,61 @@
+using project.Models;
+using System.Collections.Generic;
+using System.Data;
+using project.DataService;
+using System;
+namespace project.Repository{
+    public class ConversationRepository : IConversationRepository{
+        private DataProvider dataProvider;
+        private IUserRepository userRepository;
+        public ConversationRepository(){
+            this.dataProvider = new DataProvider();
+            this.userRepository = new UserRepository();
+        }
+        public List<Conversation> GetListConversation(User _user){
+            ulong idUser = _user.Id;
+            string query = $"SELECT conversation.* FROM participants JOIN conversation ON participants.Conversation_Id = conversation.Id WHERE participants.Users_Id = {idUser}";
+            DataTable conversationTable = dataProvider.GetDataTable(query);
+            List<Conversation> listConversation = new List<Conversation>();
+            foreach(DataRow conversationRow in conversationTable.Rows){
+                Conversation conversation = new Conversation(
+                    int.Parse(conversationRow[0].ToString()),
+                    conversationRow[1].ToString(),
+                    int.Parse(conversationRow[2].ToString()),
+                    new List<User>(),
+                    new List<Message>()
+                );
+
+                int idConversation = conversation.Id;
+                query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation} AND users.id != {idUser}";
+                DataTable userTable = dataProvider.GetDataTable(query);
+                foreach(DataRow userRow in userTable.Rows){
+                    User user = userRepository.CreateUserByDataRow(userRow);
+                    conversation.Participants.Add(user);
+                }
+
+                query = "SELECT * FROM messages WHERE Conversation_Id = " + idConversation;
+                DataTable messageTable = dataProvider.GetDataTable(query);
+                foreach(DataRow messageRow in messageTable.Rows){
+                    Message message = new Message(
+                        int.Parse(messageRow[0].ToString()),
+                        null,
+                        messageRow[3].ToString() == "text" ? TypeMessage.Text : TypeMessage.File,
+                        messageRow[4].ToString(),
+                        messageRow[5].ToString()
+                    );
+                    foreach(User user in conversation.Participants){
+                        if(user.Id == ulong.Parse(messageRow[2].ToString())){
+                            message.Sender = user;
+                            break;
+                        }
+                    }
+                    conversation.Messages.Add(message);
+                }
+
+                listConversation.Add(conversation);
+            }
+
+            return listConversation;
+        }
+    }
+}

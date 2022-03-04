@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using project.MyTool;
 using project.DataService;
 using project.Repository;
+using project.Socket;
 
 namespace project.Controllers{
     public class AccountController : Controller{
@@ -34,6 +35,7 @@ namespace project.Controllers{
 
             return View();
         }
+        
         [HttpPost]
         public IActionResult Login(string Email, string Password, bool SavePassword){
             // check connection
@@ -69,6 +71,7 @@ namespace project.Controllers{
                 nextUrl = account.GetDefaultUrl()
             });
         }
+
         [HttpPost]
         public IActionResult LoginGoogle(string EmailGoogle, string GoogleName, string AvatarUrl){
             // check connection
@@ -95,6 +98,7 @@ namespace project.Controllers{
                 accountIsExist = accountIsExist
             });
         }
+        
         [HttpPost]
         public IActionResult LoginFacebook(ulong IdUser, string FacebookName, string AvatarUrl){
             // check connection

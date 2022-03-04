@@ -3,8 +3,5 @@ namespace project.Models{
         public UserAccount(string email, string password):base(email, password){
 
         }
-        override public string GetDefaultUrl(){
-            return "/Home";
-        }
     }
 }

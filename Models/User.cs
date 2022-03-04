@@ -71,12 +71,12 @@ namespace project.Models{
         }
         public User(ulong id, string avatarUrl, string lastName){
             this.id = id;
-            this.avatarUrl = avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
             this.lastName = lastName;
         }
         public User(ulong id, string avatarUrl, string lastName, string firstName, DateTime birthDay, bool gender, string phone){
             this.id = id;
-            this.avatarUrl = avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
             this.lastName = lastName;
             this.firstName = firstName;
             this.birthDay = birthDay;
@@ -84,7 +84,7 @@ namespace project.Models{
             this.phone = phone;
         }
         public User(string avatarUrl, string lastName, string firstName, DateTime birthDay, bool gender, string phone){
-            this.avatarUrl = avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
             this.lastName = lastName;
             this.firstName = firstName;
             this.birthDay = birthDay;

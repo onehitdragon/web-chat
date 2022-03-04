@@ -1,6 +1,6 @@
 using project.Repository;
 namespace project.Models{
-    public abstract class Account{
+    public class Account{
         protected string email;
         protected string password;
         protected static IAccountRepository accountRepository = new AccountRepository();
@@ -40,9 +40,11 @@ namespace project.Models{
             }
             return false;
         }
-        public abstract string GetDefaultUrl();
-        public static bool IsAdmin(Account account){
-            if(account.email == "admin"){
+        public virtual string GetDefaultUrl(){
+            return "/Home";
+        }
+        public bool IsAdmin(){
+            if(email == "admin"){
                 return true;
             }
             return false;

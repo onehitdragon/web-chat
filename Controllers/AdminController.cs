@@ -11,8 +11,8 @@ namespace project.Controllers{
     public class AdminController : Controller{
         public IActionResult Index(){
             if(SessionTool.CheckSession(HttpContext, "account")){
-                Account account = SessionTool.GetSession<UserAccount>(HttpContext, "account");
-                if(Account.IsAdmin(account)){
+                Account account = SessionTool.GetSession<Account>(HttpContext, "account");
+                if(account.IsAdmin()){
                     return Content("This is Admin Page");
                 }
                 else{

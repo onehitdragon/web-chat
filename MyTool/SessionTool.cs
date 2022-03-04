@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.Json;
+using project.Models;
 namespace project.MyTool{
     public class SessionTool{
         public static void AddSession(HttpContext httpContext, string key, string value){
             httpContext.Session.SetString(key, value);
         }
         public static void AddSession<T>(HttpContext httpContext, string key, T _value){
-            string value = JsonSerializer.Serialize<T>(_value);          
+            string value = JsonSerializer.Serialize(_value);          
             httpContext.Session.SetString(key, value);
         }
         public static string GetSession(HttpContext httpContext, string key){

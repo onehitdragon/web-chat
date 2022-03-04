@@ -111,6 +111,15 @@
           "lib/net5.0/ZstdNet.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -275,13 +284,13 @@
           }
         }
       },
-      "WebSocketSharp/1.0.3-rc11": {
+      "websocketsharp.core/1.0.0": {
         "type": "package",
         "compile": {
-          "lib/websocket-sharp.dll": {}
+          "lib/netstandard2.0/websocket-sharp-core.dll": {}
         },
         "runtime": {
-          "lib/websocket-sharp.dll": {}
+          "lib/netstandard2.0/websocket-sharp-core.dll": {}
         }
       }
     }
@@ -470,6 +479,33 @@
         "lib/netstandard2.1/ZstdNet.dll",
         "mysql.data.8.0.28.nupkg.sha512",
         "mysql.data.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -855,24 +891,24 @@
         "version.txt"
       ]
     },
-    "WebSocketSharp/1.0.3-rc11": {
-      "sha512": "7VCF7f7zVMOvLGD8LeGS4DVXc8lOcB6kXnUMeTxigu+PMiU+6wW5Olq2gYrDU8vDRKOwFY+5RyBaLyzb8skEzA==",
+    "websocketsharp.core/1.0.0": {
+      "sha512": "Pdr9TtOtlaxKI6XtuHdRBrxFsBPCpqxNerAFbpdb2K7foBMYJmUOV+wqhklZilphtFjxT5zN1X6X3iyG/OovAQ==",
       "type": "package",
-      "path": "websocketsharp/1.0.3-rc11",
+      "path": "websocketsharp.core/1.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/websocket-sharp.dll",
-        "lib/websocket-sharp.xml",
-        "websocketsharp.1.0.3-rc11.nupkg.sha512",
-        "websocketsharp.nuspec"
+        "lib/netstandard2.0/websocket-sharp-core.dll",
+        "websocketsharp.core.1.0.0.nupkg.sha512",
+        "websocketsharp.core.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "MySql.Data >= 8.0.28",
-      "WebSocketSharp >= 1.0.3-rc11"
+      "Newtonsoft.Json >= 13.0.1",
+      "websocketsharp.core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -916,9 +952,13 @@
             "target": "Package",
             "version": "[8.0.28, )"
           },
-          "WebSocketSharp": {
+          "Newtonsoft.Json": {
             "target": "Package",
-            "version": "[1.0.3-rc11, )"
+            "version": "[13.0.1, )"
+          },
+          "websocketsharp.core": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -942,17 +982,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WebSocketSharp 1.0.3-rc11' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WebSocketSharp",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    }
-  ]
+  }
 }

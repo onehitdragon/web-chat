@@ -32,10 +32,7 @@ namespace project.Repository{
             }         
             return null;
         }
-        public User GetUser(string email){
-            string query = $"SELECT * FROM users WHERE email = '{email}'";
-            DataTable userTable = dataProvider.GetDataTable(query);
-            DataRow userRow = userTable.Rows[0];
+        public User CreateUserByDataRow(DataRow userRow){
             return new User(
                 UInt64.Parse(userRow[0].ToString()),
                 userRow[1].ToString(),
@@ -46,19 +43,23 @@ namespace project.Repository{
                 userRow[8].ToString()
             );
         }
+        public User GetUser(string email){
+            string query = $"SELECT * FROM users WHERE email = '{email}'";
+            DataTable userTable = dataProvider.GetDataTable(query);
+            if(userTable.Rows.Count == 0){
+                return null;
+            }
+            DataRow userRow = userTable.Rows[0];
+            return CreateUserByDataRow(userRow);
+        }
         public User GetUser(ulong id){
             string query = $"SELECT * FROM users WHERE id = {id}";
             DataTable userTable = dataProvider.GetDataTable(query);
+            if(userTable.Rows.Count == 0){
+                return null;
+            }
             DataRow userRow = userTable.Rows[0];
-            return new User(
-                id,
-                userRow[1].ToString(),
-                userRow[3].ToString(),
-                userRow[2].ToString(),
-                DateTime.Parse(userRow[4].ToString()),
-                userRow[5].ToString() == "1" ? true : false,
-                userRow[8].ToString()
-            );
+            return CreateUserByDataRow(userRow);
         }
         public void UpdateUser(User newUser){
             string query = $"UPDATE users SET AvatarUrl = '{newUser.AvatarUrl}', FirstName = '{newUser.FirstName}', LastName = '{newUser.LastName}', BirthDay = '{newUser.BirthDay.ToString("yyyy/MM/dd")}', Gender = {Convert.ToInt32(newUser.Gender)}, Phone = '{newUser.Phone}' WHERE id = '{newUser.Id}'";

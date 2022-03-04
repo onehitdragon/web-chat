@@ -33,7 +33,7 @@
             </div>
             <div class="login-form__row login-form__row--custom">
                 <div>
-                    @if ((bool)ViewData["savePassword"])
+                    @if (!String.IsNullOrEmpty(account.Password))
                     {
                         <text><input name="SavePassword" type="checkbox" checked value="true"/></text>
                     }

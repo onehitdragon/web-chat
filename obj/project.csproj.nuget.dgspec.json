@@ -42,9 +42,13 @@
               "target": "Package",
               "version": "[8.0.28, )"
             },
-            "WebSocketSharp": {
+            "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[1.0.3-rc11, )"
+              "version": "[13.0.1, )"
+            },
+            "websocketsharp.core": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [

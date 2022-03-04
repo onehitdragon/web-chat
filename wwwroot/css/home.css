@@ -269,12 +269,311 @@
 }
 .body-left__conversations > .conversation-item > .status-area > i > span{
     position: absolute;
-    top: 2px;
-    left: 3.5px;
+    top: 3px;
+    left: 4px;
     color: white;
     font-size: 12.5px;    
+    font-weight: normal;
 }
 /*  */
 .body > .body__main .body-right{
+    width: 500px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
 
+    height: 496px;
+}
+.body > .body__main .body-right::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 100%;
+    box-shadow: 6px 0px 10px 1px white;
+    z-index: -2;
+}
+.body-right__head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 10px;
+    position: relative;
+}
+.body-right__head::after{
+    content: "";
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400%;
+    animation: line-ani 5s ease infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .7;
+    border-top-right-radius: 5px;
+}
+.body-right__head .avatar{
+    border-radius: 50%;
+}
+.body-right__head .info-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.body-right__head .info-area > .name{
+    font-size: 16px;
+    font-weight: bolder;
+    margin-bottom: 3px;
+    text-align: center;
+}
+.body-right__head .info-area > .status{
+    font-size: 14px;
+    text-align: center;
+}
+.body-right__head .button-area{
+    display: flex;
+    align-items: center;
+}
+.body-right__head .button-area > button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+.body-right__head .button-area > button[name='profile']{
+    font-size: 16px;
+}
+.body-right__head .button-area > button[name='profile']:hover > i{
+    animation: iconp-ani 100s ease;
+}
+@keyframes iconp-ani{
+    0%{
+        font-size: 16px;
+    }
+    0.35%{
+        font-size: 20px;
+    }
+}
+.body-right__head .button-area > button[name='menu']{
+    font-size: 20px;
+}
+.body-right__head .button-area > button[name='menu']:hover > i{
+    animation: iconm-ani 100s ease;
+}
+@keyframes iconm-ani{
+    0%{
+        font-size: 20px;
+    }
+    0.35%{
+        font-size: 26px;
+    }
+}
+.body-right__messages{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    padding-right: 10px;
+    margin-top: 15px;
+    height: 431px;
+    overflow: hidden;
+}
+.body-right__messages:hover{
+    overflow-y: scroll;
+}
+.body-right__messages > .message{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.body-right__messages > .message--mymessage{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.body-right__messages > .message > .avatar{
+    border-radius: 50%;
+    align-self: flex-start;
+}
+.body-right__messages > .message > .content{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+.body-right__messages > .message--mymessage > .content{
+    margin-left: 0px !important;
+    margin-right: 15px;
+    align-items: flex-end;
+}
+.body-right__messages > .message > .content > p{
+    font-size: 16px;
+    padding: 7px 10px;  
+    position: relative;
+    margin-bottom: 5px;
+    width: fit-content;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+.body-right__messages > .message > .content > p::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e73c7e;
+    opacity: .5;
+    z-index: -1;
+    border-radius: 4px;
+}
+.body-right__messages > .message--mymessage > .content > p::after{
+    background-color: #23d5ab !important;
+}
+.body-right__messages > .message > .content > .loading{
+    display: flex;
+}
+.body-right__messages > .message > .content > .loading > i{
+    font-size: 7px;
+}
+.body-right__messages > .message > .content > .loading > i:nth-child(1){
+    animation: loading-mes-ani1 1.5s ease infinite ;
+}
+.body-right__messages > .message > .content > .loading > i:nth-child(2){
+    margin: 0px 5px;
+    animation: loading-mes-ani2 1.5s ease infinite;
+}
+.body-right__messages > .message > .content > .loading > i:nth-child(3){
+    animation: loading-mes-ani3 1.5s ease infinite;
+}
+@keyframes loading-mes-ani1 {
+    0%{
+        transform: translateY(0px);
+    }
+    16.5%{
+        transform: translateY(-5px);
+    }
+    33.3%{
+        transform: translateY(0px);
+    }
+}
+@keyframes loading-mes-ani2 {
+    0%{
+        transform: translateY(0px);
+    }
+    33.3%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-5px);
+    }
+    66.6%{
+        transform: translateY(0px);
+    }
+}
+@keyframes loading-mes-ani3 {
+    0%{
+        transform: translateY(0px);
+    }
+    66.6%{
+        transform: translateY(0px);
+    }
+    83%{
+        transform: translateY(-5px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+.body-right__messages > .message > .content > .name-time{
+    display: flex;
+    align-items: center;
+    color: white;
+    opacity: .8;
+}
+.body-right__messages > .message > .content > .name-time{
+    flex: 1;
+}
+.body-right__messages > .message--mymessage > .content > .name-time > .status-success{
+    color: lime;
+    font-size: 16px;
+}
+.body-right__messages > .message--mymessage > .content > .name-time > .status-load{
+    font-size: 13px;
+    animation: status-load-ani 1s linear infinite;
+}
+@keyframes status-load-ani {
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+.body-right__messages > .message--mymessage > .content > .name-time > .status-fail{
+    color: red;
+    font-size: 16px;
+}
+.body-right__messages > .message > .content > .name-time > span{
+    font-size: 13.5px;
+}
+.body-right__messages > .message > .content > .name-time > i{
+    margin: 0px 5px;
+    font-size: 3px;
+}
+.body-right__send{
+    padding-left: 20px;
+    margin-right: 10px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 5px;
+    position: relative;
+}
+.body-right__send > input[type='text']{
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.2;
+    border: none;
+    outline: none;
+    padding: 6px 5px;
+    background-color: transparent;
+    color: white;
+}
+.body-right__send > input[type='text']::placeholder{
+    color: rgb(175, 175, 175);
+    font-size: 15px;
+}
+.body-right__send > button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    margin: 0px 5px;
+    cursor: pointer;
+}
+.body-right__send > button[name='add-file']{
+    
+}
+.body-right__send > button[name='icon']{
+    
+}
+.body-right__send > button > i{
+    font-size: 22px;
+    color: rgb(175, 175, 175);
+}
+.body-right__send > button:hover > i{
+    color: rgb(224, 224, 224);
+    transition: color .3s;
 }

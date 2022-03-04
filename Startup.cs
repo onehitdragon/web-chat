@@ -26,9 +26,10 @@ namespace project
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();  
             services.AddSession(options => {  
-                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time   
             });  
             services.AddMvc();
+            services.AddHttpContextAccessor();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +54,11 @@ namespace project
 
             app.UseEndpoints(endpoints =>
             {   
+                endpoints.MapControllerRoute(
+                    "socket",
+                    "socket/{action}",
+                    new {controller = "Socket", action = "StartSocket"}
+                );
                 endpoints.MapControllerRoute(
                     "account",
                     "account/{action}",
