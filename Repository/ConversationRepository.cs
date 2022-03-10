@@ -26,7 +26,7 @@ namespace project.Repository{
                 );
 
                 int idConversation = conversation.Id;
-                query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation} AND users.id != {idUser}";
+                query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
                 DataTable userTable = dataProvider.GetDataTable(query);
                 foreach(DataRow userRow in userTable.Rows){
                     User user = userRepository.CreateUserByDataRow(userRow);
@@ -56,6 +56,11 @@ namespace project.Repository{
             }
 
             return listConversation;
+        }
+        public void AddMessage(Conversation conversation, Message mes){
+            string query = $"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) " +
+                $"VALUES ({conversation.Id}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
+            dataProvider.ExcuteQuery(query);
         }
     }
 }

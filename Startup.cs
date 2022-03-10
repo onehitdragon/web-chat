@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using project.Socket;
 
 namespace project
 {
@@ -29,7 +30,7 @@ namespace project
                 options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time   
             });  
             services.AddMvc();
-            services.AddHttpContextAccessor();
+            services.AddSignalR();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,11 +56,6 @@ namespace project
             app.UseEndpoints(endpoints =>
             {   
                 endpoints.MapControllerRoute(
-                    "socket",
-                    "socket/{action}",
-                    new {controller = "Socket", action = "StartSocket"}
-                );
-                endpoints.MapControllerRoute(
                     "account",
                     "account/{action}",
                     new {controller = "Account", action = "Login"}
@@ -72,7 +68,8 @@ namespace project
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
-                );                        
+                ); 
+                endpoints.MapHub<Chat>("/chat");                       
             });
         }
     }

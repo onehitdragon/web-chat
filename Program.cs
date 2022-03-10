@@ -21,6 +21,7 @@ namespace project
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("https://192.168.1.153:5001");
                 });
     }
 }

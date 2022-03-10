@@ -2,9 +2,11 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/home.css"/>
+<link rel="stylesheet" href="~/css/homeAnimation.css"/>
 <div class="body">
     <div class="body__main">
         <div class="body-left">
+            <div class="body-left__before"></div>
             <div class="body-left__head">
                 <img class="avatar" src="@ViewBag.AvatarUrl">
                 <div class="name-area">
@@ -42,6 +44,7 @@
             </div>
         </div>
         <div class="body-right">
+            <div class="body-right__before"></div>
             @* <div class="body-right__head">
                 <img class="avatar" src="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.30497-1/84628273_176159830277856_972693363922829312_n.jpg?stp=c15.0.50.50a_cp0_dst-jpg_p50x50&_nc_cat=1&ccb=1-5&_nc_sid=12b3be&_nc_ohc=mXSVjyx-MnoAX_gAjnU&_nc_ht=scontent.fhan14-2.fna&edm=AP4hL3IEAAAA&oh=00_AT9KSVvPavEIVn8nx75lC03QJK11ioBmWcJpgV1Md7toNw&oe=6241ED99">
                 <div class="info-area">
@@ -152,6 +155,7 @@
 </div>
 <script>
     let conversationList = @Html.Raw(ViewBag.ListConversation);
+    let user = @Html.Raw(ViewBag.User);
 </script>
 
 <script src="~/js/ajax.js"></script>
@@ -159,5 +163,7 @@
 <script src="~/js/init.js"></script>
 
 <script src="~/js/home/conversation.js"></script>
+<script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/home/conversationControl.js"></script>
 <script src="~/js/home/home.js"></script>
+<script src="~/js/home/animation.js"></script>

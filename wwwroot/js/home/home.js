@@ -1,4 +1,5 @@
 console.log(conversationList);
-const conversationControl = new ConversationControl(conversationList);
+console.log(user);
+const conversationControl = new ConversationControl(user, conversationList);
 conversationControl.init();
 conversationControl.startSocket();

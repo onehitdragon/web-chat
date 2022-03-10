@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rTw/OV3mScVkroN5jhlG7kwwqMTjsNHovPzGl7jZgG9Vp3GjFoIksrbSAPo6t7sxl0jYVJm+/ZMxjhLnxDlC/g==",
+  "dgSpecHash": "4oIUgqexQpEZFAuW+3E5iAm6T+4FLlnHbAsR3MxblYk+YhaUX1YbXQO7AZQBSFV0PaWs5J9Z+24YPDTIyS1Jrw==",
   "success": true,
   "projectFilePath": "D:\\3_2\\practiceteam\\project\\project.csproj",
   "expectedPackageFiles": [
@@ -24,7 +24,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.text.encoding.codepages\\4.4.0\\system.text.encoding.codepages.4.4.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\websocketsharp.core\\1.0.0\\websocketsharp.core.1.0.0.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\websocketsharp-netstandard\\1.0.1\\websocketsharp-netstandard.1.0.1.nupkg.sha512"
   ],
   "logs": []
 }

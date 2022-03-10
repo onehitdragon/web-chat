@@ -1,64 +1,104 @@
 class ConversationControl{
-    constructor(listConversation){
+    constructor(user, listConversation){
+        this.user = user;
         this.listConversation = listConversation;
+        this.listConversationElement = [];
+        this.conversationContainerElement = document.querySelector('.body-left__conversations');
+        this.listMessageLoadingElement = [];
     }
-    init(){
-        const conversationContainerElement = document.querySelector('.body-left__conversations');
-        const activeConversationContainerElement = document.querySelector('.body > .body__main');
-
-        this.listConversation.forEach((infoConversation) => {
-            const conversation = new Conversation(infoConversation);
-            conversationContainerElement.appendChild(
-                conversation.CreateConversationElement()
-            )
-            .addEventListener('click', () => {
-                if(this.activeConversation != infoConversation){
-                    this.activeConversation = infoConversation;    
+    init(){       
+        this.listConversation.forEach((infoConversation, index) => {
+            let conversation = new Conversation(this.user, infoConversation);
+            // init conversation-item
+            const conversationElement = conversation.CreateConversationElement();           
+            this.listConversationElement.push(conversationElement);
+            this.conversationContainerElement.appendChild(conversationElement);           
+            //
+            conversationElement.addEventListener('click', () => {
+                if(this.listConversation[index] != this.activeConversation){
+                    this.activeConversation = this.listConversation[index];
+                    conversation = new Conversation(this.user, this.listConversation[index]);
+                    this.activeConversationElement = conversation.CreateActiveConversationElement();
+                    const activeConversationContainerElement = document.querySelector('.body > .body__main');   
                     activeConversationContainerElement.replaceChild(
-                        conversation.CreateActiveConversationElement(),
+                        this.activeConversationElement,
                         activeConversationContainerElement.querySelector('.body-right')
                     );  
                 }
                 const inputChatElement = document.querySelector(".body-right__send > input[type='text']");
                 inputChatElement.addEventListener('keydown', (e) => {
-                    let contentMessage = inputChatElement.value;
-                    if(e.key == 'Enter' && contentMessage != ''){
-                        console.log("send " + contentMessage);
+                    if(e.key == 'Enter' && inputChatElement.value != ''){
+                        let contentMessage = inputChatElement.value;
+                        inputChatElement.value = "";
                         let message = {
+                            Sender : this.user,
                             TypeMessage : 0,
                             Content : contentMessage
                         };
                         this.activeConversation.Messages.push(message);
-                        this.socket.send(JSON.stringify(
+                        this.updateListConversation(this.activeConversation, {
+                            newMessage : false
+                        });
+                        this.listMessageLoadingElement.push(
                             {
-                                type : 'sendMessage',
-                                message : JSON.stringify(message)
+                                messageElementId : this.listMessageLoadingElement.length + 1,
+                                message : message,
+                                messageElement : Conversation.GetLastMessageElement()
                             }
-                        ));
+                        );
+                        this.signalr.invoke(
+                            'SendMessage',
+                            JSON.stringify(this.activeConversation),
+                            this.listMessageLoadingElement.length
+                        );
                     }
                 });
             });
         });
     }
-    startSocket(){
-        this.socket = new WebSocket('ws://127.0.0.1:12345/Conversation');
-        this.socket.onopen = () => {
-            console.log("conected success");
+    async startSocket(){
+        this.signalr = new signalR.HubConnectionBuilder().withUrl('/chat').build();
+        await this.signalr.start();
+        this.signalr.invoke(
+            'Init', 
+            JSON.stringify(
+            {
+                user : this.user,
+                listConversation : this.listConversation
+            })
+        );
+        this.signalr.on('haveNewMessage', (json) => {
+            let conversation = JSON.parse(json);
+            this.updateListConversation(conversation, {
+                newMessage : true
+            });
+        });
+        this.signalr.on('serverReceivedMessage', (json) => {
+            let messageElementId = JSON.parse(json);
+            //let message = conversation.Messages[conversation.Messages.length - 1];
+            for(let i = 0; i < this.listMessageLoadingElement.length; i++){
+                if(this.listMessageLoadingElement[i].messageElementId == messageElementId){
+                    this.listMessageLoadingElement[i].message.loading = false;
+                    Conversation.ReplaceStatusLoadingToLastMessageElement(
+                        this.listMessageLoadingElement[i].messageElement
+                    );
+                }
+            }
+        });
+    }
+    updateListConversation(_conversation, options){
+        const conversation = new Conversation(this.user, _conversation);
+        for(let i = 0; i < this.listConversation.length; i++){
+            if(this.listConversation[i].Id == _conversation.Id){
+                this.listConversation[i] = _conversation;                
+                this.listConversationElement[i] = conversation.AddUpdateLastMessageConversation(this.listConversationElement[i], options);
+                break;
+            }
         }
-        this.socket.onerror = (e) => {
-            console.log(e);
-        }
-        this.socket.onmessage = (mes) => {
-            console.log(mes.data);
-            let data = JSON.parse(mes.data);
-
-            if(data.type == 'handshake'){
-                this.socket.send(JSON.stringify(
-                    {
-                        type : 'init',
-                        listConversation : JSON.stringify(this.listConversation)
-                    }
-                ));
+        if(this.activeConversation){
+            if(this.activeConversation.Id == _conversation.Id){
+                this.activeConversation = _conversation;
+                conversation.AddUpdateMessageActiveConversationElement(this.activeConversationElement, options);
             }
         }
     }

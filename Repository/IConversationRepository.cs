@@ -3,5 +3,6 @@ using project.Models;
 namespace project.Repository{
     public interface IConversationRepository{
         List<Conversation> GetListConversation(User user);
+        void AddMessage(Conversation conversation, Message mes);
     }
 }

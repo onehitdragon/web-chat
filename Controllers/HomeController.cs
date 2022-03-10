@@ -6,7 +6,6 @@ using project.DataService;
 using System.Data;
 using project.MyTool;
 using project.Repository;
-using project.Socket;
 
 namespace project.Controllers
 {
@@ -27,6 +26,7 @@ namespace project.Controllers
             ViewBag.AvatarUrl = user.AvatarUrl;
             List<Conversation> listConversation = conversationRepository.GetListConversation(user);
             ViewBag.ListConversation = JsonTool.EnCode(listConversation);
+            ViewBag.User = JsonTool.EnCode(user);
 
             return View();
         }
