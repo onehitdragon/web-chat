@@ -58,6 +58,9 @@ namespace project.Repository{
             return listConversation;
         }
         public void AddMessage(Conversation conversation, Message mes){
+            if(!String.IsNullOrEmpty(mes.FileAttachUrl)){
+                mes.FileAttachUrl = mes.FileAttachUrl.Replace("\\","\\\\");
+            }
             string query = $"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) " +
                 $"VALUES ({conversation.Id}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
             dataProvider.ExcuteQuery(query);

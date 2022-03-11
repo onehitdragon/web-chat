@@ -101,27 +101,16 @@ class Conversation{
                 </button>
             </div>
         `;
-        let previousSenderId;
-        this.messages.forEach((message) => {
-            const currentSenderId = message.Sender.Id;
-            
-            if(!previousSenderId || previousSenderId != currentSenderId){
-                if(message.Sender.Id != this.user.Id){
-                    messageContainerElement.appendChild(
-                        this.CreateFileMessage(message)
-                    ); 
-                }
-                else{
-                    messageContainerElement.appendChild(
-                        this.CreateMyMessage(message)
-                    );
-                }
-                previousSenderId = currentSenderId;
+
+        let previousSender;
+        this.messages.forEach((message, index) => {
+            if(index == 0){
+                this.CreateMessageNewRow(messageContainerElement, message);
             }
             else{
-                const previousMessageElement = messageContainerElement.lastChild;
-                this.AddMessageToPreviousMessageElement(message, previousMessageElement);
+                this.CreateMessageMain(messageContainerElement, message, previousSender, message.Sender);
             }
+            previousSender = message.Sender;
 
             if(message.loading){
                 this.AddStatusLoadingToLastMessageElement(messageContainerElement);
@@ -132,6 +121,7 @@ class Conversation{
         });
         buttonConversationElement.innerHTML = `
             <button type="button" name="add-file">
+                <input type='file' style='display: none;'>
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
             <input type="text" placeholder="Nhập tin nhắn...">
@@ -139,12 +129,47 @@ class Conversation{
                 <i class="fa-solid fa-face-smile"></i>
             </button>
         `;
+
         activeConversationElement.appendChild(bodyRightBeforeElement);
         activeConversationElement.appendChild(headConversationElement);
         activeConversationElement.appendChild(messageContainerElement);
         activeConversationElement.appendChild(buttonConversationElement);
 
         return activeConversationElement;
+    }
+    CreateMessageMain(messageContainerElement, message, previousSender, currentSender){
+        if(previousSender.Id != currentSender.Id){
+            if(message.TypeMessage == 0){
+                this.CreateMessageNewRow(messageContainerElement, message);
+            }
+            if(message.TypeMessage == 1){
+                this.CreateFileMessageNewRow(messageContainerElement, message);
+            }
+        }
+        else{
+            if(message.TypeMessage == 0){
+                this.CreateMessageExistRow(messageContainerElement, message);
+            }
+            if(message.TypeMessage == 1){
+                this.CreateFileMessageExistRow(messageContainerElement, message);
+            }
+        }
+    }
+    CreateMessageNewRow(messageContainerElement, message){
+        if(message.Sender.Id != this.user.Id){
+            messageContainerElement.appendChild(
+                this.CreateMessage(message)
+            ); 
+        }
+        else{
+            messageContainerElement.appendChild(
+                this.CreateMyMessage(message)
+            );
+        }
+    }
+    CreateMessageExistRow(messageContainerElement, message){
+        const previousMessageElement = messageContainerElement.lastChild;
+        this.AddMessageToPreviousMessageElement(message, previousMessageElement);
     }
     CreateMessage(message){
         const messageElement = document.createElement('div');
@@ -154,24 +179,6 @@ class Conversation{
             <div class="content">
                 <div class='content__mes'>
                     <p>${message.Content}</p>
-                </div>
-                <div class="name-time">
-                    <span class="name">User demo</span>
-                    <i class="fa-solid fa-circle"></i>
-                    <span class="time">9:30 PM</span>
-                </div>
-            </div>
-        `;
-        return messageElement;
-    }
-    CreateFileMessage(message){
-        const messageElement = document.createElement('div');
-        messageElement.className = 'message';
-        messageElement.innerHTML = `
-            <img class="avatar" src="${message.Sender.AvatarUrl}">
-            <div class="content">
-                <div class='content__mes'>
-                    <img src='https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg'>
                 </div>
                 <div class="name-time">
                     <span class="name">User demo</span>
@@ -194,32 +201,131 @@ class Conversation{
             </div>
         `);
     }
+    CreateFileMessageNewRow(messageContainerElement, message){
+        if(message.Sender.Id != this.user.Id){
+            messageContainerElement.appendChild(
+                this.CreateFileMessage(message)
+            ); 
+        }
+        else{
+            messageContainerElement.appendChild(
+                this.CreateMyFileMessage(message)
+            );
+        }
+    }
+    CreateFileMessageExistRow(messageContainerElement, message){
+        const previousMessageElement = messageContainerElement.lastChild;
+        this.AddFileMessageToPreviousFileMessageElement(message, previousMessageElement);
+    }
+    #GetFileType(message){
+        const imageExts = ['png','jpg','jpeg','gif'];
+        const audioExts = ['mp3'];
+        let ext = message.Content.split('.');
+        ext = ext[ext.length - 1].toLowerCase();
+        if(imageExts.includes(ext)){
+            return 'image';
+        }
+        if(audioExts.includes(ext)){
+            return 'audio';
+        }
+        return null;
+    }
+    CreateFileMessage(message){
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        if(this.#GetFileType(message) == 'image'){
+            messageElement.innerHTML = `
+                <img class="avatar" src="${message.Sender.AvatarUrl}">
+                <div class="content">
+                    <div class='content__mes'>
+                        <img src='${message.FileAttachUrl}'>
+                    </div>
+                    <div class="name-time">
+                        <span class="name">User demo</span>
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="time">9:30 PM</span>
+                    </div>
+                </div>
+            `;
+            this.AddEventToImageMessage(messageElement);
+        }
+        else if(this.#GetFileType(message) == 'audio'){
+            messageElement.innerHTML = `
+                <img class="avatar" src="${message.Sender.AvatarUrl}">
+                <div class="content">
+                    <div class='content__mes'>
+                        
+                    </div>
+                    <div class="name-time">
+                        <span class="name">User demo</span>
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="time">9:30 PM</span>
+                    </div>
+                </div>
+            `;
+            const audioElement = new AudioElement(message.FileAttachUrl).CreateAudioElement();
+            messageElement.querySelector('.content > .content__mes').appendChild(audioElement);
+        }
+
+        return messageElement;
+    }
+    CreateMyFileMessage(message){
+        const messageElement = this.CreateFileMessage(message);
+        messageElement.classList.add('message--mymessage');
+        return messageElement;
+    }
+    AddFileMessageToPreviousFileMessageElement(message, previousMessageElement){
+        if(this.#GetFileType(message) == 'image'){
+            previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
+                <div class='content__mes'>
+                    <img src='${message.FileAttachUrl}'>
+                </div>
+            `);       
+            this.AddEventToImageMessage(previousMessageElement);
+        }
+        if(this.#GetFileType(message) == 'audio'){
+            const audioElement = new AudioElement(message.FileAttachUrl).CreateAudioElement();
+            previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
+                <div class='content__mes'></div>
+            `);
+            const lastContentMessage = previousMessageElement.querySelectorAll('.content > .content__mes');
+            lastContentMessage[lastContentMessage.length - 1].appendChild(audioElement);
+        }
+    }
+    AddEventToImageMessage(messageElement){
+        let imageElement = messageElement.querySelectorAll('.content .content__mes img');
+        imageElement = imageElement[imageElement.length - 1];
+        imageElement.addEventListener('click', () => {
+            const mainElement = document.querySelector('main');
+            const imagePopupElement = ImagePopup.CreateImagePopupElement(
+                imageElement.src,
+                () => { mainElement.removeChild(imagePopupElement) }
+            );
+            mainElement.appendChild(imagePopupElement);
+        });
+    }
     AddUpdateMessageActiveConversationElement(activeConversationElement, options = {}){
         const previousMessage = this.messages[this.messages.length - 2];
         const newMessage = this.messages[this.messages.length - 1];
         const messageContainerElement = activeConversationElement.querySelector('.body-right__messages');
-        if(newMessage.Sender.Id != previousMessage.Sender.Id){
-            if(newMessage.Sender.Id != this.user.Id){
-                messageContainerElement.appendChild(
-                    this.CreateMessage(newMessage)
-                );
-            }
-            else{
-                messageContainerElement.appendChild(
-                    this.CreateMyMessage(newMessage)
-                );
-            }
-        }
-        else{
-            const previousMessageElement = messageContainerElement.lastChild;
-            this.AddMessageToPreviousMessageElement(newMessage, previousMessageElement);
-        }
+        this.CreateMessageMain(messageContainerElement, newMessage, previousMessage.Sender, newMessage.Sender);
 
         if(!options.newMessage){
             newMessage.loading = true;
             this.AddStatusLoadingToLastMessageElement(messageContainerElement);
         }
-        messageContainerElement.querySelector('.message:last-child').scrollIntoView();
+        
+        let lastMesElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
+        lastMesElement = lastMesElement[lastMesElement.length - 1];
+        if(lastMesElement.querySelector('img')){
+            lastMesElement.querySelector('img').addEventListener('load', (e) => {
+                e.target.scrollIntoView();
+            });
+        }
+        else{
+            lastMesElement.scrollIntoView();
+        }
+        
     }
     AddStatusLoadingToLastMessageElement(messageContainerElement){
         let contentMesLastElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
@@ -240,12 +346,12 @@ class Conversation{
         contentMesLastElement = contentMesLastElement[contentMesLastElement.length - 1];
         return contentMesLastElement;
     }
-    static ReplaceStatusLoadingToLastMessageElement(contentMesLastElement){
+    static ReplaceStatusLoadingToMessageElement(contentMessageElement){
         const statusSuccessElement = document.createElement('i');
         statusSuccessElement.className = 'status-success fa-solid fa-check';
-        contentMesLastElement.replaceChild(
+        contentMessageElement.replaceChild(
             statusSuccessElement,
-            contentMesLastElement.querySelector('i')
+            contentMessageElement.querySelector('.status-load')
         );
     }
 }

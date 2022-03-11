@@ -34,14 +34,16 @@ namespace project.Socket{
 
             Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
             ClientData clientData = chatHubData.GetClient(Context.ConnectionId);
+            Console.WriteLine(conversation.Messages[conversation.Messages.Count - 1].FileAttachUrl);
             conversationRepository.AddMessage(conversation, conversation.Messages[conversation.Messages.Count - 1]);
             UpdateListConversation(clientData.ListConversation, conversation);
 
             Random rand = new Random();
-            int mili = rand.Next(1, 10) * 200;
+            int mili = rand.Next(1, 10) * 500;
             await Task.Delay(mili);
             
             UpdateClients(conversation);
+            Console.WriteLine("server receive");
             await Clients.Caller.SendAsync("serverReceivedMessage", messageElementId);
         }
         private void UpdateListConversation(List<Conversation> listConversation, Conversation _conversation){

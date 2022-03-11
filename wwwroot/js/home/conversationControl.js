@@ -25,34 +25,65 @@ class ConversationControl{
                         activeConversationContainerElement.querySelector('.body-right')
                     );  
                 }
-                const inputChatElement = document.querySelector(".body-right__send > input[type='text']");
-                inputChatElement.addEventListener('keydown', (e) => {
-                    if(e.key == 'Enter' && inputChatElement.value != ''){
-                        let contentMessage = inputChatElement.value;
-                        inputChatElement.value = "";
-                        let message = {
-                            Sender : this.user,
-                            TypeMessage : 0,
-                            Content : contentMessage
-                        };
-                        this.activeConversation.Messages.push(message);
-                        this.updateListConversation(this.activeConversation, {
-                            newMessage : false
-                        });
-                        this.listMessageLoadingElement.push(
-                            {
-                                messageElementId : this.listMessageLoadingElement.length + 1,
-                                message : message,
-                                messageElement : Conversation.GetLastMessageElement()
-                            }
-                        );
-                        this.signalr.invoke(
-                            'SendMessage',
-                            JSON.stringify(this.activeConversation),
-                            this.listMessageLoadingElement.length
-                        );
-                    }
-                });
+                this.#AddEventToInputChatElement();
+                this.#AddEventToButtonChooseFileElement();
+            });
+        });
+    }
+    #AddEventToInputChatElement(){
+        const inputChatElement = document.querySelector(".body-right__send > input[type='text']");
+        inputChatElement.addEventListener('keydown', (e) => {
+            if(e.key == 'Enter' && inputChatElement.value != ''){
+                let contentMessage = inputChatElement.value;
+                inputChatElement.value = "";
+                let message = {
+                    Sender : this.user,
+                    TypeMessage : 0,
+                    Content : contentMessage
+                };
+                this.#SendMessage(message);
+            }
+        });
+    }
+    #SendMessage(message){
+        this.activeConversation.Messages.push(message);
+        this.#updateListConversation(this.activeConversation, {
+            newMessage : false
+        });
+        this.listMessageLoadingElement.push(
+            {
+                messageElementId : this.listMessageLoadingElement.length + 1,
+                message : message,
+                messageElement : Conversation.GetLastMessageElement()
+            }
+        );
+        this.signalr.invoke(
+            'SendMessage',
+            JSON.stringify(this.activeConversation),
+            this.listMessageLoadingElement.length
+        );
+    }
+    #AddEventToButtonChooseFileElement(){
+        const buttonChooseFileElement = document.querySelector(".body-right__send > button[name='add-file']");
+        const inputElement = buttonChooseFileElement.querySelector('input');
+        buttonChooseFileElement.addEventListener('click', () => {       
+            inputElement.click();
+        });
+        inputElement.addEventListener('input', () => {
+            const file = inputElement.files[0];
+            const formData = new FormData();
+            formData.append('file', inputElement.files[0]);
+            ajax.sendPOSTFile('/Home/SendFile', formData, (res) => {
+                const fileAttachUrl = JSON.parse(res.responseText).fileAttachUrl;
+                console.log(JSON.parse(res.responseText));
+                console.log(res.responseText);
+                let message = {
+                    Sender : this.user,
+                    TypeMessage : 1,
+                    Content : file.name,
+                    FileAttachUrl : fileAttachUrl
+                }
+                this.#SendMessage(message);
             });
         });
     }
@@ -69,24 +100,23 @@ class ConversationControl{
         );
         this.signalr.on('haveNewMessage', (json) => {
             let conversation = JSON.parse(json);
-            this.updateListConversation(conversation, {
+            this.#updateListConversation(conversation, {
                 newMessage : true
             });
         });
         this.signalr.on('serverReceivedMessage', (json) => {
             let messageElementId = JSON.parse(json);
-            //let message = conversation.Messages[conversation.Messages.length - 1];
             for(let i = 0; i < this.listMessageLoadingElement.length; i++){
                 if(this.listMessageLoadingElement[i].messageElementId == messageElementId){
                     this.listMessageLoadingElement[i].message.loading = false;
-                    Conversation.ReplaceStatusLoadingToLastMessageElement(
+                    Conversation.ReplaceStatusLoadingToMessageElement(
                         this.listMessageLoadingElement[i].messageElement
                     );
                 }
             }
         });
     }
-    updateListConversation(_conversation, options){
+    #updateListConversation(_conversation, options){
         const conversation = new Conversation(this.user, _conversation);
         for(let i = 0; i < this.listConversation.length; i++){
             if(this.listConversation[i].Id == _conversation.Id){

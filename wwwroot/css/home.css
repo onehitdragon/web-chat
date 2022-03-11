@@ -540,6 +540,85 @@
         transform: translateY(0px);
     }
 }
+.content > .content__mes > .audio-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 7px 10px;
+}
+.content > .content__mes > .audio-main::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400%;
+    animation: line-ani-audio 5s ease infinite;
+    animation-play-state: paused;
+    opacity: .7;
+    z-index: -1;
+    border-radius: 4px;
+}
+@keyframes line-ani-audio{
+    0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+.content > .content__mes > .audio-main > input[type='range']{
+    -webkit-appearance: none;
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400%;
+    animation: line-ani-audio 5s ease infinite reverse;
+    animation-play-state: paused;
+    height: 5px;
+    border-radius: 5px;
+}
+.content > .content__mes > .audio-main > *:not(:last-child){
+    margin-right: 8px;
+}
+.content > .content__mes > .audio-main > .audio-main__play{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.content > .content__mes > .audio-main > .audio-main__play > i{
+    color: white;
+}
+.content > .content__mes > .audio-main > .audio-main__time{
+    font-size: 13.5px;  
+}
+.content > .content__mes > .audio-main > .audio-main__time > span{
+    
+}
+.content > .content__mes > .audio-main > input[type='range']::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: white;
+}
+.content > .content__mes > .audio-main > .audio-main__volume{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.content > .content__mes > .audio-main > .audio-main__volume > i{
+    color: white;
+    width: 16.67px;
+}
+
 .body-right__messages > .message > .content > .name-time{
     display: flex;
     align-items: center;
@@ -602,4 +681,32 @@
 .body-right__send > button:hover > i{
     color: rgb(224, 224, 224);
     transition: color .3s;
+}
+
+/* popup */
+#img-popup{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+#img-popup::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .5;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+#img-popup > img{
+    max-width: 85%;
+    max-height: 85%;
 }

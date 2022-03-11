@@ -87,7 +87,7 @@ namespace project.DataService{
                 +"Sender_Id BIGINT unsigned,"
                 +"Message_Type ENUM('text','file'),"
                 +"Message varchar(255) charset utf8,"
-                +"Attachment_url varchar(255),"
+                +"Attachment_url text,"
                 +"Create_at DateTime,"
                 +"Delete_at DateTime,"
                 +"FOREIGN KEY (Conversation_Id) REFERENCES conversation(Id),"

@@ -18,4 +18,12 @@ class Ajax{
         this.ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         this.ajax.send(body);
     }
+
+    sendPOSTFile(url, body, callback){
+        this.ajax.open('POST', url);
+        this.ajax.onload = () => {
+            callback(this.ajax);
+        }
+        this.ajax.send(body);
+    }
 }
