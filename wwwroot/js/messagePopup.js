@@ -2,7 +2,7 @@ class MessagePopup{
     constructor(){
         
     }
-    createMessageElement(srcImg = '~/img/layout/fail0.png', title, content, agreeCallBack, cancerCallBack, options = {}){
+    createMessageElement(srcImg , title, content, agreeCallBack, cancerCallBack, options = {}){
         // init
         if(!options.titleBtn1){
             options.titleBtn1 = 'Đồng ý';
@@ -36,8 +36,26 @@ class MessagePopup{
         if(options.hideCancer){
             btnsElement.removeChild(btnCancerElement);
         }
+        if(options.hideAgree){
+            btnsElement.removeChild(btnAgreeElement);
+        }
         const imgElement = messageElement.querySelector('.container > img');
         imgElement.style = `width: ${options.widthImage};`;
+
+        return messageElement;
+    }
+    createMessageLoadingElement(content){
+        //
+        let messageElement = document.createElement('div');
+        messageElement.id = 'message-popup';
+        messageElement.innerHTML = `
+            <div class="container">
+                <div class='container__loading'>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+                <p class="content">${content}</p>
+            </div>
+        `;
 
         return messageElement;
     }

@@ -4,7 +4,7 @@ class ImagePopup{
     }
     static CreateImagePopupElement(srcImg, closeCallback){
         let imagePopupElement = document.createElement('div');
-        imagePopupElement.id = 'img-popup';
+        imagePopupElement.id = 'img-video-popup';
         imagePopupElement.innerHTML = `
             <img src="${srcImg}"></img>
         `;

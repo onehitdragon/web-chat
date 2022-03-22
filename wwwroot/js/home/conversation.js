@@ -220,6 +220,7 @@ class Conversation{
     #GetFileType(message){
         const imageExts = ['png','jpg','jpeg','gif'];
         const audioExts = ['mp3'];
+        const videoExts = ['mp4'];
         let ext = message.Content.split('.');
         ext = ext[ext.length - 1].toLowerCase();
         if(imageExts.includes(ext)){
@@ -227,6 +228,9 @@ class Conversation{
         }
         if(audioExts.includes(ext)){
             return 'audio';
+        }
+        if(videoExts.includes(ext)){
+            return 'video';
         }
         return null;
     }
@@ -266,6 +270,43 @@ class Conversation{
             const audioElement = new AudioElement(message.FileAttachUrl).CreateAudioElement();
             messageElement.querySelector('.content > .content__mes').appendChild(audioElement);
         }
+        else if(this.#GetFileType(message) == 'video'){
+            messageElement.innerHTML = `
+                <img class="avatar" src="${message.Sender.AvatarUrl}">
+                <div class="content">
+                    <div class='content__mes'>
+                        
+                    </div>
+                    <div class="name-time">
+                        <span class="name">User demo</span>
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="time">9:30 PM</span>
+                    </div>
+                </div>
+            `;
+            const contentMessage = messageElement.querySelector('.content > .content__mes');
+            const videoElement = new VideoElement(message.FileAttachUrl).CreateVideoElement(contentMessage);
+            contentMessage.appendChild(videoElement);
+        }
+        else{
+            messageElement.innerHTML = `
+                <img class="avatar" src="${message.Sender.AvatarUrl}">
+                <div class="content">
+                    <div class='content__mes'>
+                        <div class='other-file-main'>
+                            <a href='${message.FileAttachUrl}' download='${message.Content}'>
+                                ${message.Content}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="name-time">
+                        <span class="name">User demo</span>
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="time">9:30 PM</span>
+                    </div>
+                </div>
+            `;
+        }
 
         return messageElement;
     }
@@ -283,13 +324,33 @@ class Conversation{
             `);       
             this.AddEventToImageMessage(previousMessageElement);
         }
-        if(this.#GetFileType(message) == 'audio'){
+        else if(this.#GetFileType(message) == 'audio'){
             const audioElement = new AudioElement(message.FileAttachUrl).CreateAudioElement();
             previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
                 <div class='content__mes'></div>
             `);
             const lastContentMessage = previousMessageElement.querySelectorAll('.content > .content__mes');
             lastContentMessage[lastContentMessage.length - 1].appendChild(audioElement);
+        }
+        else if(this.#GetFileType(message) == 'video'){
+            previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
+                <div class='content__mes'></div>
+            `);
+            let lastContentMessage = previousMessageElement.querySelectorAll('.content > .content__mes');
+            lastContentMessage = lastContentMessage[lastContentMessage.length - 1];
+            const videoElement = new VideoElement(message.FileAttachUrl).CreateVideoElement(lastContentMessage);
+            lastContentMessage.appendChild(videoElement);
+        }
+        else{
+            previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
+                <div class='content__mes'>
+                    <div class='other-file-main'>
+                        <a href='${message.FileAttachUrl}' download='${message.Content}'>
+                            ${message.Content}
+                        </a>
+                    </div>
+                </div>
+            `);
         }
     }
     AddEventToImageMessage(messageElement){

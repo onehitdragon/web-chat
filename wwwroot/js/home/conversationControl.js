@@ -72,11 +72,15 @@ class ConversationControl{
         inputElement.addEventListener('input', () => {
             const file = inputElement.files[0];
             const formData = new FormData();
-            formData.append('file', inputElement.files[0]);
+            formData.append('file', inputElement.files[0]);       
+            const messageLoadingPopupElement = messagePopup.createMessageLoadingElement(
+                'Đang tải...'
+            );
+            mainElement.appendChild(messageLoadingPopupElement);
             ajax.sendPOSTFile('/Home/SendFile', formData, (res) => {
+                mainElement.removeChild(messageLoadingPopupElement);
                 const fileAttachUrl = JSON.parse(res.responseText).fileAttachUrl;
                 console.log(JSON.parse(res.responseText));
-                console.log(res.responseText);
                 let message = {
                     Sender : this.user,
                     TypeMessage : 1,

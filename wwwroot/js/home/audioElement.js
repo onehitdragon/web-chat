@@ -82,6 +82,7 @@ class AudioElement{
                 iconStoping,
                 buttonPlayElement.children[0]
             );
+            this.StopAnimation('line-ani-audio');
         });
         inputRangeElement.addEventListener('input',() => {
             audioElement.currentTime = audioElement.duration * (inputRangeElement.value / 100);
