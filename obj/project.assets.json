@@ -363,15 +363,6 @@
             "rid": "win"
           }
         }
-      },
-      "WebSocketSharp-netstandard/1.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/websocket-sharp.dll": {}
-        }
       }
     }
   },
@@ -1208,23 +1199,6 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "WebSocketSharp-netstandard/1.0.1": {
-      "sha512": "knoinAv31vbdxXdypnzN2MPX5hyntVLWceq6OdWRXkr9zzqp/RWbxSuLFGbkW8De1061URgNAN43BUTlgMx1CA==",
-      "type": "package",
-      "path": "websocketsharp-netstandard/1.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35/websocket-sharp.dll",
-        "lib/net35/websocket-sharp.xml",
-        "lib/net45/websocket-sharp.dll",
-        "lib/net45/websocket-sharp.xml",
-        "lib/netstandard2.0/websocket-sharp.dll",
-        "lib/netstandard2.0/websocket-sharp.xml",
-        "websocketsharp-netstandard.1.0.1.nupkg.sha512",
-        "websocketsharp-netstandard.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -1232,8 +1206,7 @@
       "MailKit >= 3.1.1",
       "MimeKit >= 3.1.1",
       "MySql.Data >= 8.0.28",
-      "Newtonsoft.Json >= 13.0.1",
-      "WebSocketSharp-netstandard >= 1.0.1"
+      "Newtonsoft.Json >= 13.0.1"
     ]
   },
   "packageFolders": {
@@ -1290,10 +1263,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.1, )"
-          },
-          "WebSocketSharp-netstandard": {
-            "target": "Package",
-            "version": "[1.0.1, )"
           }
         },
         "imports": [

@@ -5,6 +5,7 @@ using project.Models;
 using System.Collections.Generic;
 using project.MyTool;
 using project.Repository;
+using project.Email;
 
 namespace project.Socket{
     public class Chat : Hub{
@@ -34,7 +35,6 @@ namespace project.Socket{
 
             Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
             ClientData clientData = chatHubData.GetClient(Context.ConnectionId);
-            Console.WriteLine(conversation.Messages[conversation.Messages.Count - 1].FileAttachUrl);
             conversationRepository.AddMessage(conversation, conversation.Messages[conversation.Messages.Count - 1]);
             UpdateListConversation(clientData.ListConversation, conversation);
 

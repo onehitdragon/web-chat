@@ -36,7 +36,10 @@ namespace project.Controllers
             return View();
         }
         [HttpPost]
+        [RequestSizeLimit(long.MaxValue)]
+        [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
         public IActionResult SendFile(IFormFile file){
+            Console.WriteLine(file.Length);
             string fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
             string relativePath = Path.Combine("UserData", fileName);
             Console.WriteLine(relativePath);

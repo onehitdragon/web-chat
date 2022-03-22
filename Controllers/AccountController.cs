@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using project.MyTool;
 using project.DataService;
 using project.Repository;
-using project.Socket;
+using project.Email;
 
 namespace project.Controllers{
     public class AccountController : Controller{
