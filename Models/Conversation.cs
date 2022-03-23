@@ -54,5 +54,14 @@ namespace project.Models{
             this.participants = idParticipants;
             this.messages = messages;
         }
+        public List<User> GetOtherParticipants(User user){
+            List<User> listParticiant = new List<User>();
+            foreach(var participant in participants){
+                if(participant.Id != user.Id){
+                    listParticiant.Add(participant);
+                }
+            }
+            return listParticiant;
+        }
     }
 }

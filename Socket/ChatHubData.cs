@@ -29,7 +29,7 @@ namespace project.Socket{
         public void RemoveClient(string connectionId){
             dictionaryClient.Remove(connectionId);
         }
-        public ClientData GetClient(string connectionId){
+        public ClientData GetClientData(string connectionId){
             return dictionaryClient[connectionId];
         }
     }

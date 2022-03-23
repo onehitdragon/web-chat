@@ -1,6 +1,7 @@
 class Conversation{
     constructor(user, infoConversation){
         this.user = user;
+        this.participants = infoConversation.Participants;
         this.amountParticipant = infoConversation.Participants.length;
         infoConversation.Participants.forEach((participant) => {
             if(participant.Id != this.user.Id){
@@ -119,6 +120,9 @@ class Conversation{
                 this.AddStatusSuccessToLastMessageElement(messageContainerElement);
             }
         });
+
+        this.ReloadTypingConversation(messageContainerElement);
+
         buttonConversationElement.innerHTML = `
             <button type="button" name="add-file">
                 <input type='file' style='display: none;'>
@@ -158,20 +162,20 @@ class Conversation{
     CreateMessageNewRow(messageContainerElement, message){
         if(message.Sender.Id != this.user.Id){
             messageContainerElement.appendChild(
-                this.CreateMessage(message)
+                this.#CreateMessage(message)
             ); 
         }
         else{
             messageContainerElement.appendChild(
-                this.CreateMyMessage(message)
+                this.#CreateMyMessage(message)
             );
         }
     }
     CreateMessageExistRow(messageContainerElement, message){
         const previousMessageElement = messageContainerElement.lastChild;
-        this.AddMessageToPreviousMessageElement(message, previousMessageElement);
+        this.#AddMessageToPreviousMessageElement(message, previousMessageElement);
     }
-    CreateMessage(message){
+    #CreateMessage(message){
         const messageElement = document.createElement('div');
         messageElement.className = 'message';
         messageElement.innerHTML = `
@@ -189,12 +193,12 @@ class Conversation{
         `;
         return messageElement;
     }
-    CreateMyMessage(message){
-        const messageElement = this.CreateMessage(message);
+    #CreateMyMessage(message){
+        const messageElement = this.#CreateMessage(message);
         messageElement.classList.add('message--mymessage');
         return messageElement;
     }
-    AddMessageToPreviousMessageElement(message, previousMessageElement){
+    #AddMessageToPreviousMessageElement(message, previousMessageElement){
         previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
             <div class='content__mes'>
                 <p>${message.Content}</p>
@@ -353,6 +357,28 @@ class Conversation{
             `);
         }
     }
+    CreateTypingMessageElement(user){
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `
+            <img class="avatar" src="${user.AvatarUrl}">
+            <div class="content">
+                <div class='content__mes'>
+                    <p class="loading">
+                        <i class="fa-solid fa-circle"></i>
+                        <i class="fa-solid fa-circle"></i>
+                        <i class="fa-solid fa-circle"></i>
+                    </p>
+                </div>
+            </div>
+        `;
+        return messageElement;
+    }
+    CreateMyTypingMessageElement(user){
+        const messageElement = this.CreateMessage(user);
+        messageElement.classList.add('message--mymessage');
+        return messageElement;
+    }
     AddEventToImageMessage(messageElement){
         let imageElement = messageElement.querySelectorAll('.content .content__mes img');
         imageElement = imageElement[imageElement.length - 1];
@@ -375,7 +401,10 @@ class Conversation{
             newMessage.loading = true;
             this.AddStatusLoadingToLastMessageElement(messageContainerElement);
         }
-        
+        this.ScrollToLastMessage(activeConversationElement);
+    }
+    ScrollToLastMessage(activeConversationElement){
+        const messageContainerElement = activeConversationElement.querySelector('.body-right__messages');
         let lastMesElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
         lastMesElement = lastMesElement[lastMesElement.length - 1];
         if(lastMesElement.querySelector('img')){
@@ -386,7 +415,6 @@ class Conversation{
         else{
             lastMesElement.scrollIntoView();
         }
-        
     }
     AddStatusLoadingToLastMessageElement(messageContainerElement){
         let contentMesLastElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
@@ -414,5 +442,23 @@ class Conversation{
             statusSuccessElement,
             contentMessageElement.querySelector('.status-load')
         );
+    }
+    ReloadTypingConversation(messageContainerElement){
+        const messageElements = messageContainerElement.querySelectorAll('.message');
+        messageElements.forEach((message) => {
+            if(message.querySelector('.loading')){
+                messageContainerElement.removeChild(message);
+            }
+        });
+        this.participants.forEach((participant) => {
+            if(participant.typing){
+                if(participant.Id != this.user.Id){
+                    messageContainerElement.appendChild(this.CreateTypingMessageElement(participant));
+                }
+                else{
+                    messageContainerElement.appendChild(this.CreateMyTypingMessageElement(participant));
+                }
+            }
+        });
     }
 }

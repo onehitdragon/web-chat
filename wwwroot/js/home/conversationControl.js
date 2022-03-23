@@ -5,8 +5,9 @@ class ConversationControl{
         this.listConversationElement = [];
         this.conversationContainerElement = document.querySelector('.body-left__conversations');
         this.listMessageLoadingElement = [];
+        this.socket = Socket.getInstance();
     }
-    init(){       
+    initConversation(){       
         this.listConversation.forEach((infoConversation, index) => {
             let conversation = new Conversation(this.user, infoConversation);
             // init conversation-item
@@ -23,7 +24,8 @@ class ConversationControl{
                     activeConversationContainerElement.replaceChild(
                         this.activeConversationElement,
                         activeConversationContainerElement.querySelector('.body-right')
-                    );  
+                    );
+                    conversation.ScrollToLastMessage(this.activeConversationElement);  
                 }
                 this.#AddEventToInputChatElement();
                 this.#AddEventToButtonChooseFileElement();
@@ -43,7 +45,19 @@ class ConversationControl{
                 };
                 this.#SendMessage(message);
             }
+            else{
+                this.#Typing();
+            }
         });
+        inputChatElement.addEventListener("focus", () => {
+            this.#Typing();
+        });
+        inputChatElement.addEventListener("blur", () => {
+            this.#StopTyping();
+        });
+        window.addEventListener("beforeunload", () => {
+            this.#StopTyping();
+        })
     }
     #SendMessage(message){
         this.activeConversation.Messages.push(message);
@@ -57,7 +71,7 @@ class ConversationControl{
                 messageElement : Conversation.GetLastMessageElement()
             }
         );
-        this.signalr.invoke(
+        this.socket.invoke(
             'SendMessage',
             JSON.stringify(this.activeConversation),
             this.listMessageLoadingElement.length
@@ -91,10 +105,22 @@ class ConversationControl{
             });
         });
     }
-    async startSocket(){
-        this.signalr = new signalR.HubConnectionBuilder().withUrl('/chat').build();
-        await this.signalr.start();
-        this.signalr.invoke(
+    #Typing(){
+        this.socket.invoke(
+            "Typing",
+            JSON.stringify(this.activeConversation),
+            true
+        );
+    }
+    #StopTyping(){
+        this.socket.invoke(
+            "Typing",
+            JSON.stringify(this.activeConversation),
+            false
+        );
+    }
+    initSocket(){
+        this.socket.invoke(
             'Init', 
             JSON.stringify(
             {
@@ -102,13 +128,13 @@ class ConversationControl{
                 listConversation : this.listConversation
             })
         );
-        this.signalr.on('haveNewMessage', (json) => {
+        this.socket.on('haveNewMessage', (json) => {
             let conversation = JSON.parse(json);
             this.#updateListConversation(conversation, {
                 newMessage : true
             });
         });
-        this.signalr.on('serverReceivedMessage', (json) => {
+        this.socket.on('serverReceivedMessage', (json) => {
             let messageElementId = JSON.parse(json);
             for(let i = 0; i < this.listMessageLoadingElement.length; i++){
                 if(this.listMessageLoadingElement[i].messageElementId == messageElementId){
@@ -119,6 +145,14 @@ class ConversationControl{
                 }
             }
         });
+        this.socket.on("typing", (json) => {
+            let data = JSON.parse(json);
+            this.#updateTypingConversation(data, true);
+        })
+        this.socket.on("stopTyping", (json) => {
+            let data = JSON.parse(json);
+            this.#updateTypingConversation(data, false);
+        })
     }
     #updateListConversation(_conversation, options){
         const conversation = new Conversation(this.user, _conversation);
@@ -133,6 +167,25 @@ class ConversationControl{
             if(this.activeConversation.Id == _conversation.Id){
                 this.activeConversation = _conversation;
                 conversation.AddUpdateMessageActiveConversationElement(this.activeConversationElement, options);
+            }
+        }
+    }
+    #updateTypingConversation(data, isTyping){
+        let conversationTyping = data.conversationTyping;
+        let senderTyping = data.senderTyping;
+        for(let i = 0; i < this.listConversation.length; i++){
+            if(this.listConversation[i].Id == conversationTyping.Id){   
+                this.listConversation[i].Participants.forEach((participant, idx) => {
+                    if(participant.Id == senderTyping.Id && participant.typing != isTyping){
+                        this.listConversation[i].Participants[idx].typing = isTyping;
+                        if(conversationTyping.Id == this.activeConversation.Id){
+                            const conversation = new Conversation(this.user, this.listConversation[i]);
+                            conversation.ReloadTypingConversation(this.activeConversationElement.querySelector('.body-right__messages'));
+                            conversation.ScrollToLastMessage(this.activeConversationElement);
+                        }
+                    }
+                })
+                break;
             }
         }
     }

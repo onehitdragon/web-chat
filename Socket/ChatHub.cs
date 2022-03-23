@@ -34,17 +34,31 @@ namespace project.Socket{
             dynamic data = JsonTool.DeCode(json);
 
             Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
-            ClientData clientData = chatHubData.GetClient(Context.ConnectionId);
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             conversationRepository.AddMessage(conversation, conversation.Messages[conversation.Messages.Count - 1]);
-            UpdateListConversation(clientData.ListConversation, conversation);
+            this.UpdateListConversation(clientData.ListConversation, conversation);
 
             Random rand = new Random();
             int mili = rand.Next(1, 10) * 500;
             await Task.Delay(mili);
             
             UpdateClients(conversation);
-            Console.WriteLine("server receive");
             await Clients.Caller.SendAsync("serverReceivedMessage", messageElementId);
+        }
+        private void UpdateClients(Conversation conversation){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            List<User> listOtherParticipants = conversation.GetOtherParticipants(clientData.User);
+            // loop connected users
+            foreach(var client in chatHubData.DictionaryClient){
+                if(listOtherParticipants.Exists((participant) => {return participant.Id == client.Value.User.Id;}))
+                {
+                    this.UpdateListConversation(client.Value.ListConversation, conversation);
+                    Clients.Client(client.Key).SendAsync(
+                        "haveNewMessage",
+                        JsonTool.EnCode(conversation)
+                    );
+                }
+            }     
         }
         private void UpdateListConversation(List<Conversation> listConversation, Conversation _conversation){
             for(int i = 0; i < listConversation.Count; i++){
@@ -54,22 +68,25 @@ namespace project.Socket{
                 }
             }
         }
-        private void UpdateClients(Conversation _conversation){
-            User participant = null;
-            ClientData clientData = chatHubData.GetClient(Context.ConnectionId);
-            foreach(var _participant in _conversation.Participants){
-                if(_participant.Id != clientData.User.Id){
-                    participant = _participant;
-                }
-            }
+        public void Typing(string json, bool isTyping){
+            dynamic data = JsonTool.DeCode(json);
+
+            Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            List<User> listOtherParticipants = conversation.GetOtherParticipants(clientData.User);
+            // loop connected users
             foreach(var client in chatHubData.DictionaryClient){
-                if(client.Value.User.Id == participant.Id){
+                if(listOtherParticipants.Exists((participant) => {return participant.Id == client.Value.User.Id;}))
+                {
                     Clients.Client(client.Key).SendAsync(
-                        "haveNewMessage",
-                        JsonTool.EnCode(_conversation)
+                        isTyping ? "typing" : "stopTyping",
+                        JsonTool.EnCode(new {
+                            conversationTyping = conversation,
+                            senderTyping = clientData.User
+                        })
                     );
                 }
-            }
+            } 
         }
     }
 }
