@@ -132,6 +132,9 @@ class Conversation{
             <button type="button" name="icon">
                 <i class="fa-solid fa-face-smile"></i>
             </button>
+            <div class="icon-area">
+                
+            </div>
         `;
 
         activeConversationElement.appendChild(bodyRightBeforeElement);
@@ -160,20 +163,27 @@ class Conversation{
         }
     }
     CreateMessageNewRow(messageContainerElement, message){
+        const lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
         if(message.Sender.Id != this.user.Id){
-            messageContainerElement.appendChild(
-                this.#CreateMessage(message)
-            ); 
+            lastMessageElement.insertAdjacentElement("afterend", this.#CreateMessage(message));
         }
         else{
-            messageContainerElement.appendChild(
-                this.#CreateMyMessage(message)
-            );
+            lastMessageElement.insertAdjacentElement("afterend", this.#CreateMyMessage(message));
         }
     }
     CreateMessageExistRow(messageContainerElement, message){
-        const previousMessageElement = messageContainerElement.lastChild;
-        this.#AddMessageToPreviousMessageElement(message, previousMessageElement);
+        const lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
+        this.#AddMessageToPreviousMessageElement(message, lastMessageElement);
+    }
+    #GetLastMessageElement(messageContainerElement){
+        let lastMessageElement = messageContainerElement.querySelectorAll('.message:not(.message-loading)');
+        lastMessageElement = lastMessageElement[lastMessageElement.length - 1];
+        if(!lastMessageElement){
+            const divElement = document.createElement('div');
+            messageContainerElement.appendChild(divElement);
+            return divElement;
+        } 
+        return lastMessageElement;
     }
     #CreateMessage(message){
         const messageElement = document.createElement('div');
@@ -206,20 +216,17 @@ class Conversation{
         `);
     }
     CreateFileMessageNewRow(messageContainerElement, message){
+        const lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
         if(message.Sender.Id != this.user.Id){
-            messageContainerElement.appendChild(
-                this.CreateFileMessage(message)
-            ); 
+            lastMessageElement.insertAdjacentElement("afterend", this.CreateFileMessage(message));
         }
         else{
-            messageContainerElement.appendChild(
-                this.CreateMyFileMessage(message)
-            );
+            lastMessageElement.insertAdjacentElement("afterend", this.CreateMyFileMessage(message));
         }
     }
     CreateFileMessageExistRow(messageContainerElement, message){
-        const previousMessageElement = messageContainerElement.lastChild;
-        this.AddFileMessageToPreviousFileMessageElement(message, previousMessageElement);
+        const lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
+        this.AddFileMessageToPreviousFileMessageElement(message, lastMessageElement);
     }
     #GetFileType(message){
         const imageExts = ['png','jpg','jpeg','gif'];
@@ -359,7 +366,7 @@ class Conversation{
     }
     CreateTypingMessageElement(user){
         const messageElement = document.createElement('div');
-        messageElement.className = 'message';
+        messageElement.className = 'message message-loading';
         messageElement.innerHTML = `
             <img class="avatar" src="${user.AvatarUrl}">
             <div class="content">
@@ -370,6 +377,7 @@ class Conversation{
                         <i class="fa-solid fa-circle"></i>
                     </p>
                 </div>
+                <div class="name-time"></div>
             </div>
         `;
         return messageElement;
@@ -401,6 +409,7 @@ class Conversation{
             newMessage.loading = true;
             this.AddStatusLoadingToLastMessageElement(messageContainerElement);
         }
+
         this.ScrollToLastMessage(activeConversationElement);
     }
     ScrollToLastMessage(activeConversationElement){
@@ -417,21 +426,23 @@ class Conversation{
         }
     }
     AddStatusLoadingToLastMessageElement(messageContainerElement){
-        let contentMesLastElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
-        contentMesLastElement = contentMesLastElement[contentMesLastElement.length - 1];
+        let contentMesLastElement = this.GetLastContentMessageElement(messageContainerElement);
         if(!contentMesLastElement.querySelector('.status-load')){
             contentMesLastElement.insertAdjacentHTML('beforeend', '<i class="status-load fa-solid fa-circle-notch"></i>');
         }
     }
     AddStatusSuccessToLastMessageElement(messageContainerElement){
-        let contentMesLastElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
-        contentMesLastElement = contentMesLastElement[contentMesLastElement.length - 1];
+        let contentMesLastElement = this.GetLastContentMessageElement(messageContainerElement);
         if(!contentMesLastElement.querySelector('.status-load')){
             contentMesLastElement.insertAdjacentHTML('beforeend', '<i class="status-success fa-solid fa-check"></i>');
         }
     }
-    static GetLastMessageElement(){
-        let contentMesLastElement = document.querySelectorAll('.body-right__messages > .message:last-child > .content > .content__mes');
+    GetLastContentMessageElement(messageContainerElement){
+        if(!messageContainerElement){
+            messageContainerElement = document.querySelector('.body-right__messages');
+        }
+        let lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
+        let contentMesLastElement = lastMessageElement.querySelectorAll('.content .content__mes');
         contentMesLastElement = contentMesLastElement[contentMesLastElement.length - 1];
         return contentMesLastElement;
     }

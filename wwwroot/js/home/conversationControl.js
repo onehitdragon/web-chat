@@ -68,7 +68,7 @@ class ConversationControl{
             {
                 messageElementId : this.listMessageLoadingElement.length + 1,
                 message : message,
-                messageElement : Conversation.GetLastMessageElement()
+                messageElement : new Conversation(this.user, this.activeConversation).GetLastContentMessageElement()
             }
         );
         this.socket.invoke(
@@ -133,6 +133,7 @@ class ConversationControl{
             this.#updateListConversation(conversation, {
                 newMessage : true
             });
+
         });
         this.socket.on('serverReceivedMessage', (json) => {
             let messageElementId = JSON.parse(json);
