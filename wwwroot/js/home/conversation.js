@@ -132,10 +132,10 @@ class Conversation{
             <button type="button" name="icon">
                 <i class="fa-solid fa-face-smile"></i>
             </button>
-            <div class="icon-area">
-                
-            </div>
         `;
+        let iconAreaElement = new IconAreaElement();
+        iconAreaElement.createIconAreaElement();
+        iconAreaElement.setEventToButtonIconElement(buttonConversationElement);
 
         activeConversationElement.appendChild(bodyRightBeforeElement);
         activeConversationElement.appendChild(headConversationElement);
@@ -235,6 +235,7 @@ class Conversation{
         let ext = message.Content.split('.');
         ext = ext[ext.length - 1].toLowerCase();
         if(imageExts.includes(ext)){
+            if(message.Content.includes(':')) return 'icon';
             return 'image';
         }
         if(audioExts.includes(ext)){
@@ -263,6 +264,21 @@ class Conversation{
                 </div>
             `;
             this.AddEventToImageMessage(messageElement);
+        }
+        else if(this.#GetFileType(message) == 'icon'){
+            messageElement.innerHTML = `
+                <img class="avatar" src="${message.Sender.AvatarUrl}">
+                <div class="content">
+                    <div class='content__mes'>
+                        <img style='width: 40px;' src='${message.FileAttachUrl}'>
+                    </div>
+                    <div class="name-time">
+                        <span class="name">User demo</span>
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="time">9:30 PM</span>
+                    </div>
+                </div>
+            `;
         }
         else if(this.#GetFileType(message) == 'audio'){
             messageElement.innerHTML = `
@@ -334,6 +350,13 @@ class Conversation{
                 </div>
             `);       
             this.AddEventToImageMessage(previousMessageElement);
+        }
+        else if(this.#GetFileType(message) == 'icon'){
+            previousMessageElement.querySelector('.content > .name-time').insertAdjacentHTML('beforebegin',`
+                <div class='content__mes'>
+                    <img style='width: 40px;' src='${message.FileAttachUrl}'>
+                </div>
+            `); 
         }
         else if(this.#GetFileType(message) == 'audio'){
             const audioElement = new AudioElement(message.FileAttachUrl).CreateAudioElement();

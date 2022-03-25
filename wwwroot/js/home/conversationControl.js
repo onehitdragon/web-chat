@@ -1,5 +1,10 @@
 class ConversationControl{
+    static #instance;
     constructor(user, listConversation){
+        if(ConversationControl.#instance){ 
+            return ConversationControl.#instance;
+        }
+        ConversationControl.#instance = this;
         this.user = user;
         this.listConversation = listConversation;
         this.listConversationElement = [];
@@ -43,7 +48,7 @@ class ConversationControl{
                     TypeMessage : 0,
                     Content : contentMessage
                 };
-                this.#SendMessage(message);
+                this.SendMessage(message);
             }
             else{
                 this.#Typing();
@@ -59,7 +64,7 @@ class ConversationControl{
             this.#StopTyping();
         })
     }
-    #SendMessage(message){
+    SendMessage(message){
         this.activeConversation.Messages.push(message);
         this.#updateListConversation(this.activeConversation, {
             newMessage : false
@@ -86,23 +91,26 @@ class ConversationControl{
         inputElement.addEventListener('input', () => {
             const file = inputElement.files[0];
             const formData = new FormData();
-            formData.append('file', inputElement.files[0]);       
-            const messageLoadingPopupElement = messagePopup.createMessageLoadingElement(
-                'Đang tải...'
-            );
-            mainElement.appendChild(messageLoadingPopupElement);
-            ajax.sendPOSTFile('/Home/SendFile', formData, (res) => {
-                mainElement.removeChild(messageLoadingPopupElement);
-                const fileAttachUrl = JSON.parse(res.responseText).fileAttachUrl;
-                console.log(JSON.parse(res.responseText));
-                let message = {
-                    Sender : this.user,
-                    TypeMessage : 1,
-                    Content : file.name,
-                    FileAttachUrl : fileAttachUrl
-                }
-                this.#SendMessage(message);
-            });
+            formData.append('file', file);       
+            this.SendFile(formData);
+        });
+    }
+    SendFile(formData){
+        const messageLoadingPopupElement = messagePopup.createMessageLoadingElement(
+            'Đang tải...'
+        );
+        mainElement.appendChild(messageLoadingPopupElement);
+        ajax.sendPOSTFile('/Home/SendFile', formData, (res) => {
+            mainElement.removeChild(messageLoadingPopupElement);
+            const fileAttachUrl = JSON.parse(res.responseText).fileAttachUrl;
+            console.log(JSON.parse(res.responseText));
+            let message = {
+                Sender : this.user,
+                TypeMessage : 1,
+                Content : formData.get('file').name,
+                FileAttachUrl : fileAttachUrl
+            }
+            this.SendMessage(message);
         });
     }
     #Typing(){
