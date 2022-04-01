@@ -10,10 +10,12 @@ using project.Email;
 namespace project.Socket{
     public class Chat : Hub{
         private ChatHubData chatHubData;
-        private ConversationRepository conversationRepository;
+        private IConversationRepository conversationRepository;
+        private IMessageReaderRepository messageReaderRepository;
         public Chat(){
             chatHubData = ChatHubData.GetInstance();
             conversationRepository = new ConversationRepository();
+            messageReaderRepository = new MessageReaderRepository();
         }
         public void Init(string json){
             dynamic data = JsonTool.DeCode(json);   
@@ -36,6 +38,7 @@ namespace project.Socket{
             Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             conversationRepository.AddMessage(conversation, conversation.Messages[conversation.Messages.Count - 1]);
+            messageReaderRepository.AddMessage(json);
             this.UpdateListConversation(clientData.ListConversation, conversation);
 
             Random rand = new Random();
@@ -87,6 +90,19 @@ namespace project.Socket{
                     );
                 }
             } 
+        }
+        public void ReadConversation(string json){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            messageReaderRepository.AddReader(json, clientData.User);
+        }
+        public void GetAmountMessageNotReaded(string json){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            int amount = messageReaderRepository.GetAmountMessageNotReaded(json, clientData.User);
+            Console.WriteLine(amount);
+            Clients.Caller.SendAsync("GetAmountMessageNotReaded", new {
+                conversation = json,
+                amount = amount
+            });
         }
     }
 }

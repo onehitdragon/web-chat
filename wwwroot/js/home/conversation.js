@@ -60,17 +60,7 @@ class Conversation{
             lastMesElement.innerText = 'Bạn: ' + this.lastMessage.Content;
         }
         if(options.newMessage){
-            const statusAreaElement = conversationElement.querySelector('.status-area');
-            if(statusAreaElement.querySelector('.status')){
-                const spanElement = statusAreaElement.querySelector('i > span');
-                spanElement.innerText = parseInt(spanElement.textContent) + 1;
-            }
-            else{
-                const newStatusMessageElement = document.createElement('i');
-                newStatusMessageElement.className = 'fa-solid fa-circle status';
-                newStatusMessageElement.innerHTML = '<span>1</span>'
-                statusAreaElement.appendChild(newStatusMessageElement);
-            }
+            
         }
 
         return conversationElement;
@@ -448,6 +438,10 @@ class Conversation{
             lastMesElement.scrollIntoView();
         }
     }
+    FocusInputChat(activeConversationElement){
+        const inputChatElement = activeConversationElement.querySelector("input[type='text']");
+        inputChatElement.focus();
+    }
     AddStatusLoadingToLastMessageElement(messageContainerElement){
         let contentMesLastElement = this.GetLastContentMessageElement(messageContainerElement);
         if(!contentMesLastElement.querySelector('.status-load')){
@@ -494,5 +488,26 @@ class Conversation{
                 }
             }
         });
+    }
+    static UpdateAmountMessageNotReaded(conversationElement, amount){
+        const statusAreaElement = conversationElement.querySelector('.status-area');
+        if(statusAreaElement.querySelector('.status')){
+            if(amount == 0){
+                statusAreaElement.removeChild(statusAreaElement.querySelector('i:last-child'));     
+            }
+            else{
+                const spanElement = statusAreaElement.querySelector('i > span');
+                spanElement.innerText = amount;
+            }
+        }
+        else{
+            if(amount == 0){
+                return;     
+            }
+            const newStatusMessageElement = document.createElement('i');
+            newStatusMessageElement.className = 'fa-solid fa-circle status';
+            newStatusMessageElement.innerHTML = `<span>${amount}</span>`;
+            statusAreaElement.appendChild(newStatusMessageElement);
+        }
     }
 }

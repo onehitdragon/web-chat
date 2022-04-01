@@ -1,0 +1,16 @@
+class EffectMessage{
+    constructor(){
+        navigator.mediaDevices.getUserMedia({audio: true});
+    }
+    Ting(){
+        const audio = new Audio('/sound/ting.mp3');
+        navigator.mediaDevices.getUserMedia({audio: true}).then(() => {
+            audio.play().then(() => {
+            
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        });
+    }
+}

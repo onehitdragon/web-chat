@@ -51,3 +51,4 @@ D:\3_2\practiceteam\project\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.
 D:\3_2\practiceteam\project\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\3_2\practiceteam\project\bin\Debug\net5.0\MailKit.dll
 D:\3_2\practiceteam\project\bin\Debug\net5.0\MimeKit.dll
+D:\3_2\practiceteam\project\bin\Debug\net5.0\Repository\MessageReaderData.json

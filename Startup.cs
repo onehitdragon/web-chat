@@ -15,8 +15,10 @@ namespace project
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public static string rootPath;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            rootPath = env.ContentRootPath;
             Configuration = configuration;
         }
 
@@ -31,7 +33,9 @@ namespace project
                 options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time   
             });  
             services.AddMvc();
-            services.AddSignalR();
+            services.AddSignalR(e => {
+                e.MaximumReceiveMessageSize = 102400000;
+            });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

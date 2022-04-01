@@ -11,6 +11,7 @@ class ConversationControl{
         this.conversationContainerElement = document.querySelector('.body-left__conversations');
         this.listMessageLoadingElement = [];
         this.socket = Socket.getInstance();
+        this.effectMessage = new EffectMessage();
     }
     initConversation(){       
         this.listConversation.forEach((infoConversation, index) => {
@@ -18,7 +19,7 @@ class ConversationControl{
             // init conversation-item
             const conversationElement = conversation.CreateConversationElement();           
             this.listConversationElement.push(conversationElement);
-            this.conversationContainerElement.appendChild(conversationElement);           
+            this.conversationContainerElement.appendChild(conversationElement);
             //
             conversationElement.addEventListener('click', () => {
                 if(this.listConversation[index] != this.activeConversation){
@@ -30,14 +31,20 @@ class ConversationControl{
                         this.activeConversationElement,
                         activeConversationContainerElement.querySelector('.body-right')
                     );
-                    conversation.ScrollToLastMessage(this.activeConversationElement);  
+                    conversation.ScrollToLastMessage(this.activeConversationElement);
+                    conversation.FocusInputChat(this.activeConversationElement);  
                 }
-                this.#AddEventToInputChatElement();
+                const updateAmountMessageNotReaded = () => {
+                    this.#ReadConversation();
+                    Conversation.UpdateAmountMessageNotReaded(this.listConversationElement[index], 0);
+                };
+                this.#AddEventToInputChatElement(updateAmountMessageNotReaded);
                 this.#AddEventToButtonChooseFileElement();
+                updateAmountMessageNotReaded();
             });
         });
     }
-    #AddEventToInputChatElement(){
+    #AddEventToInputChatElement(UpdateAmountMessageNotReaded){
         const inputChatElement = document.querySelector(".body-right__send > input[type='text']");
         inputChatElement.addEventListener('keydown', (e) => {
             if(e.key == 'Enter' && inputChatElement.value != ''){
@@ -49,23 +56,26 @@ class ConversationControl{
                     Content : contentMessage
                 };
                 this.SendMessage(message);
+                this.#StopTyping();
             }
             else{
                 this.#Typing();
+                UpdateAmountMessageNotReaded();
             }
         });
         inputChatElement.addEventListener("focus", () => {
             this.#Typing();
+            UpdateAmountMessageNotReaded();
         });
         inputChatElement.addEventListener("blur", () => {
             this.#StopTyping();
         });
         window.addEventListener("beforeunload", () => {
             this.#StopTyping();
-        })
+        });
     }
     SendMessage(message){
-        this.activeConversation.Messages.push(message);
+        this.activeConversation.Messages.push(message);   
         this.#updateListConversation(this.activeConversation, {
             newMessage : false
         });
@@ -141,7 +151,8 @@ class ConversationControl{
             this.#updateListConversation(conversation, {
                 newMessage : true
             });
-
+            this.#UpdateAmountMessageNotReaded(conversation);
+            this.effectMessage.Ting();
         });
         this.socket.on('serverReceivedMessage', (json) => {
             let messageElementId = JSON.parse(json);
@@ -162,6 +173,32 @@ class ConversationControl{
             let data = JSON.parse(json);
             this.#updateTypingConversation(data, false);
         })
+        this.socket.on("getAmountMessageNotReaded", (data) => {  
+            let conversation = JSON.parse(data.conversation);
+            let amount = data.amount;
+            for(let i = 0; i < this.listConversation.length; i++){
+                if(this.listConversation[i].Id == conversation.Id){
+                    let conversationElement = this.listConversationElement[i];
+                    Conversation.UpdateAmountMessageNotReaded(conversationElement, amount);
+                    break;
+                }
+            }
+        })
+        this.listConversation.forEach((infoConversation) => {
+            this.#UpdateAmountMessageNotReaded(infoConversation);
+        });
+    }
+    #ReadConversation(){
+        this.socket.invoke(
+            "ReadConversation",
+            JSON.stringify(this.activeConversation)
+        );
+    }
+    #UpdateAmountMessageNotReaded(infoConversation){
+        this.socket.invoke(
+            "GetAmountMessageNotReaded",
+            JSON.stringify(infoConversation)
+        );
     }
     #updateListConversation(_conversation, options){
         const conversation = new Conversation(this.user, _conversation);
