@@ -39,6 +39,7 @@
     align-items: center;
     margin-left: 20px;
     margin-right: 10px;
+    position: relative;
 }
 .body-left__head > .avatar{
     border-radius: 50%;
@@ -108,18 +109,165 @@
     background-color: transparent;
     cursor: pointer;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-}
-.body-left__head > .menu-button:hover{
-    background-color: black;
-    opacity: .6;
-    transition: all .3s;
+    width: 38px;
+    height: 38px;
 }
 .body-left__head > .menu-button > i{
     font-size: 25px;
     color: white;
+    position: relative;
 }
+.body-left__head > .menu-button > i::after{
+    content: '';
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background-color: transparent;
+    border-radius: 50%;
+    opacity: .25;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1;
+}
+.body-left__head > .menu-button > i.close{
+    font-size: 16px;
+}
+.body-left__head > .menu-button > i.close::after{
+    background-color: white;
+}
+.body-left__head > .menu-button:hover > i.close{
+    font-size: 20px;
+    transition: all .2s;
+}
+.body-left__head > .menu-button:hover > i::after{
+    background-color: white;
+    opacity: .3;
+    transition: all .2s;
+}
+.body-left__head > .menu-button:hover > i.close::after{
+    background-color: white;
+    opacity: .8;
+    transition: all .2s;
+}
+.body-left__head > .menu-left{
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%) translateX(calc(50% - 18px));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.body-left__head > .menu-left > .menu-main{
+    position: relative;
+}
+.body-left__head > .menu-left > .menu-main::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
+    border-radius: 50%;
+    width: 115px;
+    height: 115px;
+    transform: translateY(-50%) translateX(-50%);
+    z-index: -1;
+    opacity: .6;
+    display: none;
+}
+.body-left__head > .menu-left > .menu-main > button{
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    animation: menu-left-button-ani 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.body-left__head > .menu-left > .menu-main > button.close{
+    animation: menu-left-button-ani-close 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.body-left__head > .menu-left > .menu-main > button[name='friend']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(-50%) translateY(-165%);
+}
+.body-left__head > .menu-left > .menu-main > button[name='friend-search']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(-150%) translateY(-105%);
+}
+.body-left__head > .menu-left > .menu-main > button[name='create-group']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(-150%) translateY(5%);
+}
+.body-left__head > .menu-left > .menu-main > button[name='setting']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(-50%) translateY(65%);
+}
+.body-left__head > .menu-left > .menu-main > button[name='youtube']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(50%) translateY(-105%);
+}
+.body-left__head > .menu-left > .menu-main > button[name='discord']{
+    top: 0px;
+    left: 0px;
+    transform: translateX(50%) translateY(5%);
+}
+@keyframes menu-left-button-ani {
+    0%{
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+@keyframes menu-left-button-ani-close {
+    100%{
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+.body-left__head > .menu-left > .menu-main > button > i{
+    position: relative;
+    filter: brightness(150%);
+}
+.body-left__head > .menu-left > .menu-main > button:hover{
+    width: 45px;
+    height: 45px;
+    transition: all .2s;
+}
+.body-left__head > .menu-left > .menu-main > button[name='youtube']:hover{
+    color: red;
+}
+.body-left__head > .menu-left > .menu-main > button[name='discord']:hover{
+    color: #5865f2;
+}
+.body-left__head > .menu-left > .menu-main > button:hover > i{
+    font-size: 18px;
+}
+.body-left__head > .menu-left > .menu-main > button:hover > i::after{
+    opacity: .8;
+    transition: all .2s;
+}
+.body-left__head > .menu-left > .menu-main > button > i::after{
+    content: '';
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: .25;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1;
+}
+
 .body-left__search-bar{
     display: flex;
     align-items: center;

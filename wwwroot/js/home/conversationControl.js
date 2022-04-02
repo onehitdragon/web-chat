@@ -12,6 +12,7 @@ class ConversationControl{
         this.listMessageLoadingElement = [];
         this.socket = Socket.getInstance();
         this.effectMessage = new EffectMessage();
+        this.menuLeft = new MenuLeft();
     }
     initConversation(){       
         this.listConversation.forEach((infoConversation, index) => {

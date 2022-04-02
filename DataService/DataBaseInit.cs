@@ -99,12 +99,12 @@ namespace project.DataService{
             query = "SELECT * FROM messages";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
                 query = "INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 1, 'text', N'Xin Chào', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 5, 'text', N'Chào Bạn', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 1, 'text', N'Bạn tên gì?', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 5, 'text', N'Mình tên Z, còn bạn?', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 5, 'text', N'Xin chào mình tên Z rất vui được gặp bạn!', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 4, 'text', N'Mình cũng rất vui khi gặp bạn', NULL, CURRENT_TIMESTAMP);"
-                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 4, 'text', N'Mình tên Ngọc A', NULL, CURRENT_TIMESTAMP);";
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 5, 'text', N'Chào', NULL, CURRENT_TIMESTAMP);"
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 1, 'text', N'You are hero?', NULL, CURRENT_TIMESTAMP);"
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (1, 5, 'text', N'I am not a hero, you?', NULL, CURRENT_TIMESTAMP);"
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 5, 'text', N'Are you fine?', NULL, CURRENT_TIMESTAMP);"
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 4, 'text', N'gg tonight', NULL, CURRENT_TIMESTAMP);"
+                    +"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) VALUES (2, 4, 'text', N'are you?', NULL, CURRENT_TIMESTAMP);";
                 dataProvider.ExcuteQuery(query);
             }
 
@@ -131,18 +131,22 @@ namespace project.DataService{
             }
 
             // create relation table
-            // query = "CREATE TABLE IF NOT EXISTS relations("
-            //     +"`from` int(20) NOT NULL,"
-            //     +"`to` int(20) NOT NULL,"
-            //     +"`status` varchar(1) NOT NULL,"
-            //     +"`since` datetime NOT NULL DEFAULT current_timestamp()"
-            //     +");"
-            //     +"ALTER TABLE `relations` ADD KEY `since` (`since`);"
-            //     +"ALTER TABLE `relations` ADD FOREIGN KEY (`from`) REFERENCES users(`id`);"
-            //     +"ALTER TABLE `relations` ADD FOREIGN KEY (`to`) REFERENCES users(`id`);";
-            // dataProvider.ExcuteQuery(query);
+            query = "CREATE TABLE relation("
+                +"id int PRIMARY KEY,"
+                +"Sender BIGINT UNSIGNED,"
+                +"Receiver BIGINT UNSIGNED,"
+                +"State ENUM('requesting','friending'),"
+                +"FOREIGN KEY (Sender) REFERENCES users(Id),"
+                +"FOREIGN KEY (Receiver) REFERENCES users(Id)"
+            +")";
+            dataProvider.ExcuteQuery(query);
 
-
+            // int relation table
+            query = "SELECT * FROM relation";
+            if(dataProvider.GetDataTable(query).Rows.Count == 0){
+                //query = "";
+                //dataProvider.ExcuteQuery(query);
+            }
         }
         public void DropChatAppDB(){
             string query = "DROP DATABASE IF EXISTS chatapp";

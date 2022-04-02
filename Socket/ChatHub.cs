@@ -98,7 +98,6 @@ namespace project.Socket{
         public void GetAmountMessageNotReaded(string json){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             int amount = messageReaderRepository.GetAmountMessageNotReaded(json, clientData.User);
-            Console.WriteLine(amount);
             Clients.Caller.SendAsync("GetAmountMessageNotReaded", new {
                 conversation = json,
                 amount = amount
