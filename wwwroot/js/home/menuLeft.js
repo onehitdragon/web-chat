@@ -1,4 +1,5 @@
 class MenuLeft{
+    static #isOpenFriend = false;
     constructor(){
         const bodyLeftHead = document.querySelector('.body-left__head');
         const menuLeftElement = document.createElement('div');
@@ -60,8 +61,19 @@ class MenuLeft{
         document.addEventListener('click', () => {
             if(bodyLeftHead.contains(menuLeftElement)) closeMenu();
         });
+        
         btnFriendElement.addEventListener('click', () => {
-            
+            const friendControl = new FriendControl();
+            const conversationControl = new ConversationControl();
+            if(!MenuLeft.#isOpenFriend){
+                friendControl.showListFriend();
+                btnFriendElement.querySelector('i').classList.replace('fa-user-group','fa-comment');
+            }
+            else{
+                conversationControl.reInitConversation();
+                btnFriendElement.querySelector('i').classList.replace('fa-comment','fa-user-group');
+            }
+            MenuLeft.#isOpenFriend = !MenuLeft.#isOpenFriend;
         });
         btnFriendSearchElement.addEventListener('click', () => {
             

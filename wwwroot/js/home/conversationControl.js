@@ -45,6 +45,12 @@ class ConversationControl{
             });
         });
     }
+    reInitConversation(){
+        document.querySelector('.body-left').replaceChild(
+            this.conversationContainerElement,
+            document.querySelector('.body-left__conversations')
+        );
+    }
     #AddEventToInputChatElement(UpdateAmountMessageNotReaded){
         const inputChatElement = document.querySelector(".body-right__send > input[type='text']");
         inputChatElement.addEventListener('keydown', (e) => {

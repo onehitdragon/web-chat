@@ -132,20 +132,23 @@ namespace project.DataService{
 
             // create relation table
             query = "CREATE TABLE relation("
-                +"id int PRIMARY KEY,"
+                +"id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Sender BIGINT UNSIGNED,"
                 +"Receiver BIGINT UNSIGNED,"
                 +"State ENUM('requesting','friending'),"
-                +"FOREIGN KEY (Sender) REFERENCES users(Id),"
-                +"FOREIGN KEY (Receiver) REFERENCES users(Id)"
+                +"FOREIGN KEY (Sender) REFERENCES users(id),"
+                +"FOREIGN KEY (Receiver) REFERENCES users(id)"
             +")";
             dataProvider.ExcuteQuery(query);
 
-            // int relation table
+            // init relation table
             query = "SELECT * FROM relation";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
-                //query = "";
-                //dataProvider.ExcuteQuery(query);
+                query = "INSERT INTO relation(Sender, Receiver, State) VALUES (5, 1, 'friending');"
+                        +"INSERT INTO relation(Sender, Receiver, State) VALUES (5, 2, 'requesting');"
+                        +"INSERT INTO relation(Sender, Receiver, State) VALUES (3, 5, 'friending');"
+                        +"INSERT INTO relation(Sender, Receiver, State) VALUES (4, 5, 'requesting');";
+                dataProvider.ExcuteQuery(query);
             }
         }
         public void DropChatAppDB(){

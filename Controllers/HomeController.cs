@@ -16,9 +16,11 @@ namespace project.Controllers
     {
         private IConversationRepository conversationRepository;
         private IWebHostEnvironment environment;
+        private IFriendRepository friendRepository;
         public HomeController(IWebHostEnvironment environment){
             this.conversationRepository = new ConversationRepository();
             this.environment = environment;
+            this.friendRepository = new FriendRepository();
         }
         public IActionResult Index()
         {           
@@ -32,6 +34,8 @@ namespace project.Controllers
             List<Conversation> listConversation = conversationRepository.GetListConversation(user);
             ViewBag.ListConversation = JsonTool.EnCode(listConversation);
             ViewBag.User = JsonTool.EnCode(user);
+            List<User> listFriend = friendRepository.GetListFriend(user);
+            ViewBag.ListFriend = JsonTool.EnCode(listFriend);
 
             return View();
         }

@@ -391,6 +391,19 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+.body-left__conversations > .conversation-item > .info-area > .friend{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 7px;
+    border: 1px solid;
+    animation: line-ani 5s ease infinite;
+    border-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) 1;
+    border-radius: 3px;
+}
+.body-left__conversations > .conversation-item > .info-area > .friend > span{
+    font-size: 14.5px;
+}
 .body-left__conversations > .conversation-item > .status-area{
     display: flex;
     flex-direction: column;
