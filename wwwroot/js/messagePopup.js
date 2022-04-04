@@ -60,3 +60,4 @@ class MessagePopup{
         return messageElement;
     }
 }
+export default MessagePopup;

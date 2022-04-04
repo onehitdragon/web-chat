@@ -27,3 +27,4 @@ class Ajax{
         this.ajax.send(body);
     }
 }
+export default Ajax;

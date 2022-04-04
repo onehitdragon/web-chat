@@ -1,3 +1,4 @@
+import {mainElement, ajax, messagePopup} from "../init.js";
 const formLoginElement = document.querySelector('.body > .body__main .login-form');
 const inputEmailElement = document.querySelector(".body > .body__main .login-form > .login-form__row > input[name='Email']");
 const inputPasswordElement = document.querySelector(".body > .body__main .login-form > .login-form__row > input[name='Password']");

@@ -1,3 +1,6 @@
+import ConversationControl from './conversationControl.js';
+import Socket from './socket.js';
+import FriendControl from './friendControl.js';
 console.log(conversationList);
 console.log(user);
 console.log(friendList);

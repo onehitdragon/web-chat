@@ -12,3 +12,4 @@ class VideoPopup{
         return videoPopupElement;
     }
 }
+export default VideoPopup;

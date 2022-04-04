@@ -14,3 +14,4 @@ class EffectMessage{
         });
     }
 }
+export default EffectMessage;

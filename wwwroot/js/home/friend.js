@@ -28,3 +28,4 @@ class Friend{
         return friendElement;
     }
 }
+export default Friend;

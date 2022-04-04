@@ -1,3 +1,4 @@
+import {mainElement, ajax, messagePopup} from "../init.js";
 //google sign in
 const myBtnGoogleSignInElement = document.querySelector('.body > .body__main .other-login > div:nth-child(2)');
 

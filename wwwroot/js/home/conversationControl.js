@@ -1,3 +1,9 @@
+import Conversation from "./conversation.js";
+import MenuLeft from "./menuLeft.js";
+import Socket from "./socket.js";
+import EffectMessage from "./effectMessage.js";
+import {mainElement, ajax, messagePopup} from "../init.js";
+
 class ConversationControl{
     static #instance;
     constructor(user, listConversation){
@@ -243,3 +249,4 @@ class ConversationControl{
         }
     }
 }
+export default ConversationControl;

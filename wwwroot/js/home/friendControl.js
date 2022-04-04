@@ -1,3 +1,4 @@
+import Friend from "./friend.js";
 class FriendControl{
     static #instance;
     constructor(listFriend){
@@ -20,3 +21,4 @@ class FriendControl{
         );
     }
 }
+export default FriendControl;

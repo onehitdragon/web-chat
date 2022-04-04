@@ -159,22 +159,6 @@
     let friendList = @Html.Raw(ViewBag.ListFriend);
 </script>
 
-<script src="~/js/ajax.js"></script>
-<script src="~/js/messagePopup.js"></script>
-<script src="~/js/init.js"></script>
-
 <script src="~/lib/signalr/signalr.js"></script>
-<script src="~/js/home/socket.js"></script>
-<script src="~/js/home/imagePopup.js"></script>
-<script src="~/js/home/audioElement.js"></script>
-<script src="~/js/home/videoPopup.js"></script>
-<script src="~/js/home/videoElement.js"></script>
-<script src="~/js/home/iconAreaElement.js"></script>
-<script src="~/js/home/effectMessage.js"></script>
-<script src="~/js/home/friend.js"></script>
-<script src="~/js/home/friendControl.js"></script>
-<script src="~/js/home/menuLeft.js"></script>
-<script src="~/js/home/conversation.js"></script>
-<script src="~/js/home/conversationControl.js"></script>
-<script src="~/js/home/home.js"></script>
-<script src="~/js/home/animation.js"></script>
+<script type="module" src="~/js/home/home.js"></script>
+<script src="~/js/home/animation.js" defer></script>

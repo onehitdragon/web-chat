@@ -1,3 +1,8 @@
+import ImagePopup from "./imagePopup.js";
+import AudioElement from "./audioElement.js";
+import VideoElement from "./videoElement.js";
+import IconAreaElement from "./iconAreaElement.js";
+
 class Conversation{
     constructor(user, infoConversation){
         this.user = user;
@@ -511,3 +516,4 @@ class Conversation{
         }
     }
 }
+export default Conversation;

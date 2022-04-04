@@ -1,3 +1,4 @@
+import VideoPopup from "./videoPopup.js";
 class VideoElement{
     constructor(videoSrc){
         this.videoSrc = videoSrc;
@@ -160,3 +161,4 @@ class VideoElement{
         return videoMainElement;
     }
 }
+export default VideoElement;

@@ -129,3 +129,4 @@ class AudioElement{
         return `${minus}:${second}`;
     }
 }
+export default AudioElement;

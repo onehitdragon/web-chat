@@ -17,3 +17,4 @@ class ImagePopup{
         return imagePopupElement;
     }
 }
+export default ImagePopup;

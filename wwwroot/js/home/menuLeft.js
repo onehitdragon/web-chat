@@ -1,3 +1,5 @@
+import ConversationControl from "./conversationControl.js";
+import FriendControl from "./friendControl.js";
 class MenuLeft{
     static #isOpenFriend = false;
     constructor(){
@@ -92,3 +94,4 @@ class MenuLeft{
         });
     }
 }
+export default MenuLeft;

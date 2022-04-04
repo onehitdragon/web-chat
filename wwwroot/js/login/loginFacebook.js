@@ -1,3 +1,4 @@
+import {mainElement, ajax, messagePopup} from "../init.js";
 const myBtnFacebookSignInElement = document.querySelector('.body > .body__main .other-login > div:nth-child(1)');
 
 window.fbAsyncInit = function() {

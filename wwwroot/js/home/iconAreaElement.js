@@ -101,3 +101,4 @@ class IconAreaElement{
         });
     }
 }
+export default IconAreaElement;
