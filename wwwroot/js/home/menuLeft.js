@@ -1,5 +1,7 @@
 import ConversationControl from "./conversationControl.js";
 import FriendControl from "./friendControl.js";
+import {mainElement} from "../init.js"; 
+import FriendSearchPopup from "./friendSearchPopup.js";
 class MenuLeft{
     static #isOpenFriend = false;
     constructor(){
@@ -92,6 +94,8 @@ class MenuLeft{
         btnDiscordElement.addEventListener('click', () => {
             window.open('https://discord.com/channels/732240768210567220/732240768210567223');
         });
+        const friendSearchPopup = new FriendSearchPopup();
+        mainElement.appendChild(friendSearchPopup.createFriendSearchPopup());
     }
 }
 export default MenuLeft;

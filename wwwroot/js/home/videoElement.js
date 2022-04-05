@@ -1,4 +1,6 @@
 import VideoPopup from "./videoPopup.js";
+import AudioElement from "./audioElement.js";
+import {mainElement} from "../init.js";
 class VideoElement{
     constructor(videoSrc){
         this.videoSrc = videoSrc;
@@ -151,7 +153,6 @@ class VideoElement{
                 () => {
                     mainElement.removeChild(videoPopupElement);
                     contentMessage.insertAdjacentElement('afterBegin', videoMainElement);
-                    
                 }
             );
             mainElement.append(videoPopupElement);

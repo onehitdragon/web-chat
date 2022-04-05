@@ -292,7 +292,7 @@
 .body-left__search-bar > input[type='text']::placeholder{
     color: rgb(175, 175, 175);
 }
-.body-left__search-bar > .line{
+.line{
     position: absolute;
     bottom: -1px;
     height: 1px;
@@ -1122,4 +1122,220 @@
 #img-video-popup .control-main__controls > .control-right > .zoom{
     display: none;
 }
-/* video popup */
+/* friend search popup */
+#friend-search-area{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+#friend-search-area::after{
+    
+}
+#friend-search-area > .friend-search-main{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border-radius: 5px;
+}
+#friend-search-area > .friend-search-main > .title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    position: relative;
+}
+#friend-search-area > .friend-search-main > .title::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .75;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    z-index: -1;
+}
+#friend-search-area > .friend-search-main > .title > span{
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+#friend-search-area > .friend-search-main > .title > button[name='close-friend-search']{
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 28px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#friend-search-area > .friend-search-main > .title > button[name='close-friend-search']:hover{
+    opacity: .6;
+    transition: all .2s;
+}
+#friend-search-area > .friend-search-main > div:not(:first-child){
+    position: relative;
+}
+#friend-search-area > .friend-search-main > div:not(:first-child)::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #4e4e4e;
+    opacity: .9;
+    z-index: -2;
+}
+#friend-search-area > .friend-search-main > .input-area{
+    display: flex;
+    padding: 15px 25px;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search::after{
+    
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > i{
+    color: white;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > i::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    opacity: .75;
+    z-index: -1;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > i:last-child:after{
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .line{
+    bottom: -15px;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .input{
+    flex: 1;
+    display: flex;
+    position: relative;
+    height: 36px;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .list-search{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+    border-radius: 5px;
+}
+#friend-search-area .list-search > .body-left__conversations > .conversation-item{
+    padding-left: 10px;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .input::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .75;
+    z-index: -1;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .input > input{
+    width: 100%;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+#friend-search-area > .friend-search-main > .input-area > .input-area__search > .input > input::placeholder{
+    color: rgb(175, 175, 175);
+}
+#friend-search-area > .friend-search-main > .list-requesting-area{
+    padding: 15px 25px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+#friend-search-area > .friend-search-main > .list-requesting-area > .title{
+    display: flex;
+    width: fit-content;
+    color: white;
+    opacity: .8;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+#friend-search-area > .friend-search-main > .list-requesting-area > .title:hover{
+    opacity: 1;
+    transition: all .2s;
+}
+#friend-search-area > .friend-search-main > .list-requesting-area > .title > span{
+    font-size: 16px;
+}
+#friend-search-area > .friend-search-main > .list-requesting-area > .title > i{
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+#friend-search-area .friend-search-main > .list-requesting-area > .list-requesting{
+    display: flex;
+}
+#friend-search-area .body-left__conversations{
+    color: white;
+    flex: 1;
+    height: auto;
+    min-height: 74px;
+    max-height: 296px;
+}
+#friend-search-area .body-left__conversations > .conversation-item:hover::after{
+    background-color: transparent !important;
+}
+#friend-search-area .body-left__conversations > .conversation-item{
+    padding-left: 0px;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .info-area{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .info-area > .friend:hover{
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400%;
+    transition: background-image .2s;
+    border: none;
+    border-radius: 0px;
+    padding: 6px 8px
+}

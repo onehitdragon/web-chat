@@ -61,6 +61,10 @@ namespace project
             app.UseEndpoints(endpoints =>
             {   
                 endpoints.MapControllerRoute(
+                    "friend",
+                    "friend/{action}"
+                );
+                endpoints.MapControllerRoute(
                     "account",
                     "account/{action}",
                     new {controller = "Account", action = "Login"}
