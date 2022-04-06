@@ -1,9 +1,21 @@
 import {ajax} from '../init.js';
+import Socket from './socket.js';
+import FriendControl from './friendControl.js';
 class FriendSearchPopup{
-    constructor(){
-
+    static #instance;
+    constructor(listQuesting, addFriendToContainer){
+        if(FriendSearchPopup.#instance){
+            return FriendSearchPopup.#instance;
+        }
+        FriendSearchPopup.#instance = this;
+        this.socket = Socket.getInstance();
+        this.socket.on('requestingFriend', (user) => {
+            this.#addRequestingItemElement(user);
+        });
+        this.listRequestingElement = this.#createListQuestingElement(listQuesting);
+        this.addFriendToContainer = addFriendToContainer;
     }
-    createFriendSearchPopup(){
+    createFriendSearchPopup(close){
         const friendSearchElement = document.createElement('div');
         friendSearchElement.id = 'friend-search-area';
         friendSearchElement.innerHTML = `
@@ -22,9 +34,6 @@ class FriendSearchPopup{
                         </div>
                         <p class='line'></p>
                         <div class='list-search'>
-                            <div class='body-left__conversations'>
-                                
-                            </div>
                         </div>
                         <i></i>
                     </div>
@@ -35,53 +44,46 @@ class FriendSearchPopup{
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                     <div class='list-requesting'>
-                        <div class='body-left__conversations'>
-
-                        </div>
                     </div>
                 </div>
             </div>
         `;
+        const listSearchElement = friendSearchElement.querySelector('.list-search');
+        const listRequestingElement = friendSearchElement.querySelector('.list-requesting');
 
         friendSearchElement.querySelector('.input-area > .input-area__search > .input > input').addEventListener('input', (e) => {
             const key = e.target.value;
+            if(key == "") {
+                listSearchElement.innerHTML = '';
+                return;
+            }
             ajax.sendGET(`/Friend/SearchFriend?key=${key}`, (res) => {
-                friendSearchElement.querySelector('.list-search').innerHTML = '';
-                friendSearchElement.querySelector('.list-search').appendChild(
-                    this.#createResultFriendSearchElement(JSON.parse(res.responseText))
+                const listUser = JSON.parse(res.responseText);
+                listSearchElement.innerHTML = '';
+                if(!listUser.length) return;
+                listSearchElement.appendChild(
+                    this.#createListResultFriendSearchElement(listUser)
                 );
             })
         });
-        for(let i = 0; i < 10; i++){
-            const friendElement = document.createElement('div');
-            friendElement.className = 'conversation-item';
-            const avatarFriendElement = document.createElement('div');
-            avatarFriendElement.className = 'avatar-area';
-            const infoAreaElement = document.createElement('div');
-            infoAreaElement.className = 'info-area';
+        window.addEventListener('click', (e) => {
+            const inputElement = friendSearchElement.querySelector('.input-area > .input-area__search > .input > input');
+            if(!inputElement.contains(e.target) && !listSearchElement.contains(e.target)){
+                listSearchElement.innerHTML = '';
+            }
+        });
 
-            avatarFriendElement.innerHTML = `
-                <img class="avatar" src="/img/layout/default-avatar.jpg">
-            `;
-            infoAreaElement.innerHTML = `
-                <p class="name">Nguyễn A</p>
-                <div class="friend">
-                    <span>Đồng ý</span>
-                </div>
-            `;
+        listRequestingElement.appendChild(this.listRequestingElement);
 
-            friendElement.appendChild(avatarFriendElement);
-            friendElement.appendChild(infoAreaElement);
-
-            friendSearchElement.querySelector('.list-requesting > .body-left__conversations').appendChild(friendElement);
-        }
+        friendSearchElement.querySelector("button[name='close-friend-search']").addEventListener('click', () => {
+            close();
+        });
 
         return friendSearchElement;
     }
-    #createResultFriendSearchElement(listUser){
+    #createListResultFriendSearchElement(listUser){
         const containerElement = document.createElement('div');
         containerElement.className = 'body-left__conversations';
-
         listUser.forEach((user) => {
             containerElement.appendChild(this.#createItemFriendSearchElement(user));
         });
@@ -94,7 +96,6 @@ class FriendSearchPopup{
         avatarFriendElement.className = 'avatar-area';
         const infoAreaElement = document.createElement('div');
         infoAreaElement.className = 'info-area';
-
         avatarFriendElement.innerHTML = `
             <img class="avatar" src="${user.avatarUrl}">
         `;
@@ -104,11 +105,73 @@ class FriendSearchPopup{
                 <span>Kết bạn</span>
             </div>
         `;
+        friendElement.appendChild(avatarFriendElement);
+        friendElement.appendChild(infoAreaElement);
+
+        infoAreaElement.querySelector('.friend').addEventListener('click', (e) => {
+            this.socket.invoke('RequestingFriend', user);
+            friendElement.remove();
+            alert("Gửi lời mời thành công");
+            const listSearchElement = document.querySelector('.friend-search-main .list-search .body-left__conversations');
+            if(listSearchElement.childNodes.length == 0) listSearchElement.parentElement.innerHTML = '';
+            e.stopPropagation();
+        });
+
+        return friendElement;
+    }
+    #createListQuestingElement(listUser){
+        const containerElement = document.createElement('div');
+        containerElement.className = 'body-left__conversations';
+        listUser.forEach((user) => {
+            containerElement.appendChild(this.#createItemQuestingElement(user));
+        });
+
+        return containerElement;
+    }
+    #createItemQuestingElement(user){
+        const friendElement = document.createElement('div');
+        friendElement.className = 'conversation-item';
+        const avatarFriendElement = document.createElement('div');
+        avatarFriendElement.className = 'avatar-area';
+        const infoAreaElement = document.createElement('div');
+        infoAreaElement.className = 'info-area';
+        avatarFriendElement.innerHTML = `
+            <img class="avatar" src="${user.AvatarUrl ? user.AvatarUrl : user.avatarUrl}">
+        `;
+        infoAreaElement.innerHTML = `
+            <p class="name">${(user.LastName ? user.LastName : user.lastName) + ' ' + (user.FirstName ? user.FirstName : user.firstName)}</p>
+            <div class="friends">
+                <div class="friend">
+                    <span>Đồng ý</span>
+                </div>
+                <div class="friend">
+                    <span>Từ chối</span>
+                </div>
+            </div>
+        `;
+        const btnAgree = infoAreaElement.querySelector('.friends > .friend:first-child');
+        const btnCancer = infoAreaElement.querySelector('.friends > .friend:last-child');
+
+        btnAgree.addEventListener('click', () => {
+            this.socket.invoke('AcceptRequesting', user);
+            friendElement.remove();
+            new FriendControl().addFriendToContainer(user);
+        });
+        btnCancer.addEventListener('click', () => {
+            this.socket.invoke('CancerRequesting', user);
+            friendElement.remove();
+        });
 
         friendElement.appendChild(avatarFriendElement);
         friendElement.appendChild(infoAreaElement);
 
         return friendElement;
+    }
+    #addRequestingItemElement(user){
+        this.listRequestingElement.insertAdjacentElement(
+            'afterbegin',
+            this.#createItemQuestingElement(user)
+        );
     }
 }
 export default FriendSearchPopup;

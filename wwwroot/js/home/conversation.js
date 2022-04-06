@@ -140,7 +140,7 @@ class Conversation{
         return activeConversationElement;
     }
     CreateMessageMain(messageContainerElement, message, previousSender, currentSender){
-        if(previousSender.Id != currentSender.Id){
+        if(!previousSender || previousSender.Id != currentSender.Id){
             if(message.TypeMessage == 0){
                 this.CreateMessageNewRow(messageContainerElement, message);
             }
@@ -421,7 +421,7 @@ class Conversation{
         const previousMessage = this.messages[this.messages.length - 2];
         const newMessage = this.messages[this.messages.length - 1];
         const messageContainerElement = activeConversationElement.querySelector('.body-right__messages');
-        this.CreateMessageMain(messageContainerElement, newMessage, previousMessage.Sender, newMessage.Sender);
+        this.CreateMessageMain(messageContainerElement, newMessage, previousMessage ? previousMessage.Sender : null, newMessage.Sender);
 
         if(!options.newMessage){
             newMessage.loading = true;
@@ -434,6 +434,7 @@ class Conversation{
         const messageContainerElement = activeConversationElement.querySelector('.body-right__messages');
         let lastMesElement = messageContainerElement.querySelectorAll('.message:last-child > .content .content__mes');
         lastMesElement = lastMesElement[lastMesElement.length - 1];
+        if(!lastMesElement) return;
         if(lastMesElement.querySelector('img')){
             lastMesElement.querySelector('img').addEventListener('load', (e) => {
                 e.target.scrollIntoView();

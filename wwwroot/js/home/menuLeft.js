@@ -1,9 +1,9 @@
 import ConversationControl from "./conversationControl.js";
 import FriendControl from "./friendControl.js";
-import {mainElement} from "../init.js"; 
-import FriendSearchPopup from "./friendSearchPopup.js";
+import Socket from "./socket.js";
 class MenuLeft{
     static #isOpenFriend = false;
+    static btnFriendElement;
     constructor(){
         const bodyLeftHead = document.querySelector('.body-left__head');
         const menuLeftElement = document.createElement('div');
@@ -35,11 +35,31 @@ class MenuLeft{
         const iconCloseElement = document.createElement('i');
         iconCloseElement.className = 'fa-solid fa-xmark close';
         const btnFriendElement = menuLeftElement.querySelector("button[name='friend']");
+        MenuLeft.btnFriendElement = btnFriendElement;
         const btnFriendSearchElement = menuLeftElement.querySelector("button[name='friend-search']");
         const btnCreateGroupElement = menuLeftElement.querySelector("button[name='create-group']");
         const btnSettingElement = menuLeftElement.querySelector("button[name='setting']");
         const btnYoutubeElement = menuLeftElement.querySelector("button[name='youtube']");
         const btnDiscordElement = menuLeftElement.querySelector("button[name='discord']");
+        const friendControl = new FriendControl();
+        const conversationControl = new ConversationControl();
+        const menuElement = document.querySelector('.body-left__head > .menu-button > i');
+        const addRedToMenuElement = () => {
+            menuElement.classList.add('announcement');
+            btnFriendSearchElement.querySelector('i').classList.add('announcement');
+            iconCloseElement.classList.add('announcement');
+        }
+        const removeRedToMenuElement = () => {
+            menuElement.classList.remove('announcement');
+            btnFriendSearchElement.querySelector('i').classList.remove('announcement');
+            iconCloseElement.classList.remove('announcement');
+        }
+        if(friendControl.listQuesting.length > 0){
+            addRedToMenuElement();
+        }
+        Socket.getInstance().on('requestingFriend', () => {
+            addRedToMenuElement();
+        });
 
         const closeMenu = () => {
             setTimeout(() => {
@@ -67,8 +87,6 @@ class MenuLeft{
         });
         
         btnFriendElement.addEventListener('click', () => {
-            const friendControl = new FriendControl();
-            const conversationControl = new ConversationControl();
             if(!MenuLeft.#isOpenFriend){
                 friendControl.showListFriend();
                 btnFriendElement.querySelector('i').classList.replace('fa-user-group','fa-comment');
@@ -80,7 +98,8 @@ class MenuLeft{
             MenuLeft.#isOpenFriend = !MenuLeft.#isOpenFriend;
         });
         btnFriendSearchElement.addEventListener('click', () => {
-            
+            friendControl.showFriendSearchPopup();
+            removeRedToMenuElement();
         });
         btnCreateGroupElement.addEventListener('click', () => {
             
@@ -94,8 +113,6 @@ class MenuLeft{
         btnDiscordElement.addEventListener('click', () => {
             window.open('https://discord.com/channels/732240768210567220/732240768210567223');
         });
-        const friendSearchPopup = new FriendSearchPopup();
-        mainElement.appendChild(friendSearchPopup.createFriendSearchPopup());
     }
 }
 export default MenuLeft;

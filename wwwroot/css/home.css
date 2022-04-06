@@ -117,6 +117,9 @@
     color: white;
     position: relative;
 }
+.announcement{
+    color: red !important;
+}
 .body-left__head > .menu-button > i::after{
     content: '';
     top: 50%;
@@ -391,7 +394,7 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
-.body-left__conversations > .conversation-item > .info-area > .friend{
+.body-left__conversations > .conversation-item > .info-area .friend{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1331,7 +1334,13 @@
     align-items: center;
     flex: 1;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .info-area > .friend:hover{
+#friend-search-area .body-left__conversations > .conversation-item > .info-area .friends{
+    display: flex;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .info-area .friends > .friend:first-child{
+    margin-right: 10px;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .info-area .friend:hover{
     background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400%;
     transition: background-image .2s;

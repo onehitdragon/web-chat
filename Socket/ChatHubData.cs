@@ -24,13 +24,26 @@ namespace project.Socket{
             dictionaryClient = new Dictionary<string, ClientData>();
         }
         public void AddClient(string connectionId, ClientData client){
-            dictionaryClient.Add(connectionId, client);
+            if(dictionaryClient.ContainsKey(connectionId)){
+                dictionaryClient[connectionId] = client;
+            }
+            else{
+                dictionaryClient.Add(connectionId, client);
+            }
         }
         public void RemoveClient(string connectionId){
             dictionaryClient.Remove(connectionId);
         }
         public ClientData GetClientData(string connectionId){
             return dictionaryClient[connectionId];
+        }
+        public string GetConnectionId(User user){
+            foreach(var client in dictionaryClient){
+                if(client.Value.User.Id == user.Id){
+                    return client.Key;
+                }
+            }
+            return null;
         }
     }
 }

@@ -3,6 +3,7 @@ import MenuLeft from "./menuLeft.js";
 import Socket from "./socket.js";
 import EffectMessage from "./effectMessage.js";
 import {mainElement, ajax, messagePopup} from "../init.js";
+import animation from "./animation.js";
 
 class ConversationControl{
     static #instance;
@@ -50,6 +51,7 @@ class ConversationControl{
                 updateAmountMessageNotReaded();
             });
         });
+        animation();
     }
     reInitConversation(){
         document.querySelector('.body-left').replaceChild(
@@ -151,14 +153,7 @@ class ConversationControl{
         );
     }
     initSocket(){
-        this.socket.invoke(
-            'Init', 
-            JSON.stringify(
-            {
-                user : this.user,
-                listConversation : this.listConversation
-            })
-        );
+        this.#initSocket();
         this.socket.on('haveNewMessage', (json) => {
             let conversation = JSON.parse(json);
             this.#updateListConversation(conversation, {
@@ -200,6 +195,16 @@ class ConversationControl{
         this.listConversation.forEach((infoConversation) => {
             this.#UpdateAmountMessageNotReaded(infoConversation);
         });
+    }
+    #initSocket(){
+        this.socket.invoke(
+            'Init', 
+            JSON.stringify(
+            {
+                user : this.user,
+                listConversation : this.listConversation
+            })
+        );
     }
     #ReadConversation(){
         this.socket.invoke(
@@ -246,6 +251,30 @@ class ConversationControl{
                 })
                 break;
             }
+        }
+    }
+    openConversationElement(friend){
+        friend.Id = friend.Id ? friend.Id : friend.id;
+        let check = true;
+        this.listConversation.forEach((conversation, idx) => {
+            if(conversation.Participants.length == 2){
+                conversation.Participants.forEach((participant) => {
+                    if(participant.Id == friend.Id) {
+                        this.listConversationElement[idx].click();
+                        check = false;
+                    }
+                });
+            }
+        });
+        if(check){
+            ajax.sendGET('/Home/GetListConversation', (res) => {
+                const listConversation = JSON.parse(res.responseText);
+                this.listConversation = listConversation;
+                this.conversationContainerElement.innerHTML = '';
+                this.initConversation();
+                this.#initSocket();
+                this.listConversationElement[this.listConversationElement.length - 1].click();
+            })
         }
     }
 }

@@ -4,5 +4,6 @@ namespace project.Repository{
     public interface IConversationRepository{
         List<Conversation> GetListConversation(User user);
         void AddMessage(Conversation conversation, Message mes);
+        void AddConversation(User user1, User user2);
     }
 }

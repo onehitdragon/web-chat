@@ -34,8 +34,10 @@ namespace project.Controllers
             List<Conversation> listConversation = conversationRepository.GetListConversation(user);
             ViewBag.ListConversation = JsonTool.EnCode(listConversation);
             ViewBag.User = JsonTool.EnCode(user);
-            List<User> listFriend = friendRepository.GetListFriend(user);
-            ViewBag.ListFriend = JsonTool.EnCode(listFriend);
+            List<User> listFriending = friendRepository.GetListFriending(user);
+            ViewBag.ListFriending = JsonTool.EnCode(listFriending);
+            List<User> listQuesting = friendRepository.GetListRequesting(user);
+            ViewBag.ListQuesting = JsonTool.EnCode(listQuesting);
 
             return View();
         }
@@ -56,6 +58,15 @@ namespace project.Controllers
                     fileAttachUrl = relativePath
                 }
             );
+        }
+        public IActionResult GetListConversation(){
+            if(!SessionTool.CheckSession(HttpContext, "account")){   
+                return Redirect("/Account/Login");
+            }
+            User user = SessionTool.GetSession<User>(HttpContext, "user");
+            List<Conversation> listConversation = conversationRepository.GetListConversation(user);
+
+            return Content(JsonTool.EnCode(listConversation));
         }
     }
 }

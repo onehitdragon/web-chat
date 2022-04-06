@@ -156,9 +156,9 @@
 <script>
     let conversationList = @Html.Raw(ViewBag.ListConversation);
     let user = @Html.Raw(ViewBag.User);
-    let friendList = @Html.Raw(ViewBag.ListFriend);
+    let friendList = @Html.Raw(ViewBag.ListFriending);
+    let requestingList = @Html.Raw(ViewBag.ListQuesting);
 </script>
 
 <script src="~/lib/signalr/signalr.js"></script>
 <script type="module" src="~/js/home/home.js"></script>
-<script src="~/js/home/animation.js" defer></script>

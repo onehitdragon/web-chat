@@ -66,5 +66,17 @@ namespace project.Repository{
                 $"VALUES ({conversation.Id}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
             dataProvider.ExcuteQuery(query);
         }
+        public void AddConversation(User user1, User user2){
+            string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{user1.LastName + " " + user1.FirstName}', {user1.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
+            dataProvider.ExcuteQuery(query);
+            int idConversation = GetNewestConversationId();
+            query = $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {user1.Id});"
+                +$"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {user2.Id});";
+            dataProvider.ExcuteQuery(query);
+        }
+        private int GetNewestConversationId(){
+            string query = "SELECT MAX(Id) FROM conversation";
+            return int.Parse(dataProvider.GetDataTable(query).Rows[0][0].ToString());
+        }
     }
 }

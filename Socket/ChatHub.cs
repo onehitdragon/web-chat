@@ -12,10 +12,12 @@ namespace project.Socket{
         private ChatHubData chatHubData;
         private IConversationRepository conversationRepository;
         private IMessageReaderRepository messageReaderRepository;
+        private IFriendRepository friendRepository;
         public Chat(){
             chatHubData = ChatHubData.GetInstance();
             conversationRepository = new ConversationRepository();
             messageReaderRepository = new MessageReaderRepository();
+            friendRepository = new FriendRepository();
         }
         public void Init(string json){
             dynamic data = JsonTool.DeCode(json);   
@@ -102,6 +104,30 @@ namespace project.Socket{
                 conversation = json,
                 amount = amount
             });
+        }
+        public void RequestingFriend(User user){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            friendRepository.AddRequestingRelation(me, user);
+            string connectionId = chatHubData.GetConnectionId(user);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("requestingFriend", me);
+            }
+        }
+        public void CancerRequesting(User user){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            friendRepository.RemoveRequestingRelation(user, me);
+        }
+        public void AcceptRequesting(User user){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            friendRepository.UpdateFriendingRelation(user, me);
+            conversationRepository.AddConversation(user, me);
+            string connectionId = chatHubData.GetConnectionId(user);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("acceptRequesting", me);
+            }
         }
     }
 }
