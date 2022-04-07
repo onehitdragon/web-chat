@@ -74,6 +74,17 @@ namespace project.Repository{
                 +$"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {user2.Id});";
             dataProvider.ExcuteQuery(query);
         }
+        public void AddConversation(string nameConversation, User creator, User[] listParticipants){
+            if(listParticipants.Length == 0) return;
+            string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{nameConversation}', {creator.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
+            dataProvider.ExcuteQuery(query);
+            int idConversation = GetNewestConversationId();
+            query = $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {creator.Id});";
+            foreach(User participant in listParticipants){
+                query += $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {participant.Id});";
+            }
+            dataProvider.ExcuteQuery(query);
+        }
         private int GetNewestConversationId(){
             string query = "SELECT MAX(Id) FROM conversation";
             return int.Parse(dataProvider.GetDataTable(query).Rows[0][0].ToString());

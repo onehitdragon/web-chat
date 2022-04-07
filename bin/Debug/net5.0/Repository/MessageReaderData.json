@@ -1,9 +1,18 @@
 [
   {
-    "Id": 1,
-    "Title": "Nguyễn B",
-    "CreatorId": 1,
+    "Id": 5,
+    "Title": "abc",
+    "CreatorId": 5,
     "Participants": [
+      {
+        "Id": 5,
+        "AvatarUrl": "/img/layout/default-avatar.jpg",
+        "LastName": "Ngọc",
+        "FirstName": "A",
+        "BirthDay": "1999-02-16T00:00:00",
+        "Gender": true,
+        "Phone": "58614242451"
+      },
       {
         "Id": 1,
         "AvatarUrl": "/img/layout/default-avatar.jpg",
@@ -12,6 +21,58 @@
         "BirthDay": "1997-01-15T00:00:00",
         "Gender": true,
         "Phone": "08684242451"
+      },
+      {
+        "Id": 3,
+        "AvatarUrl": "/img/layout/default-avatar.jpg",
+        "LastName": "Trần",
+        "FirstName": "C",
+        "BirthDay": "1999-05-23T00:00:00",
+        "Gender": false,
+        "Phone": "08614242451"
+      }
+    ],
+    "Messages": [
+      {
+        "Sender": {
+          "Id": 5,
+          "AvatarUrl": "/img/layout/default-avatar.jpg",
+          "LastName": "Ngọc",
+          "FirstName": "A",
+          "BirthDay": "1999-02-16T00:00:00",
+          "Gender": true,
+          "Phone": "58614242451"
+        },
+        "TypeMessage": 0,
+        "Readers": [],
+        "Content": "s",
+        "loading": true
+      }
+    ]
+  },
+  {
+    "Id": 18,
+    "Title": "gggg12345",
+    "CreatorId": 5,
+    "Participants": [
+      {
+        "Id": 1,
+        "AvatarUrl": "/img/layout/default-avatar.jpg",
+        "LastName": "Nguyễn",
+        "FirstName": "B",
+        "BirthDay": "1997-01-15T00:00:00",
+        "Gender": true,
+        "Phone": "08684242451",
+        "typing": false
+      },
+      {
+        "Id": 3,
+        "AvatarUrl": "/img/layout/default-avatar.jpg",
+        "LastName": "Trần",
+        "FirstName": "C",
+        "BirthDay": "1999-05-23T00:00:00",
+        "Gender": false,
+        "Phone": "08614242451"
       },
       {
         "Id": 5,
@@ -25,22 +86,6 @@
     ],
     "Messages": [
       {
-        "Id": 1,
-        "Sender": {
-          "Id": 1,
-          "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Nguyễn",
-          "FirstName": "B",
-          "BirthDay": "1997-01-15T00:00:00",
-          "Gender": true,
-          "Phone": "08684242451"
-        },
-        "TypeMessage": 0,
-        "Content": "Xin Chào",
-        "FileAttachUrl": ""
-      },
-      {
-        "Id": 2,
         "Sender": {
           "Id": 5,
           "AvatarUrl": "/img/layout/default-avatar.jpg",
@@ -51,84 +96,43 @@
           "Phone": "58614242451"
         },
         "TypeMessage": 0,
-        "Content": "Chào",
-        "FileAttachUrl": ""
-      },
-      {
-        "Id": 3,
-        "Sender": {
-          "Id": 1,
-          "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Nguyễn",
-          "FirstName": "B",
-          "BirthDay": "1997-01-15T00:00:00",
-          "Gender": true,
-          "Phone": "08684242451"
-        },
-        "TypeMessage": 0,
-        "Content": "You are hero?",
-        "FileAttachUrl": ""
-      },
-      {
-        "Id": 4,
-        "Sender": {
-          "Id": 5,
-          "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Ngọc",
-          "FirstName": "A",
-          "BirthDay": "1999-02-16T00:00:00",
-          "Gender": true,
-          "Phone": "58614242451"
-        },
-        "TypeMessage": 0,
-        "Content": "I am not a hero, you?",
-        "FileAttachUrl": ""
-      },
-      {
-        "Sender": {
-          "Id": 5,
-          "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Ngọc",
-          "FirstName": "A",
-          "BirthDay": "1999-02-16T00:00:00",
-          "Gender": true,
-          "Phone": "58614242451"
-        },
-        "TypeMessage": 0,
-        "Readers": [],
+        "Readers": [
+          {
+            "Id": 1,
+            "AvatarUrl": "/img/layout/default-avatar.jpg",
+            "LastName": "Nguyễn",
+            "FirstName": "B",
+            "BirthDay": "1997-01-15T00:00:00",
+            "Gender": true,
+            "Phone": "08684242451"
+          }
+        ],
         "Content": "gg",
         "loading": true
       },
       {
         "Sender": {
-          "Id": 5,
+          "Id": 1,
           "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Ngọc",
-          "FirstName": "A",
-          "BirthDay": "1999-02-16T00:00:00",
+          "LastName": "Nguyễn",
+          "FirstName": "B",
+          "BirthDay": "1997-01-15T00:00:00",
           "Gender": true,
-          "Phone": "58614242451"
+          "Phone": "08684242451"
         },
-        "TypeMessage": 1,
-        "Readers": [],
-        "Content": "250_30261_aerocool_lux_rgb_750w_80_plus_bronze_1.png",
-        "FileAttachUrl": "UserData\\d2e22dfb-96e0-4492-a38d-9389402b1c9e_250_30261_aerocool_lux_rgb_750w_80_plus_bronze_1.png",
-        "loading": true
-      },
-      {
-        "Sender": {
-          "Id": 5,
-          "AvatarUrl": "/img/layout/default-avatar.jpg",
-          "LastName": "Ngọc",
-          "FirstName": "A",
-          "BirthDay": "1999-02-16T00:00:00",
-          "Gender": true,
-          "Phone": "58614242451"
-        },
-        "TypeMessage": 1,
-        "Readers": [],
-        "Content": "Y2Mate.is - COSTA RICA IN 4K 60fps HDR (ULTRA HD)-LXb3EKWsInQ-1080p-1646267655112.mp4",
-        "FileAttachUrl": "UserData\\09e85912-328e-445e-9c9f-7dc5e1b41fa0_Y2Mate.is - COSTA RICA IN 4K 60fps HDR (ULTRA HD)-LXb3EKWsInQ-1080p-1646267655112.mp4",
+        "TypeMessage": 0,
+        "Readers": [
+          {
+            "Id": 5,
+            "AvatarUrl": "/img/layout/default-avatar.jpg",
+            "LastName": "Ngọc",
+            "FirstName": "A",
+            "BirthDay": "1999-02-16T00:00:00",
+            "Gender": true,
+            "Phone": "58614242451"
+          }
+        ],
+        "Content": "ok",
         "loading": true
       }
     ]

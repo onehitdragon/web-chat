@@ -18,6 +18,7 @@ class Conversation{
         this.lastMessage = infoConversation.Messages[infoConversation.Messages.length - 1];
         this.messages = infoConversation.Messages;
         this.myAvatarUrl = document.querySelector('.body-left__head > .avatar').src;
+        this.titleConversation = infoConversation.Title;
     }
     CreateConversationElement(newMessage){
         const conversationElement = document.createElement('div');
@@ -43,6 +44,28 @@ class Conversation{
                     <i class="fa-solid fa-check"></i>
                     <span>11:45 PM</span>
                 </p>
+            `;
+        }
+        else{
+            avatarAreaElement.classList.add('group--avatar');
+            for(let i = 0; i < this.participants.length; i++){
+                let user = this.participants[i];
+                avatarAreaElement.innerHTML += `
+                    <img class="avatar" src="${user.AvatarUrl}">
+                `;
+                if(i == 2){
+                    if(this.participants.length <= 4) continue;
+                    else{
+                        avatarAreaElement.innerHTML += `
+                            <p class='amount'>${this.participants.length}</p>
+                        `;
+                    }
+                    break;
+                }
+            }
+            infoAreaElement.innerHTML = `
+                <p class="name">${this.titleConversation}</p>
+                <p class="last-mes"></p>
             `;
         }
 
@@ -85,7 +108,7 @@ class Conversation{
         headConversationElement.innerHTML = `
             <img class="avatar" src="${this.avatarUrl}">
             <div class="info-area">
-                <p class="name">${this.fullname}</p>
+                <p class="name">${this.participants.length == 2 ? this.fullname : this.titleConversation}</p>
                 <p class="status">Đang gõ...</p>
             </div>
             <div class="button-area">

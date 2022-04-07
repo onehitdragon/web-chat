@@ -45,5 +45,13 @@ namespace project.Socket{
             }
             return null;
         }
+        public string UserIsOnline(User user){
+            foreach(var clientData in dictionaryClient){
+                if(clientData.Value.User.Id == user.Id){
+                    return clientData.Key;
+                }
+            }
+            return null;
+        }
     }
 }

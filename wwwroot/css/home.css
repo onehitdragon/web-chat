@@ -379,6 +379,26 @@
     bottom: 0px;
     right: 0px;
 }
+.body-left__conversations > .conversation-item > .group--avatar{
+    max-width: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.body-left__conversations > .conversation-item > .group--avatar > .avatar{
+    width: 25px;
+}
+.body-left__conversations > .conversation-item > .group--avatar > .amount{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    color: #dfdfdf;
+    font-size: 14.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .body-left__conversations > .conversation-item > .info-area{
     margin-left: 15px;
 }
@@ -403,6 +423,14 @@
     animation: line-ani 5s ease infinite;
     border-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) 1;
     border-radius: 3px;
+}
+.body-left__conversations > .conversation-item > .info-area .friend:hover{
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400%;
+    transition: background-image .2s;
+    border: none;
+    border-radius: 0px;
+    padding: 6px 8px
 }
 .body-left__conversations > .conversation-item > .info-area > .friend > span{
     font-size: 14.5px;
@@ -1202,6 +1230,7 @@
 }
 #friend-search-area > .friend-search-main > .input-area{
     display: flex;
+    flex-direction: column;
     padding: 15px 25px;
 }
 #friend-search-area > .friend-search-main > .input-area > .input-area__search{
@@ -1315,6 +1344,60 @@
 #friend-search-area .friend-search-main > .list-requesting-area > .list-requesting{
     display: flex;
 }
+#friend-search-area .friend-search-main > .area-button{
+    padding: 15px 25px;
+    padding-top: 0px;
+    display: flex;
+}
+#friend-search-area .friend-search-main > .area-button > .list-added{
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid white;
+    border-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) 1;
+}
+#friend-search-area .friend-search-main > .area-button > .list-added > .list-added__item{
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    cursor: default;
+}
+#friend-search-area .friend-search-main > .area-button > .list-added > .list-added__item > img{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+#friend-search-area .friend-search-main > .area-button > .list-added > .list-added__item > span{
+    font-size: 14.5px;
+    color: white;
+}
+#friend-search-area .friend-search-main > .area-button > button[name='create-group-button']{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    padding: 11.5px 15px;
+    height: fit-content;
+}
+#friend-search-area .friend-search-main > .area-button > button[name='create-group-button']::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .4;
+    z-index: -1;
+}
+#friend-search-area .friend-search-main > .area-button > button[name='create-group-button']:hover::after{
+    opacity: .75;
+}
 #friend-search-area .body-left__conversations{
     color: white;
     flex: 1;
@@ -1340,11 +1423,23 @@
 #friend-search-area .body-left__conversations > .conversation-item > .info-area .friends > .friend:first-child{
     margin-right: 10px;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .info-area .friend:hover{
-    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400%;
-    transition: background-image .2s;
-    border: none;
-    border-radius: 0px;
-    padding: 6px 8px
+#friend-search-area .body-left__conversations > .conversation-item > .checkbox{
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    cursor: pointer;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .checkbox::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #c1c1c1;
+    border-radius: 50%;
+}
+#friend-search-area .body-left__conversations > .conversation-item > .checked::after{
+    background-color: #c1c1c1;
 }

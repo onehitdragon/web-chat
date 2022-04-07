@@ -192,6 +192,10 @@ class ConversationControl{
                 }
             }
         })
+        this.socket.on('createGroupConversation', (creator) => {
+            if(creator.id == this.user.Id) this.reloadConversationElement(true);
+            else this.reloadConversationElement(false)
+        });
         this.listConversation.forEach((infoConversation) => {
             this.#UpdateAmountMessageNotReaded(infoConversation);
         });
@@ -267,15 +271,21 @@ class ConversationControl{
             }
         });
         if(check){
-            ajax.sendGET('/Home/GetListConversation', (res) => {
-                const listConversation = JSON.parse(res.responseText);
-                this.listConversation = listConversation;
-                this.conversationContainerElement.innerHTML = '';
-                this.initConversation();
-                this.#initSocket();
-                this.listConversationElement[this.listConversationElement.length - 1].click();
-            })
+            this.reloadConversationElement(true);
         }
+    }
+    reloadConversationElement(hasClick = false){
+        ajax.sendGET('/Home/GetListConversation', (res) => {
+            const listConversation = JSON.parse(res.responseText);
+            this.listConversation = listConversation;
+            this.listConversationElement = [];
+            this.conversationContainerElement.innerHTML = '';
+            this.initConversation();
+            this.#initSocket();
+            if(hasClick){
+                this.listConversationElement[this.listConversationElement.length - 1].click();
+            }
+        })
     }
 }
 export default ConversationControl;

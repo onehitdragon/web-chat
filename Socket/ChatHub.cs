@@ -129,5 +129,17 @@ namespace project.Socket{
                 Clients.Client(connectionId).SendAsync("acceptRequesting", me);
             }
         }
+        public void CreateGroupConversation(string nameGroup, User[] listUser){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            conversationRepository.AddConversation(nameGroup, me, listUser);
+            Clients.Caller.SendAsync("createGroupConversation", me);
+            foreach(User user in listUser){
+                string connectionId = chatHubData.UserIsOnline(user);
+                if(!String.IsNullOrEmpty(connectionId)){
+                    Clients.Client(connectionId).SendAsync("createGroupConversation", me);
+                }
+            }
+        }
     }
 }

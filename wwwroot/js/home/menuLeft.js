@@ -1,6 +1,7 @@
 import ConversationControl from "./conversationControl.js";
 import FriendControl from "./friendControl.js";
 import Socket from "./socket.js";
+import GroupControl from "./groupControl.js";
 class MenuLeft{
     static #isOpenFriend = false;
     static btnFriendElement;
@@ -43,6 +44,7 @@ class MenuLeft{
         const btnDiscordElement = menuLeftElement.querySelector("button[name='discord']");
         const friendControl = new FriendControl();
         const conversationControl = new ConversationControl();
+        const groupControl = new GroupControl();
         const menuElement = document.querySelector('.body-left__head > .menu-button > i');
         const addRedToMenuElement = () => {
             menuElement.classList.add('announcement');
@@ -102,7 +104,7 @@ class MenuLeft{
             removeRedToMenuElement();
         });
         btnCreateGroupElement.addEventListener('click', () => {
-            
+            groupControl.showGroupPopup();
         });
         btnSettingElement.addEventListener('click', () => {
             
