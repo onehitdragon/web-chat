@@ -1417,10 +1417,10 @@
     align-items: center;
     flex: 1;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .info-area .friends{
+.body-left__conversations > .conversation-item > .info-area .friends{
     display: flex;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .info-area .friends > .friend:first-child{
+.body-left__conversations > .conversation-item > .info-area .friends > .friend:first-child{
     margin-right: 10px;
 }
 #friend-search-area .body-left__conversations > .conversation-item > .checkbox{

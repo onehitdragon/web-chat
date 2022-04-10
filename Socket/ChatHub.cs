@@ -141,5 +141,51 @@ namespace project.Socket{
                 }
             }
         }
+        public void CallVideo(User receiver){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            string connectionId = chatHubData.UserIsOnline(receiver);
+            if(String.IsNullOrEmpty(connectionId)){
+                Clients.Caller.SendAsync("canCallVideo", "offline");
+            }
+            else{
+                Clients.Caller.SendAsync("canCallVideo", "canCalling");
+                Clients.Client(connectionId).SendAsync("calling", me);
+            }
+        }
+        public void AcceptCalling(User sender){
+            string connectionId = chatHubData.UserIsOnline(sender);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("canCallVideo", "startCallVideo");
+            }
+        }
+        public void Offer(User receiver, Object sdp){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            string connectionId = chatHubData.UserIsOnline(receiver);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("offer", me, sdp);
+            }
+        }
+        public void Answer(User receiver, Object sdp){
+            string connectionId = chatHubData.UserIsOnline(receiver);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("answer", sdp);
+            }
+        }
+        public void UpdateCandidate(User receiver, Object candidate){
+            string connectionId = chatHubData.UserIsOnline(receiver);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("updateCandidate", candidate);
+            }
+        }
+        public void StopCall(User receiver){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            string connectionId = chatHubData.UserIsOnline(receiver);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("stopCall", me);
+            }
+        }
     }
 }

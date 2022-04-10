@@ -22,9 +22,7 @@ class Socket{
         }
     }
     on(nameFunc, callback){
-        this.signalr.on(nameFunc, (json) => {
-            callback(json);
-        })
+        this.signalr.on(nameFunc, callback);
     }
 }
 export default Socket;

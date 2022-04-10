@@ -1,5 +1,6 @@
 import MenuLeft from "./menuLeft.js";
 import ConversationControl from "./conversationControl.js";
+import VideoCallControl from "./videoCallControl.js";
 class Friend{
     constructor(friend){
         this.friend = friend;
@@ -17,15 +18,24 @@ class Friend{
         `;
         infoAreaElement.innerHTML = `
             <p class="name">${(this.friend.LastName ? this.friend.LastName : this.friend.lastName) + ' ' + (this.friend.FirstName ? this.friend.FirstName : this.friend.firstName)}</p>
-            <div class="friend">
-                <span>Nhắn tin</span>
+            <div class="friends">
+                <div class="friend">
+                    <span>Nhắn tin</span>
+                </div>
+                <div class="friend call">
+                    <span>Gọi</span>
+                </div>
             </div>
         `;
-        const btnMessage = infoAreaElement.querySelector('.friend');
+        const btnMessageElement = infoAreaElement.querySelector('.friend');
+        const btnCallElement = infoAreaElement.querySelector('.call');
 
-        btnMessage.addEventListener('click', () => {
+        btnMessageElement.addEventListener('click', () => {
             MenuLeft.btnFriendElement.click();
             new ConversationControl().openConversationElement(this.friend);
+        });
+        btnCallElement.addEventListener('click', () => {
+            new VideoCallControl().call(this.friend);
         });
 
         friendElement.appendChild(avatarFriendElement);
