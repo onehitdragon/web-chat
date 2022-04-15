@@ -1,3 +1,4 @@
+using System;
 namespace project.Models{
     public class Message{
         private int id;
@@ -5,6 +6,7 @@ namespace project.Models{
         private TypeMessage typeMessage;
         private string content;
         private string fileAttachUrl;
+        private DateTime createAt;
         public int Id{
             get{
                 return id;
@@ -45,12 +47,21 @@ namespace project.Models{
                 fileAttachUrl = value;
             }
         }
-        public Message(int id, User sender, TypeMessage typeMessage, string content, string fileAttachUrl){
+        public DateTime CreateAt{
+            get{
+                return createAt;
+            }
+            set{
+                createAt = value;
+            }
+        }
+        public Message(int id, User sender, TypeMessage typeMessage, string content, string fileAttachUrl, DateTime createAt){
             this.id = id;
             this.sender = sender;
             this.typeMessage = typeMessage;
             this.content = content;
             this.fileAttachUrl = fileAttachUrl;
+            this.createAt = createAt;
         }
     }
 }

@@ -42,7 +42,8 @@ namespace project.Repository{
                         null,
                         messageRow[3].ToString() == "text" ? TypeMessage.Text : TypeMessage.File,
                         messageRow[4].ToString(),
-                        messageRow[5].ToString()
+                        messageRow[5].ToString(),
+                        DateTime.Parse(messageRow[6].ToString())
                     );
                     foreach(User user in conversation.Participants){
                         if(user.Id == ulong.Parse(messageRow[2].ToString())){

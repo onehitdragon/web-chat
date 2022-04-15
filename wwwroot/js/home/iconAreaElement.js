@@ -1,3 +1,5 @@
+import ConversationControl from "./conversationControl.js";
+import MyTool from "./myTool.js";
 class IconAreaElement{
     #dinoIcons = ['ankylosaurus.png','apatosaurus.png','archaeopteryx.png','dilophosaurus.png',
     'dinosaur-egg.png','dried-insect-in-amber.png','elasmosaurus.png','fossil.png','pteranodon.png',
@@ -52,7 +54,8 @@ class IconAreaElement{
                     Sender : conversationControl.user,
                     TypeMessage : 1,
                     Content : `:${icon}`,
-                    FileAttachUrl : iconElement.querySelector('img').src
+                    FileAttachUrl : iconElement.querySelector('img').src,
+                    CreateAt : MyTool.GetCurrentTime()
                 }
                 conversationControl.SendMessage(message);
                 this.iconAreaElement.parentElement.removeChild(this.iconAreaElement);              

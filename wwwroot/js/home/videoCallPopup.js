@@ -5,7 +5,7 @@ class VideoCallPopup{
     }
     createVideoCallPopupElement(close){
         const videoCallContainerElement = document.createElement('div');
-        videoCallContainerElement.className = 'main';
+        videoCallContainerElement.className = 'main-video';
         videoCallContainerElement.innerHTML = `
             <div class="main__video-call">
                 <div class="call-time">

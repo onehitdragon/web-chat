@@ -42,7 +42,7 @@ class Conversation{
             statusAreaElement.innerHTML = `
                 <p class="time">
                     <i class="fa-solid fa-check"></i>
-                    <span>11:45 PM</span>
+                    <span></span>
                 </p>
             `;
         }
@@ -80,6 +80,7 @@ class Conversation{
         const lastMesElement = conversationElement.querySelector('.info-area > .last-mes');
         if(!this.lastMessage){
             lastMesElement.innerText = "Chưa có tin nhắn";
+            return conversationElement;
         }
         else if(this.lastMessage.Sender.Id != this.user.Id){
             lastMesElement.innerText = this.fullname + ': ' + this.lastMessage.Content;
@@ -87,11 +88,17 @@ class Conversation{
         else{
             lastMesElement.innerText = 'Bạn: ' + this.lastMessage.Content;
         }
-        if(options.newMessage){
-            
-        }
+        const timeElement = conversationElement.querySelector('.status-area > .time > span');
+        this.#updateTimeMessageElement(timeElement, this.lastMessage);
 
         return conversationElement;
+    }
+    #updateTimeMessageElement(timeElement, message){       
+        const date = new Date(message.CreateAt);
+        let time = date.getHours() + ':' + date.getMinutes();
+        if(date.getHours() <= 12) time += ' AM';
+        else time += ' PM';
+        timeElement.textContent = time;
     }
     CreateActiveConversationElement(){
         const activeConversationElement = document.createElement('div');
@@ -203,7 +210,7 @@ class Conversation{
         } 
         return lastMessageElement;
     }
-    #CreateMessage(message){
+    #CreateMessage(message){ 
         const messageElement = document.createElement('div');
         messageElement.className = 'message';
         messageElement.innerHTML = `
@@ -213,13 +220,22 @@ class Conversation{
                     <p>${message.Content}</p>
                 </div>
                 <div class="name-time">
-                    <span class="name">User demo</span>
+                    <span class="name">${this.#GetFullNameMessage(message)}</span>
                     <i class="fa-solid fa-circle"></i>
                     <span class="time">9:30 PM</span>
                 </div>
             </div>
         `;
+        const timeElement = messageElement.querySelector('.name-time > .time');
+        this.#updateTimeMessageElement(timeElement, message);
         return messageElement;
+    }
+    #GetFullNameMessage(message){
+        let fullName = "Bạn";
+        if(message.Sender.Id != this.user.Id){
+            fullName = message.Sender.LastName + ' ' + message.Sender.FirstName;
+        }
+        return fullName;
     }
     #CreateMyMessage(message){
         const messageElement = this.#CreateMessage(message);
@@ -232,6 +248,8 @@ class Conversation{
                 <p>${message.Content}</p>
             </div>
         `);
+        const timeElement = previousMessageElement.querySelector('.name-time > .time');
+        this.#updateTimeMessageElement(timeElement, message);
     }
     CreateFileMessageNewRow(messageContainerElement, message){
         const lastMessageElement = this.#GetLastMessageElement(messageContainerElement);
@@ -352,6 +370,9 @@ class Conversation{
                 </div>
             `;
         }
+        messageElement.querySelector('.name-time > .name').textContent = this.#GetFullNameMessage(message);
+        const timeElement = messageElement.querySelector('.name-time > .time');
+        this.#updateTimeMessageElement(timeElement, message);
 
         return messageElement;
     }
@@ -404,6 +425,8 @@ class Conversation{
                 </div>
             `);
         }
+        const timeElement = previousMessageElement.querySelector('.name-time > .time');
+        this.#updateTimeMessageElement(timeElement, message);
     }
     CreateTypingMessageElement(user){
         const messageElement = document.createElement('div');

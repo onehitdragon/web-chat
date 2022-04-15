@@ -4,6 +4,7 @@ import Socket from "./socket.js";
 import EffectMessage from "./effectMessage.js";
 import {mainElement, ajax, messagePopup} from "../init.js";
 import animation from "./animation.js";
+import MyTool from "./myTool.js";
 
 class ConversationControl{
     static #instance;
@@ -68,7 +69,8 @@ class ConversationControl{
                 let message = {
                     Sender : this.user,
                     TypeMessage : 0,
-                    Content : contentMessage
+                    Content : contentMessage,
+                    CreateAt : MyTool.GetCurrentTime()
                 };
                 this.SendMessage(message);
                 this.#StopTyping();
@@ -133,7 +135,8 @@ class ConversationControl{
                 Sender : this.user,
                 TypeMessage : 1,
                 Content : formData.get('file').name,
-                FileAttachUrl : fileAttachUrl
+                FileAttachUrl : fileAttachUrl,
+                CreateAt : MyTool.GetCurrentTime()
             }
             this.SendMessage(message);
         });
