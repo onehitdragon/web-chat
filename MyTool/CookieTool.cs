@@ -6,6 +6,7 @@ namespace project.MyTool{
         public static void CreateCookieDays(HttpContext httpContext, string key, string value, int daysExpire, string path){
             cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(daysExpire));
             cookieOptions.Path = path;
+            Console.WriteLine(cookieOptions.Domain);
             httpContext.Response.Cookies.Append(key, value, cookieOptions);
         }
         public static void DeleteCookie(HttpContext httpContext, string key, string path){

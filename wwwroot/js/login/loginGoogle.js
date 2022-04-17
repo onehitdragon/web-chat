@@ -83,8 +83,9 @@ function onFailure(error) {
 function renderButton() {
     gapi.load('auth2', function() {
         let googleAuth = gapi.auth2.init({
-            client_id: '534298276644-p69i2p8u2qjqdfgfbl168li06c4m0msg.apps.googleusercontent.com'
+            client_id: '685022627226-qtgim2ke5al80ljtqqfig4anfhed5110.apps.googleusercontent.com'
         });
         googleAuth.attachClickHandler(myBtnGoogleSignInElement, {}, onSuccess, onFailure);
     });
 }
+window.renderButton = renderButton;

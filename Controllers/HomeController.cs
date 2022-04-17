@@ -24,7 +24,7 @@ namespace project.Controllers
         }
         public IActionResult Index()
         {           
-            if(!SessionTool.CheckSession(HttpContext, "account")){   
+            if(!SessionTool.CheckSession(HttpContext, "account")){ 
                 return Redirect("/Account/Login");
             }
             Account account = SessionTool.GetSession<Account>(HttpContext, "account");

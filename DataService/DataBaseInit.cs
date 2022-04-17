@@ -18,7 +18,7 @@ namespace project.DataService{
             // create user table
             query = "CREATE TABLE IF NOT EXISTS Users("
                 +"id BIGINT unsigned PRIMARY KEY AUTO_INCREMENT,"
-                +"AvatarUrl VARCHAR(100),"
+                +"AvatarUrl text,"
                 +"FirstName VARCHAR(100) charset utf8,"
                 +"LastName VARCHAR(100) charset utf8,"
                 +"BirthDay date,"

@@ -135,11 +135,15 @@ class FriendSearchPopup{
         avatarFriendElement.className = 'avatar-area';
         const infoAreaElement = document.createElement('div');
         infoAreaElement.className = 'info-area';
+        let lastName = user.LastName ? user.LastName : user.lastName;
+        let firstName = user.FirstName ? user.FirstName : user.firstName;
+        if(!lastName) lastName = "";
+        if(!firstName) firstName = "";
         avatarFriendElement.innerHTML = `
             <img class="avatar" src="${user.AvatarUrl ? user.AvatarUrl : user.avatarUrl}">
         `;
         infoAreaElement.innerHTML = `
-            <p class="name">${(user.LastName ? user.LastName : user.lastName) + ' ' + (user.FirstName ? user.FirstName : user.firstName)}</p>
+            <p class="name">${lastName + ' ' + firstName}</p>
             <div class="friends">
                 <div class="friend">
                     <span>Đồng ý</span>

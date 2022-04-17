@@ -24,6 +24,7 @@ namespace project.Controllers{
             //check session
             if(SessionTool.CheckSession(HttpContext, "account")){
                 // is login
+                Console.WriteLine("abc");
                 return Redirect("/Home");
             }
 

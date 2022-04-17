@@ -111,11 +111,15 @@ class GroupPopup{
         infoAreaElement.className = 'info-area';
         const checkBoxWrapElement = document.createElement('div');
         checkBoxWrapElement.className = 'checkbox';
+        let lastName = friend.LastName ? friend.LastName : friend.lastName;
+        let firstName = friend.FirstName ? friend.FirstName : friend.firstName;
+        if(!lastName) lastName = "";
+        if(!firstName) firstName = "";
         avatarFriendElement.innerHTML = `
             <img class="avatar" src="${friend.AvatarUrl ? friend.AvatarUrl : friend.avatarUrl}">
         `;
         infoAreaElement.innerHTML = `
-            <p class="name">${(friend.LastName ? friend.LastName : friend.lastName) + ' ' + (friend.FirstName ? friend.FirstName : friend.firstName)}</p>
+            <p class="name">${lastName + ' ' + firstName}</p>
         `;
         friendElement.addEventListener('click', () => {
             checkBoxWrapElement.classList.toggle('checked');
@@ -164,9 +168,13 @@ class GroupPopup{
     #createListAddedItemElement(friend){
         const itemElement = document.createElement('div');
         itemElement.className = 'list-added__item';
+        let lastName = friend.LastName ? friend.LastName : friend.lastName;
+        let firstName = friend.FirstName ? friend.FirstName : friend.firstName;
+        if(!lastName) lastName = "";
+        if(!firstName) firstName = "";
         itemElement.innerHTML = `
             <img src='${friend.AvatarUrl}'/>
-            <span>${(friend.LastName ? friend.LastName : friend.lastName) + ' ' + (friend.FirstName ? friend.FirstName : friend.firstName)}</span>
+            <span>${lastName + ' ' + firstName}</span>
         `;
 
         return itemElement;

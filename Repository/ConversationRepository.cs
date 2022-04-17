@@ -21,7 +21,7 @@ namespace project.Repository{
                 Conversation conversation = new Conversation(
                     int.Parse(conversationRow[0].ToString()),
                     conversationRow[1].ToString(),
-                    int.Parse(conversationRow[2].ToString()),
+                    ulong.Parse(conversationRow[2].ToString()),
                     new List<User>(),
                     new List<Message>()
                 );

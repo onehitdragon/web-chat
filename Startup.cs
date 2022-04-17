@@ -65,6 +65,11 @@ namespace project
                     "friend/{action}"
                 );
                 endpoints.MapControllerRoute(
+                    "home",
+                    "Home/{action}",
+                    new {controller = "Home", action = "Index"}
+                );
+                endpoints.MapControllerRoute(
                     "account",
                     "account/{action}",
                     new {controller = "Account", action = "Login"}

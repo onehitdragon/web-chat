@@ -1,6 +1,4 @@
 @using project.Models;
-@using project.Factory;
-@using project.MyTool;
 @{
     Layout = "../Shared/_Layout.cshtml";
     Account account = ViewData["account"] as Account;
@@ -54,7 +52,7 @@
 </div>
 
 <script type="module" src="~/js/login/login.js"></script>
-<meta name="google-signin-client_id" content="534298276644-p69i2p8u2qjqdfgfbl168li06c4m0msg.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script type="module" src="~/js/login/loginGoogle.js"></script>
+<meta name="google-signin-client_id" content="685022627226-qtgim2ke5al80ljtqqfig4anfhed5110.apps.googleusercontent.com">
+<script type="module" src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
 <script type="module" src="~/js/login/loginFacebook.js"></script>

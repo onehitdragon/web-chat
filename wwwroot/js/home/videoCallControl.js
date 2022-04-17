@@ -57,7 +57,7 @@ class VideoCallControl{
             if(data == 'canCalling'){
                 const messageElement = messagePopup.createMessageElement(
                     this.user.AvatarUrl,
-                    this.user.LastName + ' ' + this.user.FirstName,
+                    this.user.LastName + ' ' + this.user.FirstName ? this.user.FirstName : "",
                     'Đang gọi...',
                     null, null,
                     {
@@ -76,7 +76,7 @@ class VideoCallControl{
         this.socket.on('calling', (user) => {
             const messageElement = messagePopup.createMessageElement(
                 user.avatarUrl,
-                user.lastName + ' ' + user.firstName,
+                user.lastName + ' ' + (user.firstName ? user.firstName : ""),
                 'Đang gọi bạn...',
                 () => {
                     this.socket.invoke('AcceptCalling', user);

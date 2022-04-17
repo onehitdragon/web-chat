@@ -4,7 +4,7 @@ namespace project.Models{
     public class Conversation{
         private int id;
         private string title;
-        private int creatorId;
+        private ulong creatorId;
         private List<User> participants;
         private List<Message> messages;
         public int Id{
@@ -23,7 +23,7 @@ namespace project.Models{
                 title = value;
             }
         }
-        public int CreatorId{
+        public ulong CreatorId{
             get{
                 return creatorId;
             }
@@ -47,7 +47,7 @@ namespace project.Models{
                 messages = value;
             }
         }
-        public Conversation(int id, string title, int creatorId, List<User> idParticipants, List<Message> messages){
+        public Conversation(int id, string title, ulong creatorId, List<User> idParticipants, List<Message> messages){
             this.id = id;
             this.title = title;
             this.creatorId = creatorId;
