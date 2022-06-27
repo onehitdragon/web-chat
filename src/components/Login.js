@@ -1,11 +1,18 @@
 import './Login.css';
 import {useState} from 'react';
 import Dialog from './Dialog';
+import {useNavigate} from 'react-router-dom';
 
 function Login({showDialog, hideDialog}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLoginSuccess = () => {
+        navigate("/Home");
+        hideDialog();
+    }
 
     const handleLoginButtonClick = () => {
         setLoading(true);
@@ -17,12 +24,13 @@ function Login({showDialog, hideDialog}) {
             body: `email=${email}&password=${password}`
         })
         .then((res) => {
+            if(!res.ok) throw new Error("error");
             return res.json();
         })
         .then((data) => {
             console.log(data);
             if(data.emailIsValid && data.passwordIsValid){
-                const dialogLoginSuccess = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleCancer={hideDialog}/>;
+                const dialogLoginSuccess = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleAgree={handleLoginSuccess} handleCancer={hideDialog}/>;
                 showDialog(dialogLoginSuccess);
             }
             else{

@@ -1,10 +1,13 @@
 import './App.css';
 import './lib/icon/fontawesome-free-6.0.0-web/css/all.css';
-import Login from './components/Login';
 import { useState } from 'react';
+import Login from './components/Login';
+import Home from './components/Home';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   const [dialog, setDialog] = useState(null);
+
   const showDialog = (dialogNeedShow) => {
     setDialog(dialogNeedShow);
   }
@@ -13,10 +16,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Login showDialog={showDialog} hideDialog={hideDialog}/>
-      {dialog}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path='/' element={<Login showDialog={showDialog} hideDialog={hideDialog}/>} />
+          <Route path='/Home' element={<Home />} />
+        </Routes>
+        {dialog}
+      </div>
+    </Router>
   );
 }
 
