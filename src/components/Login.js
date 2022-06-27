@@ -1,7 +1,8 @@
 import './Login.css';
 import {useState} from 'react';
+import Dialog from './Dialog';
 
-function Login() {
+function Login({showDialog, hideDialog}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -19,9 +20,20 @@ function Login() {
             return res.json();
         })
         .then((data) => {
+            console.log(data);
+            if(data.emailIsValid && data.passwordIsValid){
+                const dialogLoginSuccess = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleCancer={hideDialog}/>;
+                showDialog(dialogLoginSuccess);
+            }
+            else{
+                const dialogLoginFail = <Dialog srcImg='/img/layout/fail0.png' title='Thất bại' content='Sai tài khoản hoặc mật khẩu' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+                showDialog(dialogLoginFail);
+            }
             setLoading(false);
         })
         .catch((e) => {
+            const dialogLoginFail = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+            showDialog(dialogLoginFail);
             setLoading(false);
         });
     }
