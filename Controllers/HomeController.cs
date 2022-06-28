@@ -25,7 +25,9 @@ namespace project.Controllers
         public IActionResult Index()
         {           
             if(!SessionTool.CheckSession(HttpContext, "account")){ 
-                return Redirect("/Account/Login");
+                return Json(new {
+                    error = "nologin"
+                });
             }
             Account account = SessionTool.GetSession<Account>(HttpContext, "account");
             User user = SessionTool.GetSession<User>(HttpContext, "user");
@@ -39,7 +41,12 @@ namespace project.Controllers
             List<User> listQuesting = friendRepository.GetListRequesting(user);
             ViewBag.ListQuesting = JsonTool.EnCode(listQuesting);
 
-            return View();
+            return Json(new {
+                you = user,
+                listConversation = listConversation,
+                listFriending = listFriending,
+                listQuesting = listQuesting
+            });
         }
         [HttpPost]
         [RequestSizeLimit(long.MaxValue)]

@@ -20,22 +20,6 @@ namespace project.Controllers{
             accountRepository = new AccountRepository();
             userRepository = new UserRepository();
         }
-        public IActionResult Login(){
-            //check session
-            if(SessionTool.CheckSession(HttpContext, "account")){
-                // is login
-                Console.WriteLine("abc");
-                return Redirect("/Home");
-            }
-
-            Account defaultAccount = accountFactory.CreateAccount("","");
-            defaultAccount.Email = CookieTool.GetCookie(HttpContext, "email");
-            defaultAccount.Password = CookieTool.GetCookie(HttpContext, "password");
-            ViewData["account"] = defaultAccount;
-            ViewData["savePassword"] = false;
-
-            return View();
-        }
         
         [HttpPost]
         public IActionResult Login(string Email, string Password, bool SavePassword){
