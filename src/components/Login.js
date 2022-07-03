@@ -1,49 +1,60 @@
 import './Login.css';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import {useNavigate} from 'react-router-dom';
+import doRequestApi from '../tools/doRequestApi';
 
 function Login({showDialog, hideDialog}) {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        doRequestApi('http://127.0.0.1:5001/account/CheckLogined', 'GET')
+        .then((data) => {
+            if(data.logined){
+                navigate('/Home');
+            }
+        })
+        .catch((e) => {
+            showDialog(<Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>);
+        })
+        // eslint-disable-next-line
+    }, []); 
+
+    const handleLoginButtonClick = () => {
+        setLoading(true);
+        let dialog;
+        doRequestApi('http://127.0.0.1:5001/account/login', 'POST', {
+            contentType: 'application/x-www-form-urlencoded',
+            body: `email=${email}&password=${password}`
+        })
+        .then((data) => {
+            console.log(data);
+            if(data.errorConnection){
+                dialog = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+            }
+            else if(data.isSuccess){
+                dialog = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleAgree={handleLoginSuccess} handleCancer={hideDialog}/>;
+            }
+            else{
+                dialog = <Dialog srcImg='/img/layout/fail0.png' title='Thất bại' content='Sai tài khoản hoặc mật khẩu' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+            dialog = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+        })
+        .finally(() => {
+            showDialog(dialog);
+            setLoading(false);
+        })
+    }
 
     const handleLoginSuccess = () => {
         navigate("/Home");
         hideDialog();
-    }
-
-    const handleLoginButtonClick = () => {
-        setLoading(true);
-        fetch('http://127.0.0.1:5000/api/account/check', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `email=${email}&password=${password}`
-        })
-        .then((res) => {
-            if(!res.ok) throw new Error("error");
-            return res.json();
-        })
-        .then((data) => {
-            console.log(data);
-            if(data.emailIsValid && data.passwordIsValid){
-                const dialogLoginSuccess = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleAgree={handleLoginSuccess} handleCancer={hideDialog}/>;
-                showDialog(dialogLoginSuccess);
-            }
-            else{
-                const dialogLoginFail = <Dialog srcImg='/img/layout/fail0.png' title='Thất bại' content='Sai tài khoản hoặc mật khẩu' handleAgree={hideDialog} handleCancer={hideDialog}/>;
-                showDialog(dialogLoginFail);
-            }
-            setLoading(false);
-        })
-        .catch((e) => {
-            const dialogLoginFail = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
-            showDialog(dialogLoginFail);
-            setLoading(false);
-        });
     }
 
     return (
