@@ -41,19 +41,25 @@ namespace project.Controllers{
 
                 // save cookie
                 if(!CookieTool.CheckCookie(HttpContext, "email", account.Email)){
-                    CookieTool.CreateCookieDays(HttpContext, "email", account.Email, 7, "/Account/Login");
+                    CookieTool.CreateCookieDays(HttpContext, "email", account.Email, 7, "/");
                 }
                 if(SavePassword){
-                    CookieTool.CreateCookieDays(HttpContext, "password", account.Password, 7, "/Account/Login");
+                    CookieTool.CreateCookieDays(HttpContext, "password", account.Password, 7, "/");
                 }
                 else{
-                    CookieTool.DeleteCookie(HttpContext, "password", "/Account/Login");
+                    CookieTool.DeleteCookie(HttpContext, "password", "/");
                 }
             }
             
             return Json(new {
                 isSuccess = !isWrongAccount,
                 nextUrl = account.GetDefaultUrl()
+            });
+        }
+
+        public IActionResult CheckLogined(){
+            return Json(new {
+                logined = SessionTool.CheckSession(HttpContext, "account") ? true : false
             });
         }
 

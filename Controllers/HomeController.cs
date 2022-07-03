@@ -23,7 +23,7 @@ namespace project.Controllers
             this.friendRepository = new FriendRepository();
         }
         public IActionResult Index()
-        {           
+        {          
             if(!SessionTool.CheckSession(HttpContext, "account")){ 
                 return Json(new {
                     error = "nologin"

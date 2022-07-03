@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using project.Socket;
 using project.Email;
+using Microsoft.AspNetCore.Http;
 
 namespace project
 {
@@ -27,10 +28,17 @@ namespace project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddCors(option => {
+            //     option.AddPolicy("mycors", policy => {
+            //         policy.WithOrigins
+            //     });
+            // });
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();  
             services.AddSession(options => {  
-                options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(60);//You can set Time
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
             });  
             services.AddMvc();
             services.AddSignalR(e => {
@@ -50,12 +58,11 @@ namespace project
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
-            app.UseRouting();
             app.UseSession();
-
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

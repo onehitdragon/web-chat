@@ -16,6 +16,7 @@ namespace project.MyTool{
         }
         public static T GetSession<T>(HttpContext httpContext, string key){
             string result = httpContext.Session.GetString(key);
+            if(result == null) return default(T);
             return JsonSerializer.Deserialize<T>(result);
         }
         public static void DeleteSession(HttpContext httpContext, string key){

@@ -1,5 +1,5 @@
 {
-  "FilePath": "d:\\3_2\\practiceteam\\project\\project.csproj",
+  "FilePath": "c:\\3_2\\practiceteam\\project\\project.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15619,28 +15619,28 @@
   "RootNamespace": "project",
   "Documents": [
     {
-      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\Account\\Login.cshtml",
+      "FilePath": "c:\\3_2\\practiceteam\\project\\Views\\Account\\Login.cshtml",
       "TargetPath": "Views\\Account\\Login.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\DataBase\\Init.cshtml",
-      "TargetPath": "Views\\DataBase\\Init.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\DataBase\\Drop.cshtml",
+      "FilePath": "c:\\3_2\\practiceteam\\project\\Views\\DataBase\\Drop.cshtml",
       "TargetPath": "Views\\DataBase\\Drop.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\3_2\\practiceteam\\project\\Views\\Shared\\_Layout.cshtml",
+      "FilePath": "c:\\3_2\\practiceteam\\project\\Views\\DataBase\\Init.cshtml",
+      "TargetPath": "Views\\DataBase\\Init.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\3_2\\practiceteam\\project\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\3_2\\practiceteam\\project\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     }
   ],
