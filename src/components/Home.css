@@ -605,7 +605,6 @@
 .body-right__messages > .message{
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
 }
 .body-right__messages > .message--mymessage{
     display: flex;
@@ -615,6 +614,10 @@
 .body-right__messages > .message > .avatar{
     border-radius: 50%;
     align-self: flex-start;
+}
+.body-right__messages > .message > .placeholder-square{
+    width: 50px;
+    height: 0px;
 }
 .body-right__messages > .message > .content{
     display: flex;
