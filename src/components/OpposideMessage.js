@@ -1,6 +1,6 @@
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 
-function OpposideMessage({message, displayAvatar = false, displayTime = false}){
+function OpposideMessage({message, displayAvatar, displayTime}){
     const opposide = message.sender;
 
     return (

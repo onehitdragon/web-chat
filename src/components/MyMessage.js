@@ -1,7 +1,8 @@
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 
-function MyMessage({message, displayAvatar = false, displayTime = false}){
+function MyMessage({message, displayAvatar, displayTime}){
     const you = message.sender;
+    const status = message.status;
 
     return (
         <div className="message message--mymessage">
@@ -10,6 +11,8 @@ function MyMessage({message, displayAvatar = false, displayTime = false}){
             <div className="content">
                 <div className="content__mes">
                     <p>{message.content}</p>
+                    {status === 'load' && <i className="status-load fa-solid fa-circle-notch"></i>}
+                    {status === 'success' && <i className="status-success fa-solid fa-check"></i>}
                 </div>
                 {displayTime && <div className="name-time message--myname-time">
                     <span className="name">{you.lastName + " " + you.firstName}</span>

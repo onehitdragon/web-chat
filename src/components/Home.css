@@ -374,6 +374,11 @@
     opacity: .45;
     transition: background-color .3s;
 }
+.body-left__conversations > .conversation-item--choiced::after{
+    background-color: black;
+    opacity: .45;
+    transition: background-color .3s;
+}
 .body-left__conversations > .conversation-item > .avatar-area{
     position: relative;
 }

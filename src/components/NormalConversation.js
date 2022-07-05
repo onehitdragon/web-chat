@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { memo } from "react";
 
-function NormalConversation({infoConversation, you, setCurrentConversation}){
-    const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
-    const [currentMessage] = useState(infoConversation.messages.at(-1));
+function NormalConversation({infoConversation, lastMessage, you, setCurrentConversation, isChoice}){
+    // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
 
     return (
-        <div className="conversation-item" onClick={() => { setCurrentConversation(infoConversation) } }>
+        <div className={'conversation-item ' + (isChoice && 'conversation-item--choiced')}
+            onClick={ () => { setCurrentConversation(infoConversation) } }>
             <div className="avatar-area">
                 <img className="avatar" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" alt="error"/>
                 <i className="fa-solid fa-circle icon-status--green"></i>
             </div>
             <div className="info-area">
                 <p className="name">{infoConversation.title}</p>
-                <p className="last-mes">{currentMessage != null ? currentMessage.content : 'Trò chuyện ngay'}</p>
+                <p className="last-mes">{lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'}</p>
             </div>
             <div className="status-area">
                 <p className="time">
@@ -24,4 +24,4 @@ function NormalConversation({infoConversation, you, setCurrentConversation}){
     );
 }
 
-export default NormalConversation;
+export default memo(NormalConversation);
