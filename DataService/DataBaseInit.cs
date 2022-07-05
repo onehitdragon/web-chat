@@ -113,6 +113,7 @@ namespace project.DataService{
                 +"id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Conversation_Id int,"
                 +"Users_Id BIGINT unsigned,"
+                +"AmountMessageNotRead int,"
                 +"FOREIGN KEY (Conversation_Id) REFERENCES conversation(Id),"
                 +"FOREIGN KEY (Users_Id) REFERENCES users(id)"
             +")";
@@ -121,12 +122,12 @@ namespace project.DataService{
             // init participant data
             query = "SELECT * FROM participants";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
-                query = "INSERT INTO participants(Conversation_Id, Users_Id) VALUES (1, 1);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id) VALUES (1, 5);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id) VALUES (2, 4);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id) VALUES (2, 5);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id) VALUES (3, 3);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id) VALUES (3, 5);";
+                query = "INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (1, 1, 1);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (1, 5, 2);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (2, 4, 3);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (2, 5, 1);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (3, 3, 2);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (3, 5, 5);";
                 dataProvider.ExcuteQuery(query);
             }
 
@@ -150,6 +151,20 @@ namespace project.DataService{
                         +"INSERT INTO relation(Sender, Receiver, State) VALUES (4, 5, 'friending');";
                 dataProvider.ExcuteQuery(query);
             }
+
+            // // create usernotread table
+            // query = "CREATE TABLE IF NOT EXISTS UserNotRead("
+            //         + "Conversation_Id INT,"
+            //         + "User_Id BIGINT unsigned,"
+            //         + "AmountMessage INT DEFAULT 0,"
+            //         + "FOREIGN KEY (Conversation_Id) REFERENCES Conversation(Id),"
+            //         + "FOREIGN KEY (User_Id) REFERENCES Users(Id)"
+            //         +")";
+            // dataProvider.ExcuteQuery(query);
+
+            // // init usernotread table
+            // query = "INSERT INTO UserNotRead VALUES (1, 1, 3)";
+            // dataProvider.ExcuteQuery(query);
         }
         public void DropChatAppDB(){
             string query = "DROP DATABASE IF EXISTS chatapp";

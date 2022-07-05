@@ -50,7 +50,7 @@ namespace project.Socket{
             await Task.Delay(mili);
             
             UpdateClients(id, conversation);
-            // await Clients.Caller.SendAsync("serverReceivedMessage", messageElementId);
+            
         }
         private void UpdateClients(string id, Conversation conversation){
             List<User> listParticipants = conversation.Participants;
@@ -76,25 +76,24 @@ namespace project.Socket{
                 }
             }
         }
-        public void Typing(string json, bool isTyping){
-            dynamic data = JsonTool.DeCode(json);
-
-            Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
+        public void Typing(int idConversation, bool isTyping){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            Conversation conversation = conversationRepository.GetConversation(idConversation);
             List<User> listOtherParticipants = conversation.GetOtherParticipants(clientData.User);
+
             // loop connected users
             foreach(var client in chatHubData.DictionaryClient){
                 if(listOtherParticipants.Exists((participant) => {return participant.Id == client.Value.User.Id;}))
                 {
                     Clients.Client(client.Key).SendAsync(
-                        isTyping ? "typing" : "stopTyping",
+                        isTyping ? "haveTyping" : "haveStopTyping",
                         JsonTool.EnCode(new {
-                            conversationTyping = conversation,
-                            senderTyping = clientData.User
+                            idConversation = idConversation,
+                            idUser = clientData.User.Id
                         })
                     );
                 }
-            } 
+            }
         }
         public void ReadConversation(string json){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);

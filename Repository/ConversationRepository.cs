@@ -27,11 +27,14 @@ namespace project.Repository{
                 );
 
                 int idConversation = conversation.Id;
-                query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
+                query = $"SELECT users.*, AmountMessageNotRead FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
                 DataTable userTable = dataProvider.GetDataTable(query);
                 foreach(DataRow userRow in userTable.Rows){
                     User user = userRepository.CreateUserByDataRow(userRow);
                     conversation.Participants.Add(user);
+                    if(user.Id == idUser){
+                        conversation.AmountMessageNotRead = int.Parse(userRow[10].ToString());
+                    }
                 }
 
                 query = "SELECT * FROM messages WHERE Conversation_Id = " + idConversation;
@@ -73,6 +76,9 @@ namespace project.Repository{
             }
             string query = $"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) " +
                 $"VALUES ({idConversation}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
+            dataProvider.ExcuteQuery(query);
+
+            query = $"UPDATE participants SET AmountMessageNotRead = AmountMessageNotRead + 1 WHERE Conversation_Id = {idConversation} AND Users_Id != {mes.Sender.Id}";
             dataProvider.ExcuteQuery(query);
 
             return GetConversation(idConversation);

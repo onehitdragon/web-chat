@@ -7,6 +7,7 @@ namespace project.Models{
         private ulong creatorId;
         private List<User> participants;
         private List<Message> messages;
+        private int amountMessageNotRead;
         public int Id{
             get{
                 return id;
@@ -45,6 +46,15 @@ namespace project.Models{
             }
             set{
                 messages = value;
+            }
+        }
+
+        public int AmountMessageNotRead{
+            get{
+                return amountMessageNotRead;
+            }
+            set{
+                amountMessageNotRead = value;
             }
         }
         public Conversation(int id, string title, ulong creatorId, List<User> idParticipants, List<Message> messages){
