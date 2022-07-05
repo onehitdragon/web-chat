@@ -27,39 +27,42 @@ namespace project.Socket{
             ClientData clientData = new ClientData(user, listConversation);
             chatHubData.AddClient(Context.ConnectionId, clientData);
 
-            Console.WriteLine(Context.ConnectionId);
+            Console.WriteLine(user.LastName + " " + user.FirstName + " : " + Context.ConnectionId);
         }
         override public async Task OnDisconnectedAsync(Exception exception){
             await base.OnDisconnectedAsync(exception);
             chatHubData.RemoveClient(Context.ConnectionId);
             Console.WriteLine(Context.ConnectionId + " disconnected");
         }
-        public async Task SendMessage(string json, int messageElementId){
+        public async Task SendMessage(string json){
             dynamic data = JsonTool.DeCode(json);
 
-            Conversation conversation = JsonTool.DeCode<Conversation>(data.ToString());
+            string id = data.id.ToString();
+            int idConversation = int.Parse(data.idConversation.ToString());
+            Message newMessage = JsonTool.DeCode<Message>(data.newMessage.ToString());
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
-            conversationRepository.AddMessage(conversation, conversation.Messages[conversation.Messages.Count - 1]);
-            messageReaderRepository.AddMessage(json);
-            this.UpdateListConversation(clientData.ListConversation, conversation);
+
+            Conversation conversation = conversationRepository.AddMessage(idConversation, newMessage);
+            // messageReaderRepository.AddMessage(json);
 
             Random rand = new Random();
             int mili = rand.Next(1, 10) * 500;
             await Task.Delay(mili);
             
-            UpdateClients(conversation);
-            await Clients.Caller.SendAsync("serverReceivedMessage", messageElementId);
+            UpdateClients(id, conversation);
+            // await Clients.Caller.SendAsync("serverReceivedMessage", messageElementId);
         }
-        private void UpdateClients(Conversation conversation){
-            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
-            List<User> listOtherParticipants = conversation.GetOtherParticipants(clientData.User);
+        private void UpdateClients(string id, Conversation conversation){
+            List<User> listParticipants = conversation.Participants;
+            Console.WriteLine(listParticipants.Count.ToString() + "human");
             // loop connected users
             foreach(var client in chatHubData.DictionaryClient){
-                if(listOtherParticipants.Exists((participant) => {return participant.Id == client.Value.User.Id;}))
+                if(listParticipants.Exists((participant) => {return participant.Id == client.Value.User.Id;}))
                 {
                     this.UpdateListConversation(client.Value.ListConversation, conversation);
                     Clients.Client(client.Key).SendAsync(
                         "haveNewMessage",
+                        id,
                         JsonTool.EnCode(conversation)
                     );
                 }

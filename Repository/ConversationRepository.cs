@@ -67,6 +67,56 @@ namespace project.Repository{
                 $"VALUES ({conversation.Id}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
             dataProvider.ExcuteQuery(query);
         }
+        public Conversation AddMessage(int idConversation, Message mes){
+            if(!String.IsNullOrEmpty(mes.FileAttachUrl)){
+                mes.FileAttachUrl = mes.FileAttachUrl.Replace("\\","\\\\");
+            }
+            string query = $"INSERT INTO messages(Conversation_Id, Sender_Id, Message_Type, Message, Attachment_url, Create_at) " +
+                $"VALUES ({idConversation}, {mes.Sender.Id}, N'{mes.TypeMessage}', N'{mes.Content}', '{mes.FileAttachUrl}', CURRENT_TIMESTAMP)";
+            dataProvider.ExcuteQuery(query);
+
+            return GetConversation(idConversation);
+        }
+        public Conversation GetConversation(int idConversation){
+            string query = $"SELECT * FROM conversation WHERE Id = {idConversation}";
+            DataRow conversationRow = dataProvider.GetDataTable(query).Rows[0];
+            Conversation conversation = new Conversation(
+                    int.Parse(conversationRow[0].ToString()),
+                    conversationRow[1].ToString(),
+                    ulong.Parse(conversationRow[2].ToString()),
+                    new List<User>(),
+                    new List<Message>()
+                );
+
+            query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
+            DataTable userTable = dataProvider.GetDataTable(query);
+            foreach(DataRow userRow in userTable.Rows){
+                User user = userRepository.CreateUserByDataRow(userRow);
+                conversation.Participants.Add(user);
+            }
+
+            query = "SELECT * FROM messages WHERE Conversation_Id = " + idConversation;
+            DataTable messageTable = dataProvider.GetDataTable(query);
+            foreach(DataRow messageRow in messageTable.Rows){
+                Message message = new Message(
+                    int.Parse(messageRow[0].ToString()),
+                    null,
+                    messageRow[3].ToString() == "text" ? TypeMessage.Text : TypeMessage.File,
+                    messageRow[4].ToString(),
+                    messageRow[5].ToString(),
+                    DateTime.Parse(messageRow[6].ToString())
+                );
+                foreach(User user in conversation.Participants){
+                    if(user.Id == ulong.Parse(messageRow[2].ToString())){
+                        message.Sender = user;
+                        break;
+                    }
+                }
+                conversation.Messages.Add(message);
+            }
+
+            return conversation;
+        }
         public void AddConversation(User user1, User user2){
             string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{user1.LastName + " " + user1.FirstName}', {user1.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
             dataProvider.ExcuteQuery(query);
