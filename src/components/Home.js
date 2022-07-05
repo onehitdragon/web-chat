@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import doRequestApi from '../tools/doRequestApi';
 import NormalConversation from './NormalConversation';
@@ -17,6 +17,7 @@ function Home(){
     const [you, setYou] = useState(null);
     const [currentConversation, setCurrentConversation] = useState(null);
     const [connection, setConnection] = useState(null);
+    const currentInputChatRef = createRef();
 
     useEffect(() => {
         doRequestApi('http://127.0.0.1:5001/home/index', 'GET')
@@ -78,13 +79,29 @@ function Home(){
                     if(conversationFound.scroll !== undefined){
                         conversationFound.scroll = -1;
                     }
+                    conversationFound.amountMessageNotRead += 1;
                 }
                 
                 setListConversation([...listConversation]);
             });
+
+            connection.on("haveTyping", (res) => {
+                receiveTypingFromServer(res, false);
+            });
+            connection.on("haveStopTyping", (res) => {
+                receiveTypingFromServer(res, true);
+            }); 
         }
         // eslint-disable-next-line
     }, [connection]);
+
+    useEffect(() => {
+        if(currentConversation !== null){
+            currentInputChatRef.current.focus();
+        }
+
+        // eslint-disable-next-line
+    }, [currentConversation]);
 
     const sendTextMessage = (content) => {
         const newMessage = {
@@ -116,6 +133,30 @@ function Home(){
 
     const handleScrollContentChat = (value) => {
         currentConversation.scroll = value;
+    }
+
+    const sendTypingToServer = (isSend = true) => {
+        return connection.invoke("Typing", currentConversation.id, isSend);
+    }
+
+    const receiveTypingFromServer = (res, isStop) => {
+        const data = JSON.parse(res);
+        const idConversation = data.idConversation;
+        const idUser = data.idUser;
+        const conversationFound = listConversation.find(conversationItem => conversationItem.id === idConversation);
+        const participants = conversationFound.participants;
+        participants.find((participant) => {
+            if(participant.id === idUser){
+                isStop ? participant.typing = false : participant.typing = true;
+                return true;
+            }
+            return false;
+        });
+        if(conversationFound.scroll !== undefined){
+            conversationFound.scroll = -1;
+        }
+
+        setListConversation([...listConversation]);
     }
 
     return (
@@ -196,9 +237,14 @@ function Home(){
                             listMessage = { currentConversation.messages }
                             scroll = { currentConversation.scroll }
                             handleScrollContentChat = { handleScrollContentChat }
+                            listTypingOpposide = { currentConversation.participants.filter(participant => {
+                                return participant.typing;
+                            }) }
                         />
                         <InputChatArea
                             sendTextMessage = { sendTextMessage }
+                            sendTypingToServer = { sendTypingToServer }
+                            ref= { currentInputChatRef }
                         />
                     </div>
                 }

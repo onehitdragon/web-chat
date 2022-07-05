@@ -1,4 +1,5 @@
 import { memo } from "react";
+import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 
 function NormalConversation({infoConversation, lastMessage, you, setCurrentConversation, isChoice}){
     // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
@@ -17,8 +18,16 @@ function NormalConversation({infoConversation, lastMessage, you, setCurrentConve
             <div className="status-area">
                 <p className="time">
                     <i className="fa-solid fa-check"></i>
-                    <span></span>
+                    <span>
+                        {lastMessage != null && convertTimeToDisplay(lastMessage.createAt)}
+                    </span>
                 </p>
+                { 
+                    infoConversation.amountMessageNotRead !== 0 &&
+                    <i className="fa-solid fa-circle status">
+                        <span>{infoConversation.amountMessageNotRead < 10 && infoConversation.amountMessageNotRead}</span>
+                    </i>
+                }
             </div>
         </div>
     );
