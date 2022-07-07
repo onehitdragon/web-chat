@@ -75,5 +75,18 @@ namespace project.Controllers
 
             return Content(JsonTool.EnCode(listConversation));
         }
+
+        [HttpPut]
+        public IActionResult UpdateAmountMessageNotRead(int idConversation, int idUser){
+            if(!SessionTool.CheckSession(HttpContext, "account")){ 
+                return Json(new {
+                    error = "nologin"
+                });
+            }
+            conversationRepository.SetAmountMessageNotRead(idConversation, idUser, 0);
+            return Json(new {
+                state = "success"
+            });
+        }
     }
 }

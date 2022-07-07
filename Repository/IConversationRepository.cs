@@ -8,5 +8,6 @@ namespace project.Repository{
         Conversation GetConversation(int idConversation);
         void AddConversation(User user1, User user2);
         void AddConversation(string nameConversation, User creator, User[] listParticipants);
+        void SetAmountMessageNotRead(int idConversation, int idUser, int amount);
     }
 }

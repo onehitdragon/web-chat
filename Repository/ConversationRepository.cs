@@ -146,5 +146,10 @@ namespace project.Repository{
             string query = "SELECT MAX(Id) FROM conversation";
             return int.Parse(dataProvider.GetDataTable(query).Rows[0][0].ToString());
         }
+
+        public void SetAmountMessageNotRead(int idConversation, int idUser, int amount){
+            string query = $"UPDATE participants SET AmountMessageNotRead = {amount} WHERE Conversation_Id = {idConversation} AND Users_Id = {idUser}";
+            dataProvider.ExcuteQuery(query);
+        }
     }
 }
