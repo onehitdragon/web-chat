@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
+import IconChatArea from "./IconChatArea";
 
 const InputChatArea = forwardRef(({sendTextMessage, sendTypingToServer}, ref) => {
     const [currentContent, setCurrentContent] = useState("");
@@ -46,9 +47,7 @@ const InputChatArea = forwardRef(({sendTextMessage, sendTypingToServer}, ref) =>
                 onKeyDown={ handleSendMessage }
                 onBlur={ handleOnBlur }
             />
-            <button type="button" name="icon">
-                <i className="fa-solid fa-face-smile"></i>
-            </button>
+            <IconChatArea />
         </div>
     );
 });
