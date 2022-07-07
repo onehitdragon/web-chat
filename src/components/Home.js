@@ -98,8 +98,8 @@ function Home(){
     useEffect(() => {
         if(currentConversation !== null){
             currentInputChatRef.current.focus();
+            clearAmountMessageNotRead();
         }
-
         // eslint-disable-next-line
     }, [currentConversation]);
 
@@ -136,6 +136,7 @@ function Home(){
     }
 
     const sendTypingToServer = (isSend = true) => {
+        clearAmountMessageNotRead();
         return connection.invoke("Typing", currentConversation.id, isSend);
     }
 
@@ -157,6 +158,20 @@ function Home(){
         }
 
         setListConversation([...listConversation]);
+    }
+
+    const clearAmountMessageNotRead = () => {
+        if(currentConversation.amountMessageNotRead > 0){
+            currentConversation.amountMessageNotRead = 0;
+            doRequestApi('http://127.0.0.1:5001/home/UpdateAmountMessageNotRead', 'PUT', {
+                contentType: 'application/x-www-form-urlencoded',
+                body: `idConversation=${currentConversation.id}&idUser=${you.id}`
+            })
+            .then(data => {
+                console.log(data);
+            })
+            setListConversation([...listConversation]);
+        }
     }
 
     return (
@@ -217,11 +232,13 @@ function Home(){
                             {listConversation != null && listConversation.map((conversation) => {
                                 return conversation.participants.length <= 2 ? (
                                     <NormalConversation key = { conversation.id }
-                                    infoConversation = { conversation }
-                                    lastMessage = { conversation.messages.at(-1) }
-                                    you = { you }
-                                    setCurrentConversation = { setCurrentConversation }
-                                    isChoice={ currentConversation != null && conversation.id === currentConversation.id }/>
+                                        infoConversation = { conversation }
+                                        lastMessage = { conversation.messages.at(-1) }
+                                        you = { you }
+                                        setCurrentConversation = { setCurrentConversation }
+                                        isChoice={ currentConversation != null && conversation.id === currentConversation.id }
+                                        amountMessageNotRead = { conversation.amountMessageNotRead }
+                                    />
                                 ) : "";
                             })}
                         </div>

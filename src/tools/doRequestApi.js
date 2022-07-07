@@ -10,9 +10,9 @@ function doRequestApi(url, medthod, option = {}){
             return res.json();
         })
     }
-    if(medthod.toUpperCase() === 'POST'){
+    if(medthod.toUpperCase() === 'POST' || medthod.toUpperCase() === 'PUT'){
         return fetch(url, {
-            method: 'POST',
+            method: medthod.toUpperCase(),
             mode: 'cors',
             credentials: 'include',
             headers: {

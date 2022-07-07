@@ -1,7 +1,7 @@
 import { memo } from "react";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 
-function NormalConversation({infoConversation, lastMessage, you, setCurrentConversation, isChoice}){
+function NormalConversation({infoConversation, lastMessage, you, setCurrentConversation, isChoice, amountMessageNotRead}){
     // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
 
     return (
@@ -23,9 +23,9 @@ function NormalConversation({infoConversation, lastMessage, you, setCurrentConve
                     </span>
                 </p>
                 { 
-                    infoConversation.amountMessageNotRead !== 0 &&
+                    amountMessageNotRead !== 0 &&
                     <i className="fa-solid fa-circle status">
-                        <span>{infoConversation.amountMessageNotRead < 10 && infoConversation.amountMessageNotRead}</span>
+                        <span>{amountMessageNotRead < 10 && amountMessageNotRead}</span>
                     </i>
                 }
             </div>
