@@ -3,17 +3,23 @@ import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import {useNavigate} from 'react-router-dom';
 import doRequestApi from '../tools/doRequestApi';
+import { useDispatch } from "react-redux";
 
 function Login({showDialog, hideDialog}) {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         doRequestApi('http://127.0.0.1:5001/account/CheckLogined', 'GET')
         .then((data) => {
             if(data.logined){
+                dispatch({
+                    type: "login/updateStatus",
+                    status: "success"
+                });
                 navigate('/Home');
             }
         })
@@ -53,6 +59,10 @@ function Login({showDialog, hideDialog}) {
     }
 
     const handleLoginSuccess = () => {
+        dispatch({
+            type: "login/updateStatus",
+            status: "success"
+        });
         navigate("/Home");
         hideDialog();
     }

@@ -6,60 +6,58 @@ import './Home.css';
 import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
-import { v4 as uuidv4 } from "uuid";
-
-const signalr = require('@microsoft/signalr');
+import { useSelector, useDispatch } from "react-redux"
 
 function Home(){
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [listConversation, setListConversation] = useState(null);
-    const [you, setYou] = useState(null);
+    const dispatch = useDispatch();
+    const socket = useSelector(state => state.socket);
+    const login = useSelector(state => state.login);
+    const you = useSelector(state => state.you);
+    const conversations = useSelector(state => state.conversations);
     const [currentConversation, setCurrentConversation] = useState(null);
-    const [connection, setConnection] = useState(null);
     const currentInputChatRef = createRef();
 
     useEffect(() => {
-        doRequestApi('http://127.0.0.1:5001/home/index', 'GET')
-        .then((data) => {
-            console.log(data);
-            if(data.error === 'nologin'){
-                navigate('/');
-            }
-            else{
-                setLoading(false);
-                setListConversation(data.listConversation);
-                setYou(data.you);
-                setConnection(
-                    new signalr.HubConnectionBuilder()
-                        .withUrl('http://127.0.0.1:5001/chat')
-                        .build()
-                );
-            }
-        })
-        .catch((e) => {
-            console.log(e);
+        dispatch({
+            type: "initState"
         });
+
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        if(connection != null){
-            connection.start()
+        if(login.loginStatus === "nologin"){
+            navigate("/");
+        }
+        
+        // eslint-disable-next-line
+    }, [login.loginStatus]);
+
+    useEffect(() => {
+        if(conversations !== null){
+            setLoading(false);
+        }
+    }, [conversations]);
+
+    useEffect(() => {
+        if(socket !== null){
+            socket.start()
             .then(() => {
-                connection.invoke('Init', JSON.stringify({
+                socket.invoke('Init', JSON.stringify({
                     user: you,
-                    listConversation: listConversation
+                    listConversation: conversations
                 }));
             })
             .catch(e => {
                 console.log(e);
             });
 
-            connection.on("haveNewMessage", (netId, res) => {
+            socket.on("haveNewMessage", (netId, res) => {
                 const conversation = JSON.parse(res);
                 const newMessage = conversation.messages.at(-1);
-                const conversationFound = listConversation.find(conversationItem => conversationItem.id === conversation.id);
+                const conversationFound = conversations.find(conversationItem => conversationItem.id === conversation.id);
                 conversationFound.messages.push(newMessage);
 
                 const sender = newMessage.sender;
@@ -82,54 +80,29 @@ function Home(){
                     conversationFound.amountMessageNotRead += 1;
                 }
                 
-                setListConversation([...listConversation]);
+                dispatch({
+                    type: "conversations/updateConversaions"
+                });
             });
 
-            connection.on("haveTyping", (res) => {
+            socket.on("haveTyping", (res) => {
                 receiveTypingFromServer(res, false);
             });
-            connection.on("haveStopTyping", (res) => {
+            socket.on("haveStopTyping", (res) => {
                 receiveTypingFromServer(res, true);
             }); 
         }
         // eslint-disable-next-line
-    }, [connection]);
+    }, [socket]);
 
     useEffect(() => {
         if(currentConversation !== null){
             currentInputChatRef.current.focus();
             clearAmountMessageNotRead();
         }
+
         // eslint-disable-next-line
     }, [currentConversation]);
-
-    const sendTextMessage = (content) => {
-        const newMessage = {
-            content: content,
-            createAt: new Date().toISOString(),
-            fileAttachUrl: "",
-            sender: you,
-            typeMessage: 0,
-            status: 'load'
-        }
-        sendMessageToServer(newMessage);
-        currentConversation.scroll = undefined;
-        currentConversation.messages.push(newMessage);
-        setListConversation([...listConversation]);
-    }
-
-    const sendMessageToServer = (newMessage) => {
-        const netId = uuidv4();
-        connection.invoke('SendMessage', JSON.stringify({
-            id: netId,
-            idConversation: currentConversation.id,
-            newMessage: newMessage
-        }))
-        .catch((e) => {
-            console.log(e);
-        });
-        newMessage.netId = netId;
-    }
 
     const handleScrollContentChat = (value) => {
         currentConversation.scroll = value;
@@ -137,14 +110,14 @@ function Home(){
 
     const sendTypingToServer = (isSend = true) => {
         clearAmountMessageNotRead();
-        return connection.invoke("Typing", currentConversation.id, isSend);
+        return socket.invoke("Typing", currentConversation.id, isSend);
     }
 
     const receiveTypingFromServer = (res, isStop) => {
         const data = JSON.parse(res);
         const idConversation = data.idConversation;
         const idUser = data.idUser;
-        const conversationFound = listConversation.find(conversationItem => conversationItem.id === idConversation);
+        const conversationFound = conversations.find(conversationItem => conversationItem.id === idConversation);
         const participants = conversationFound.participants;
         participants.find((participant) => {
             if(participant.id === idUser){
@@ -157,7 +130,9 @@ function Home(){
             conversationFound.scroll = -1;
         }
 
-        setListConversation([...listConversation]);
+        dispatch({
+            type: "conversations/updateConversaions"
+        });
     }
 
     const clearAmountMessageNotRead = () => {
@@ -170,7 +145,10 @@ function Home(){
             .then(data => {
                 console.log(data);
             })
-            setListConversation([...listConversation]);
+            
+            dispatch({
+                type: "conversations/updateConversaions"
+            });
         }
     }
 
@@ -199,7 +177,7 @@ function Home(){
                         <div className="body-left__head">
                             <img className="avatar" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" alt="error" />
                             <div className="name-area">
-                                <p className="name">{you.lastName + ' ' + you.firstName}</p>
+                                <p className="name">{you !== null && (you.lastName + ' ' + you.firstName)}</p>
                                 <p className="status">
                                     <i className="fa-solid fa-circle"></i>
                                     <span> Trực tuyến</span>
@@ -229,7 +207,7 @@ function Home(){
                             <p className="line"></p>
                         </div>
                         <div className="body-left__conversations">
-                            {listConversation != null && listConversation.map((conversation) => {
+                            {conversations !== null && conversations.map((conversation) => {
                                 return conversation.participants.length <= 2 ? (
                                     <NormalConversation key = { conversation.id }
                                         infoConversation = { conversation }
@@ -259,7 +237,7 @@ function Home(){
                             }) }
                         />
                         <InputChatArea
-                            sendTextMessage = { sendTextMessage }
+                            currentConversation = { currentConversation }
                             sendTypingToServer = { sendTypingToServer }
                             ref= { currentInputChatRef }
                         />

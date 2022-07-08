@@ -3,10 +3,29 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux'
+import { initStateMiddleware, loggingMiddleware } from './app/features/middleware/middleware';
+import youReducer from "./app/features/chat/youSlice";
+import loginReducer from './app/features/login/loginSlice';
+import conversationsReducer from './app/features/chat/conversationsSlice'
+import socketReducer from './app/features/connection/socketSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = configureStore({
+  reducer: {
+    socket: socketReducer,
+    login: loginReducer,
+    you: youReducer,
+    conversations: conversationsReducer
+  },
+  middleware : [initStateMiddleware, loggingMiddleware]
+})
+
 root.render(
-  <App />
+  <Provider store={ store }>
+    <App />
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
