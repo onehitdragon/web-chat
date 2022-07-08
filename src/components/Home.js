@@ -16,7 +16,7 @@ function Home(){
     const login = useSelector(state => state.login);
     const you = useSelector(state => state.you);
     const conversations = useSelector(state => state.conversations);
-    const [currentConversation, setCurrentConversation] = useState(null);
+    const currentConversation = useSelector(state => state.currentConversation);
     const currentInputChatRef = createRef();
 
     useEffect(() => {
@@ -213,7 +213,6 @@ function Home(){
                                         infoConversation = { conversation }
                                         lastMessage = { conversation.messages.at(-1) }
                                         you = { you }
-                                        setCurrentConversation = { setCurrentConversation }
                                         isChoice={ currentConversation != null && conversation.id === currentConversation.id }
                                         amountMessageNotRead = { conversation.amountMessageNotRead }
                                     />
@@ -237,7 +236,6 @@ function Home(){
                             }) }
                         />
                         <InputChatArea
-                            currentConversation = { currentConversation }
                             sendTypingToServer = { sendTypingToServer }
                             ref= { currentInputChatRef }
                         />

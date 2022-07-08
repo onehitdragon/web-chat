@@ -1,4 +1,5 @@
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
+import FileContent from "./FileContent";
 
 function MyMessage({message, displayAvatar, displayTime}){
     const you = message.sender;
@@ -10,7 +11,8 @@ function MyMessage({message, displayAvatar, displayTime}){
             {!displayAvatar && <div className="placeholder-square"></div>}
             <div className="content">
                 <div className="content__mes">
-                    <p>{message.content}</p>
+                    {message.typeMessage === 0 && <p>{message.content}</p>}
+                    {message.typeMessage === 1 && <FileContent url={ message.fileAttachUrl }/>}
                     {status === 'load' && <i className="status-load fa-solid fa-circle-notch"></i>}
                     {status === 'success' && <i className="status-success fa-solid fa-check"></i>}
                 </div>

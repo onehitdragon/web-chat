@@ -1,7 +1,16 @@
 import { memo, useState } from "react";
+import { useDispatch } from "react-redux";
 
 function IconRow({title, listIcon}){
     const [showing, setShowing] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleIconClick = (icon) => {
+        dispatch({
+            type: "sendIconMessage",
+            icon: icon
+        });
+    }
 
     return (
         <div className="menu-row">
@@ -13,7 +22,9 @@ function IconRow({title, listIcon}){
                 {
                     listIcon.map((icon, index) => {
                         return (
-                            <div key={ icon } className={"icon " + (index % 2 === 0 ? "icon--red" : "icon--blue")}>
+                            <div key={ icon }
+                                className={"icon " + (index % 2 === 0 ? "icon--red" : "icon--blue")}
+                                onClick = { () => { handleIconClick(icon); } }>
                                 <img src={ "/img/icons/" + icon } alt="error"/>
                             </div>
                         );

@@ -1,12 +1,21 @@
 import { memo } from "react";
+import { useDispatch } from "react-redux";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 
-function NormalConversation({infoConversation, lastMessage, you, setCurrentConversation, isChoice, amountMessageNotRead}){
+function NormalConversation({infoConversation, lastMessage, you, isChoice, amountMessageNotRead}){
     // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
+    const dispatch = useDispatch();
+    
+    const handleClickConversaion = () => {
+        dispatch({
+            type: "currentConversation/setCurrentConversation",
+            currentConversation: infoConversation
+        });
+    }
 
     return (
         <div className={'conversation-item ' + (isChoice && 'conversation-item--choiced')}
-            onClick={ () => { setCurrentConversation(infoConversation) } }>
+            onClick={ () => { handleClickConversaion(); } }>
             <div className="avatar-area">
                 <img className="avatar" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" alt="error"/>
                 <i className="fa-solid fa-circle icon-status--green"></i>

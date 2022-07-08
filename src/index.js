@@ -5,11 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux'
-import { initStateMiddleware, loggingMiddleware } from './app/features/middleware/middleware';
+import middleware from './app/features/middleware/middleware';
 import youReducer from "./app/features/chat/youSlice";
 import loginReducer from './app/features/login/loginSlice';
 import conversationsReducer from './app/features/chat/conversationsSlice'
 import socketReducer from './app/features/connection/socketSlice';
+import currentConversationReducer from './app/features/chat/currentConversationSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
@@ -17,9 +18,10 @@ const store = configureStore({
     socket: socketReducer,
     login: loginReducer,
     you: youReducer,
-    conversations: conversationsReducer
+    conversations: conversationsReducer,
+    currentConversation: currentConversationReducer
   },
-  middleware : [initStateMiddleware, loggingMiddleware]
+  middleware : middleware
 })
 
 root.render(

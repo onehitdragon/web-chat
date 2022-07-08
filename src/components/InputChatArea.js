@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch } from "react-redux";
 
-const InputChatArea = forwardRef(({currentConversation, sendTypingToServer}, ref) => {
+const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
     const [currentContent, setCurrentContent] = useState("");
     const [typing, setTyping] = useState(false);
     const dispatch = useDispatch();
@@ -19,9 +19,7 @@ const InputChatArea = forwardRef(({currentConversation, sendTypingToServer}, ref
                 dispatch({
                     type: "sendTextMessage",
                     content: currentContent,
-                    currentConversation: currentConversation
                 });
-                currentConversation.scroll = undefined;
             });
             setCurrentContent('');
         }
