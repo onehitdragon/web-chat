@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
+import { useSelector } from "react-redux";
+import { getDownloadURL, ref } from "firebase/storage";
 
 function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, listTypingOpposide}){
     const bodyElement = useRef(null);
     const [loading, setLoading] = useState(true);
+    const storageFireBase = useSelector(state => state.storageFireBase);
 
     const loadAllImage = () => {
         const loadImagePromise = (imageSrc) => {
@@ -19,9 +22,32 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
                 }
             });
         }
+        const loadImageFireBasePromise = (message) => {
+            return new Promise((resolve, reject) => {
+                getDownloadURL(ref(storageFireBase, message.fileAttachUrl))
+                .then((src) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = () => {
+                        setTimeout(() => {
+                            message.fileAttachUrl = src;
+                            resolve();
+                        }, 500);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    reject(error);
+                });
+            });
+        }
         Promise.all(listMessage.map(message => {
             if(message.fileAttachUrl.includes("/img/icons/")){
                 return loadImagePromise(message.fileAttachUrl);
+            }
+            // is image from firebase
+            if(message.fileAttachUrl.includes("/image/")){
+                return loadImageFireBasePromise(message);
             }
             return "";
         }))

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch } from "react-redux";
 
@@ -6,6 +6,7 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
     const [currentContent, setCurrentContent] = useState("");
     const [typing, setTyping] = useState(false);
     const dispatch = useDispatch();
+    const fileInputRef = useRef();
 
     const handleOnChange = (e) => {
         setCurrentContent(e.target.value);
@@ -39,9 +40,22 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
         // eslint-disable-next-line
     }, [currentContent]);
 
+    const handleOnChangeFile = () => {
+        const inputElement = fileInputRef.current;
+        const file = inputElement.files[0];
+        inputElement.value = "";
+        dispatch({
+            type: "sendFileMessage",
+            file: file
+        });
+    }
+
     return (
         <div className="body-right__send">
-            <button type="button" name="add-file">
+            <button type="button" name="add-file"
+                onClick={() => { fileInputRef.current.click(); }}>
+                <input ref={fileInputRef} style={{display: "none"}}
+                    type="file"onChange={() => { handleOnChangeFile(); }}/>
                 <i className="fa-solid fa-circle-plus"></i>
             </button>
             <input ref={ ref } type="text" placeholder="Nhập tin nhắn..." 
