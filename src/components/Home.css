@@ -611,6 +611,34 @@
     display: flex;
     align-items: center;
 }
+.body-right__messages--hide-messages > .message{
+    display: none !important;
+}
+.body-right__messages > .message-loading-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.body-right__messages > .message-loading-area > .road{
+    width: 100%;
+    display: flex;
+}
+.body-right__messages > .message-loading-area > .road > img{
+    width: 150px;
+    transform: rotateY(180deg) translateX(0px);
+    animation: dino-ani 1000s ease-in-out;
+}
+@keyframes dino-ani{
+    0%{
+        transform: rotateY(180deg) translateX(0px);
+    }
+    5%{
+        transform: rotateY(180deg) translateX(-300px);
+    }
+}
 .body-right__messages > .message--mymessage{
     display: flex;
     flex-direction: row-reverse;
@@ -636,6 +664,7 @@
 }
 .body-right__messages > .message > .content > .content__mes{
     margin-bottom: 5px;
+    display: flex;
 }
 .body-right__messages > .message--mymessage > .content > .content__mes{
     display: flex;

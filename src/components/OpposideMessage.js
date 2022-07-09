@@ -1,4 +1,5 @@
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
+import FileContent from "./FileContent";
 
 function OpposideMessage({message, displayAvatar, displayTime}){
     const opposide = message.sender;
@@ -9,7 +10,8 @@ function OpposideMessage({message, displayAvatar, displayTime}){
             {!displayAvatar && <div className="placeholder-square"></div>}
             <div className="content">
                 <div className="content__mes">
-                    <p>{message.content}</p>
+                    {message.typeMessage === 0 && <p>{message.content}</p>}
+                    {message.typeMessage === 1 && <FileContent url={ message.fileAttachUrl }/>}
                 </div>
                 {displayTime && <div className="name-time">
                     <span className="name">{opposide.lastName + " " + opposide.firstName}</span>

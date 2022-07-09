@@ -1,10 +1,40 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
 
 function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, listTypingOpposide}){
     const bodyElement = useRef(null);
+    const [loading, setLoading] = useState(true);
+
+    const loadAllImage = () => {
+        const loadImagePromise = (imageSrc) => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = imageSrc;
+                img.onload = () => {
+                    setTimeout(() => {
+                        resolve();
+                    }, 500);
+                }
+            });
+        }
+        Promise.all(listMessage.map(message => {
+            if(message.fileAttachUrl.includes("/img/icons/")){
+                return loadImagePromise(message.fileAttachUrl);
+            }
+            return "";
+        }))
+        .then(() => {
+            setLoading(false);
+        });
+    }
+
+    useEffect(() => {
+        loadAllImage();
+
+        // eslint-disable-next-line
+    }, []);
 
     const loadMessageNodes = () => {
         let previousId = -1;
@@ -47,25 +77,50 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
     }
 
     useEffect(() => {
-        const element = bodyElement.current;
-        if(scroll === undefined){
-            element.scroll(0, element.scrollHeight);
-        }
-        else if(scroll === -1){ // when receive message
-            const max = element.scrollHeight - element.clientHeight;
-            if(element.scrollTop > max - 100){
+        if(!loading){
+            const element = bodyElement.current;
+            element.classList.remove("body-right__messages--hide-messages");
+            if(scroll === undefined){
                 element.scroll(0, element.scrollHeight);
             }
-        }
-        else{
-            element.scroll(0, scroll);
-        }
+            else if(scroll === -1){ // when receive message
+                const max = element.scrollHeight - element.clientHeight;
+                if(element.scrollTop > max - 100){
+                    element.scroll(0, element.scrollHeight);
+                }
+            }
+            else{
+                element.scroll(0, scroll);
+            }
+        } 
     });
 
     return (
-        <div ref={bodyElement} className="body-right__messages" onScroll={handleScroll}>
-            { loadMessageNodes() }
-            { loadTypingMessageNodes() }
+        <div ref={bodyElement}
+            className={"body-right__messages body-right__messages--hide-messages"}
+            onScroll={ handleScroll }
+            >
+            {!loading && loadMessageNodes() }
+            {!loading && loadTypingMessageNodes() }
+            {loading && 
+                <div className='message-loading-area'>
+                    <div className='road'>
+                        <img src='/img/icons/something.gif' alt='error'/>
+                    </div>
+                    <div className="message-loading">
+                        <div className="content">
+                            <div className='content__mes'>
+                                <p className="loading">
+                                    <i className="fa-solid fa-circle"></i>
+                                    <i className="fa-solid fa-circle"></i>
+                                    <i className="fa-solid fa-circle"></i>
+                                </p>
+                            </div>
+                            <div className="name-time"></div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     );
 }

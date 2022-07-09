@@ -58,22 +58,31 @@ function Home(){
                 const conversation = JSON.parse(res);
                 const newMessage = conversation.messages.at(-1);
                 const conversationFound = conversations.find(conversationItem => conversationItem.id === conversation.id);
-                conversationFound.messages.push(newMessage);
 
                 const sender = newMessage.sender;
                 if(sender.id === you.id){
-                    conversationFound.messages.find((message, index) => {
+                    conversationFound.messages.find((message) => {
                         if(message.netId === netId){
-                            // remove
-                            conversationFound.messages.splice(index, 1);
+                            // replace
+                            message.id = newMessage.id;
+                            message.status = "success";
                             return true;
                         }
                         return false;
                     });
-                    newMessage.netId = netId;
-                    newMessage.status = "success";
                 }
                 else{
+                    const result = conversationFound.messages.find((message, index) => {
+                        if(message.status === "load"){
+                            // insert before
+                            conversationFound.messages.splice(index, 0, newMessage);
+                            return true;
+                        }
+                        return false;
+                    });
+                    if(result === undefined){
+                        conversationFound.messages.push(newMessage);
+                    }
                     if(conversationFound.scroll !== undefined){
                         conversationFound.scroll = -1;
                     }
@@ -227,6 +236,7 @@ function Home(){
                         <div className="body-right__before"></div>
                         <HeaderChatArea title={currentConversation.title} />
                         <ContentChatArea
+                            key={ currentConversation.id }
                             you = { you }
                             listMessage = { currentConversation.messages }
                             scroll = { currentConversation.scroll }

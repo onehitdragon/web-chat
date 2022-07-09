@@ -1,7 +1,7 @@
 import { Fragment, memo, useEffect, useRef, useState } from "react";
 import IconRow from "./IconRow";
 
-function IconChatArea({currentConversation}){
+function IconChatArea(){
     const [dinoIcons] = useState(['ankylosaurus.png','apatosaurus.png','archaeopteryx.png','dilophosaurus.png',
     'dinosaur-egg.png','dried-insect-in-amber.png','elasmosaurus.png','fossil.png','pteranodon.png',
     'spinosaurus.png','stegosaurus.png','triceratops.png','velociraptor.png']);
@@ -28,9 +28,9 @@ function IconChatArea({currentConversation}){
             </button>
             <div ref={ iconAreaElementRef } className="icon-area" style={{ display: showing ? "flex" : "none" }}>
                 <div className="main">
-                    <IconRow title="Dinos" listIcon={ dinoIcons } currentConversation = { currentConversation }/>
-                    <IconRow title="Mọi người" listIcon={ emojiIcons } currentConversation = { currentConversation }/>
-                    <IconRow title="No war" listIcon={ nowarIcons } currentConversation = { currentConversation }/>
+                    <IconRow title="Dinos" listIcon={ dinoIcons } />
+                    <IconRow title="Mọi người" listIcon={ emojiIcons } />
+                    <IconRow title="No war" listIcon={ nowarIcons } />
                 </div>
             </div>
         </Fragment>

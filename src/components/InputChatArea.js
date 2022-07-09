@@ -14,12 +14,10 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
     const handleSendMessage = (e) => {
         if(e.key === 'Enter' && currentContent !== ''){
             setTyping(false);
-            sendTypingToServer(false)
-            .then(() => {
-                dispatch({
-                    type: "sendTextMessage",
-                    content: currentContent,
-                });
+            sendTypingToServer(false);
+            dispatch({
+                type: "sendTextMessage",
+                content: currentContent,
             });
             setCurrentContent('');
         }
