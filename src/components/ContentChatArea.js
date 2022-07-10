@@ -125,6 +125,7 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
         <div ref={bodyElement}
             className={"body-right__messages body-right__messages--hide-messages"}
             onScroll={ handleScroll }
+            
             >
             {!loading && loadMessageNodes() }
             {!loading && loadTypingMessageNodes() }
