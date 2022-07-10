@@ -1,8 +1,14 @@
+import IconContent from "./IconContent";
+import ImageContent from "./ImageContent";
+
 function FileContent({url}){
-    
-    return (
-        <img src={url} style={{ width: "40px" }} alt="error" />
-    );
+    if(url.includes("/img/icons/")){
+        return <IconContent src = {url}/>;
+    }
+    if(url.includes("/image/")){
+        console.log("abc");
+        return <ImageContent src = {url}/>;
+    }
 }
 
 export default FileContent;

@@ -1,16 +1,16 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
+import { setCurrentConversation } from "../app/features/chat/currentConversationSlice";
 
 function NormalConversation({infoConversation, lastMessage, you, isChoice, amountMessageNotRead}){
     // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
     const dispatch = useDispatch();
     
     const handleClickConversaion = () => {
-        dispatch({
-            type: "currentConversation/setCurrentConversation",
-            currentConversation: infoConversation
-        });
+        dispatch(setCurrentConversation({
+            currentConversation: {...infoConversation}
+        }));
     }
 
     return (

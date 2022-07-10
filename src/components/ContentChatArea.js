@@ -52,15 +52,15 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
             return "";
         }))
         .then(() => {
-            setLoading(false);
+            if(loading) setLoading(false);
         });
     }
 
     useEffect(() => {
         loadAllImage();
-
+        console.log("loading");
         // eslint-disable-next-line
-    }, []);
+    });
 
     const loadMessageNodes = () => {
         let previousId = -1;

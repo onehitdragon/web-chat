@@ -5,11 +5,14 @@ import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import doRequestApi from '../tools/doRequestApi';
 import NormalConversation from './NormalConversation';
+import { setScroll } from "../app/features/chat/currentConversationSlice";
 
-function BodyMain({you, socket}){
+function BodyMain(){
     const conversations = useSelector(state => state.conversations);
     const currentConversation = useSelector(state => state.currentConversation);
     const dispatch = useDispatch();
+    const socket = useSelector(state => state.socket);
+    const you = useSelector(state => state.you);
     const currentInputChatRef = createRef();
 
     useEffect(() => {
@@ -100,6 +103,10 @@ function BodyMain({you, socket}){
     useEffect(() => {
         if(currentConversation !== null){
             currentInputChatRef.current.focus();
+            dispatch({
+                type: "conversations/updateConversaion",
+                conversation: currentConversation
+            });
             clearAmountMessageNotRead();
         }
 
@@ -129,7 +136,7 @@ function BodyMain({you, socket}){
     }
 
     const handleScrollContentChat = (value) => {
-        currentConversation.scroll = value;
+        dispatch(setScroll(value));
     }
     
     return (
@@ -189,7 +196,6 @@ function BodyMain({you, socket}){
                 <div className="body-right__before"></div>
                 <HeaderChatArea title={currentConversation.title} />
                 <ContentChatArea
-                    key={ currentConversation.id }
                     you = { you }
                     listMessage = { currentConversation.messages }
                     scroll = { currentConversation.scroll }

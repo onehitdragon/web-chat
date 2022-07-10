@@ -10,7 +10,6 @@ function Home(){
     const dispatch = useDispatch();
     const socket = useSelector(state => state.socket);
     const login = useSelector(state => state.login);
-    const you = useSelector(state => state.you);
     const [loading, setLoading] = useState(true);
     const BodyMainWithHomeLoading = withHomeLoading(BodyMain, loading);
 
@@ -40,7 +39,7 @@ function Home(){
 
     return (
         <div className="body">
-            <BodyMainWithHomeLoading you = {you} socket = {socket}/>
+            <BodyMainWithHomeLoading />
         </div>
     );
 }

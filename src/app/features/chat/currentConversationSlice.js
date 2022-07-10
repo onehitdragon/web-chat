@@ -1,10 +1,24 @@
-const initialSate = null;
+import { createSlice } from "@reduxjs/toolkit";
 
-function currentConversationReducer(state = initialSate, action){
-    if(action.type === "currentConversation/setCurrentConversation"){
-        return action.currentConversation;
+const currentConversationSlice = createSlice(
+    {
+        name: "currentConversation",
+        initialState: null,
+        reducers: {
+            setCurrentConversation: (state, action) => {
+                return action.payload.currentConversation;
+            },
+            addNewMessage: (state, action) => {
+                const newMessage = action.payload.newMessage;
+                state.messages.push(newMessage);
+                state.scroll = undefined;
+            },
+            setScroll: (state, action) => {
+                state.scroll = action.payload;
+            }
+        }
     }
-    return state;
-}
+);
 
-export default currentConversationReducer;
+export default currentConversationSlice.reducer;
+export const { setCurrentConversation, addNewMessage, setScroll } = currentConversationSlice.actions;

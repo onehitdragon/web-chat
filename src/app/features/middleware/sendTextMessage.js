@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { addNewMessage } from "../chat/currentConversationSlice";
 
 const sendTextMessageMiddleware = (store) => (next) => (action) => {
     if(action.type === "sendTextMessage"){
@@ -24,12 +25,11 @@ const sendTextMessageMiddleware = (store) => (next) => (action) => {
         });
 
         newMessage.netId = netId;
-        currentConversation.messages.push(newMessage);
-        currentConversation.scroll = undefined;
         
-        next({
-            type: "conversations/updateConversaions"
-        });
+        next(addNewMessage({
+            newMessage: newMessage
+        }));
+        
     }
     else{
         next(action);
