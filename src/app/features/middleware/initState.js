@@ -1,4 +1,5 @@
 import doRequestApi from "../../../tools/doRequestApi";
+import { initConversations } from "../chat/conversationsSlice";
 
 const initStateMiddleware = (store) => (next) => (action) => {
     if(action.type === "initState"){
@@ -23,10 +24,10 @@ const initStateMiddleware = (store) => (next) => (action) => {
                     type: "you/updateYou",
                     you: data.you
                 });
-                next({
-                    type: "conversations/initConversaions",
-                    conversations: data.listConversation
-                });
+                next(initConversations({
+                    conversations: data.listConversation,
+                    currentConversationId: undefined
+                }));
             }
         })
         .catch((e) => {

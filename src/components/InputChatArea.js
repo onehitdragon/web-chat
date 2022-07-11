@@ -1,12 +1,24 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentConversaion } from "../app/features/chat/conversationsSlice";
 
-const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
+
+function InputChatArea({sendTypingToServer}){
+    const currentConversation = useSelector(selectCurrentConversaion);
     const [currentContent, setCurrentContent] = useState("");
     const [typing, setTyping] = useState(false);
     const dispatch = useDispatch();
+    const textInputRef = useRef();
     const fileInputRef = useRef();
+
+    useEffect(() => {
+        if(currentConversation !== undefined){
+            textInputRef.current.focus();
+        }
+
+        // eslint-disable-next-line
+    }, [currentConversation]);
 
     const handleOnChange = (e) => {
         setCurrentContent(e.target.value);
@@ -15,7 +27,7 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
     const handleSendMessage = (e) => {
         if(e.key === 'Enter' && currentContent !== ''){
             setTyping(false);
-            sendTypingToServer(false);
+            //sendTypingToServer(false);
             dispatch({
                 type: "sendTextMessage",
                 content: currentContent,
@@ -27,14 +39,14 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
     const handleOnBlur = () => {
         if(typing){
             setTyping(false);
-            sendTypingToServer(false);
+            //sendTypingToServer(false);
         }
     }
 
     useEffect(() => {
         if(currentContent !== "" && !typing){
             setTyping(true);
-            sendTypingToServer(true);
+            //sendTypingToServer(true);
         }
 
         // eslint-disable-next-line
@@ -58,7 +70,7 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
                     type="file"onChange={() => { handleOnChangeFile(); }}/>
                 <i className="fa-solid fa-circle-plus"></i>
             </button>
-            <input ref={ ref } type="text" placeholder="Nhập tin nhắn..." 
+            <input ref={ textInputRef } type="text" placeholder="Nhập tin nhắn..." 
                 value={ currentContent }
                 onChange={ handleOnChange }
                 onKeyDown={ handleSendMessage }
@@ -67,6 +79,6 @@ const InputChatArea = forwardRef(({sendTypingToServer}, ref) => {
             <IconChatArea />
         </div>
     );
-});
+};
 
 export default InputChatArea;

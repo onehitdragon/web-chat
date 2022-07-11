@@ -1,19 +1,18 @@
-import { createRef, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import doRequestApi from '../tools/doRequestApi';
 import NormalConversation from './NormalConversation';
-import { setScroll } from "../app/features/chat/currentConversationSlice";
+import { addNewMessage, selectConversations, selectCurrentConversaion, removeAmountMessageNotRead } from "../app/features/chat/conversationsSlice";
 
 function BodyMain(){
-    const conversations = useSelector(state => state.conversations);
-    const currentConversation = useSelector(state => state.currentConversation);
+    const conversations = useSelector(selectConversations);
+    const currentConversation = useSelector(selectCurrentConversaion);
     const dispatch = useDispatch();
     const socket = useSelector(state => state.socket);
     const you = useSelector(state => state.you);
-    const currentInputChatRef = createRef();
 
     useEffect(() => {
         if(socket !== null){
@@ -31,41 +30,12 @@ function BodyMain(){
             socket.on("haveNewMessage", (netId, res) => {
                 const conversation = JSON.parse(res);
                 const newMessage = conversation.messages.at(-1);
-                const conversationFound = conversations.find(conversationItem => conversationItem.id === conversation.id);
-
-                const sender = newMessage.sender;
-                if(sender.id === you.id){
-                    conversationFound.messages.find((message) => {
-                        if(message.netId === netId){
-                            // replace
-                            message.id = newMessage.id;
-                            message.status = "success";
-                            return true;
-                        }
-                        return false;
-                    });
-                }
-                else{
-                    const result = conversationFound.messages.find((message, index) => {
-                        if(message.status === "load"){
-                            // insert before
-                            conversationFound.messages.splice(index, 0, newMessage);
-                            return true;
-                        }
-                        return false;
-                    });
-                    if(result === undefined){
-                        conversationFound.messages.push(newMessage);
-                    }
-                    if(conversationFound.scroll !== undefined){
-                        conversationFound.scroll = -1;
-                    }
-                    conversationFound.amountMessageNotRead += 1;
-                }
-                
-                dispatch({
-                    type: "conversations/updateConversaions"
-                });
+                dispatch(addNewMessage({
+                    idConversation: conversation.id,
+                    you: you,
+                    netId: netId,
+                    newMessage: newMessage
+                }));
             });
 
             socket.on("haveTyping", (res) => {
@@ -77,7 +47,7 @@ function BodyMain(){
         }
         // eslint-disable-next-line
     }, [socket]);
-    
+
     const receiveTypingFromServer = (res, isStop) => {
         const data = JSON.parse(res);
         const idConversation = data.idConversation;
@@ -100,27 +70,14 @@ function BodyMain(){
         });
     }
 
-    useEffect(() => {
-        if(currentConversation !== null){
-            currentInputChatRef.current.focus();
-            dispatch({
-                type: "conversations/updateConversaion",
-                conversation: currentConversation
-            });
-            clearAmountMessageNotRead();
-        }
-
-        // eslint-disable-next-line
-    }, [currentConversation]);
-
     const sendTypingToServer = (isSend = true) => {
-        clearAmountMessageNotRead();
+        // clearAmountMessageNotRead();
         return socket.invoke("Typing", currentConversation.id, isSend);
     }
 
-    const clearAmountMessageNotRead = () => {
+    const clearAmountMessageNotRead = () => {  
         if(currentConversation.amountMessageNotRead > 0){
-            currentConversation.amountMessageNotRead = 0;
+            dispatch(removeAmountMessageNotRead());
             doRequestApi('http://127.0.0.1:5001/home/UpdateAmountMessageNotRead', 'PUT', {
                 contentType: 'application/x-www-form-urlencoded',
                 body: `idConversation=${currentConversation.id}&idUser=${you.id}`
@@ -128,15 +85,7 @@ function BodyMain(){
             .then(data => {
                 console.log(data);
             })
-            
-            dispatch({
-                type: "conversations/updateConversaions"
-            });
         }
-    }
-
-    const handleScrollContentChat = (value) => {
-        dispatch(setScroll(value));
     }
     
     return (
@@ -195,18 +144,9 @@ function BodyMain(){
             <div className="body-right">
                 <div className="body-right__before"></div>
                 <HeaderChatArea title={currentConversation.title} />
-                <ContentChatArea
-                    you = { you }
-                    listMessage = { currentConversation.messages }
-                    scroll = { currentConversation.scroll }
-                    handleScrollContentChat = { handleScrollContentChat }
-                    listTypingOpposide = { currentConversation.participants.filter(participant => {
-                        return participant.typing;
-                    }) }
-                />
+                <ContentChatArea key={ currentConversation.id }/>
                 <InputChatArea
                     sendTypingToServer = { sendTypingToServer }
-                    ref= { currentInputChatRef }
                 />
             </div>
         }

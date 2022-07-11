@@ -10,7 +10,6 @@ import youReducer from "./app/features/chat/youSlice";
 import loginReducer from './app/features/login/loginSlice';
 import conversationsReducer from './app/features/chat/conversationsSlice'
 import socketReducer from './app/features/connection/socketSlice';
-import currentConversationReducer from './app/features/chat/currentConversationSlice';
 import storageFireBaseReducer from './app/features/chat/storageFireBaseSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,7 +19,6 @@ const store = configureStore({
     login: loginReducer,
     you: youReducer,
     conversations: conversationsReducer,
-    currentConversation: currentConversationReducer,
     storageFireBase: storageFireBaseReducer
   },
   middleware : middleware

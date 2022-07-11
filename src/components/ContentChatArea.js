@@ -2,10 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getDownloadURL, ref } from "firebase/storage";
+import { setScroll, selectCurrentConversaion } from '../app/features/chat/conversationsSlice';
 
-function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, listTypingOpposide}){
+function ContentChatArea(){
+    const you = useSelector(state => state.you);
+    const currentConversation = useSelector(selectCurrentConversaion);
+    const listMessage = currentConversation.messages;
+    const listTypingOpposide = currentConversation.participants.filter(participant => {
+        return participant.typing;
+    });
+    const scroll = currentConversation.scroll;
+    const dispatch = useDispatch();
     const bodyElement = useRef(null);
     const [loading, setLoading] = useState(true);
     const storageFireBase = useSelector(state => state.storageFireBase);
@@ -58,7 +67,6 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
 
     useEffect(() => {
         loadAllImage();
-        console.log("loading");
         // eslint-disable-next-line
     });
 
@@ -99,7 +107,7 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
     }
 
     const handleScroll = (e) => {
-        handleScrollContentChat(e.target.scrollTop);
+        dispatch(setScroll(e.target.scrollTop));
     }
 
     useEffect(() => {
@@ -125,7 +133,6 @@ function ContentChatArea({you, listMessage, scroll, handleScrollContentChat, lis
         <div ref={bodyElement}
             className={"body-right__messages body-right__messages--hide-messages"}
             onScroll={ handleScroll }
-            
             >
             {!loading && loadMessageNodes() }
             {!loading && loadTypingMessageNodes() }

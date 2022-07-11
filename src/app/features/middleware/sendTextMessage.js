@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { addNewMessage } from "../chat/currentConversationSlice";
+import { selectCurrentConversaion, addYourNewMessage } from "../chat/conversationsSlice";
 
 const sendTextMessageMiddleware = (store) => (next) => (action) => {
     if(action.type === "sendTextMessage"){
@@ -13,7 +13,7 @@ const sendTextMessageMiddleware = (store) => (next) => (action) => {
             status: 'load'
         }
 
-        const currentConversation = store.getState().currentConversation;
+        const currentConversation = selectCurrentConversaion(store.getState());
         
         store.getState().socket.invoke('SendMessage', JSON.stringify({
             id: netId,
@@ -26,7 +26,7 @@ const sendTextMessageMiddleware = (store) => (next) => (action) => {
 
         newMessage.netId = netId;
         
-        next(addNewMessage({
+        next(addYourNewMessage({
             newMessage: newMessage
         }));
         
