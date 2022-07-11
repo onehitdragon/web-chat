@@ -67,6 +67,18 @@ const conversationsSlice = createSlice({
             if(currentConversation.amountMessageNotRead > 0){
                 currentConversation.amountMessageNotRead = 0;
             }
+        },
+        updateTyping: (state, action) => {
+            const conversationFound = state.conversations.find(conversation => conversation.id === action.payload.idConversation);
+            const participants = conversationFound.participants;
+            participants.find(participant => {
+                if(participant.id === action.payload.idUser){
+                    participant.typing = action.payload.typing;
+                    return true;
+                }
+                return false;
+            });
+            conversationFound.scroll = -1;
         }
     }
 });
@@ -77,7 +89,7 @@ function findCurrentConversation(conversations, currentConversationId){
 
 export default conversationsSlice.reducer;
 export const { initConversations, setCurrentConversationId, setScroll, addYourNewMessage,
-    haveNewMessage, addNewMessage, removeAmountMessageNotRead}
+    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping}
     = conversationsSlice.actions;
 
 const selectConversations = (state) => state.conversations.conversations;

@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
-import doRequestApi from '../tools/doRequestApi';
 import NormalConversation from './NormalConversation';
-import { addNewMessage, selectConversations, selectCurrentConversaion, removeAmountMessageNotRead } from "../app/features/chat/conversationsSlice";
+import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../app/features/chat/conversationsSlice";
 
 function BodyMain(){
     const conversations = useSelector(selectConversations);
@@ -39,54 +38,24 @@ function BodyMain(){
             });
 
             socket.on("haveTyping", (res) => {
-                receiveTypingFromServer(res, false);
+                const data = JSON.parse(res);
+                dispatch(updateTyping({
+                    idConversation: data.idConversation,
+                    idUser: data.idUser,
+                    typing: true
+                }));
             });
             socket.on("haveStopTyping", (res) => {
-                receiveTypingFromServer(res, true);
+                const data = JSON.parse(res);
+                dispatch(updateTyping({
+                    idConversation: data.idConversation,
+                    idUser: data.idUser,
+                    typing: false
+                }));
             }); 
         }
         // eslint-disable-next-line
     }, [socket]);
-
-    const receiveTypingFromServer = (res, isStop) => {
-        const data = JSON.parse(res);
-        const idConversation = data.idConversation;
-        const idUser = data.idUser;
-        const conversationFound = conversations.find(conversationItem => conversationItem.id === idConversation);
-        const participants = conversationFound.participants;
-        participants.find((participant) => {
-            if(participant.id === idUser){
-                isStop ? participant.typing = false : participant.typing = true;
-                return true;
-            }
-            return false;
-        });
-        if(conversationFound.scroll !== undefined){
-            conversationFound.scroll = -1;
-        }
-
-        dispatch({
-            type: "conversations/updateConversaions"
-        });
-    }
-
-    const sendTypingToServer = (isSend = true) => {
-        // clearAmountMessageNotRead();
-        return socket.invoke("Typing", currentConversation.id, isSend);
-    }
-
-    const clearAmountMessageNotRead = () => {  
-        if(currentConversation.amountMessageNotRead > 0){
-            dispatch(removeAmountMessageNotRead());
-            doRequestApi('http://127.0.0.1:5001/home/UpdateAmountMessageNotRead', 'PUT', {
-                contentType: 'application/x-www-form-urlencoded',
-                body: `idConversation=${currentConversation.id}&idUser=${you.id}`
-            })
-            .then(data => {
-                console.log(data);
-            })
-        }
-    }
     
     return (
         <div className="body__main-home">
@@ -145,9 +114,7 @@ function BodyMain(){
                 <div className="body-right__before"></div>
                 <HeaderChatArea title={currentConversation.title} />
                 <ContentChatArea key={ currentConversation.id }/>
-                <InputChatArea
-                    sendTypingToServer = { sendTypingToServer }
-                />
+                <InputChatArea />
             </div>
         }
         </div>

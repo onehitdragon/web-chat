@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentConversaion } from "../app/features/chat/conversationsSlice";
 
 
-function InputChatArea({sendTypingToServer}){
+function InputChatArea(){
     const currentConversation = useSelector(selectCurrentConversaion);
+    const socket = useSelector(state => state.socket);
     const [currentContent, setCurrentContent] = useState("");
     const [typing, setTyping] = useState(false);
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function InputChatArea({sendTypingToServer}){
     const handleSendMessage = (e) => {
         if(e.key === 'Enter' && currentContent !== ''){
             setTyping(false);
-            //sendTypingToServer(false);
+            socket.invoke("Typing", currentConversation.id, false);
             dispatch({
                 type: "sendTextMessage",
                 content: currentContent,
@@ -39,15 +40,18 @@ function InputChatArea({sendTypingToServer}){
     const handleOnBlur = () => {
         if(typing){
             setTyping(false);
-            //sendTypingToServer(false);
+            socket.invoke("Typing", currentConversation.id, false);
         }
     }
 
     useEffect(() => {
         if(currentContent !== "" && !typing){
             setTyping(true);
-            //sendTypingToServer(true);
+            socket.invoke("Typing", currentConversation.id, true);
         }
+        dispatch({
+            type: "removeAmountMessageNotRead"
+        });
 
         // eslint-disable-next-line
     }, [currentContent]);

@@ -11,7 +11,9 @@ function NormalConversation({infoConversation, lastMessage, you, isChoice, amoun
         dispatch(setCurrentConversationId({
             id: infoConversation.id
         }));
-        dispatch(removeAmountMessageNotRead());
+        dispatch({
+            type: "removeAmountMessageNotRead"
+        });
     }
 
     return (
