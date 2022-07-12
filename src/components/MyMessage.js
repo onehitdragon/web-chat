@@ -12,7 +12,7 @@ function MyMessage({message, displayAvatar, displayTime}){
             <div className="content">
                 <div className="content__mes">
                     {message.typeMessage === 0 && <p>{message.content}</p>}
-                    {message.typeMessage === 1 && <FileContent url={ message.fileAttachUrl }/>}
+                    {message.typeMessage === 1 && <FileContent  message = { message }/>}
                     {status === 'load' && <i className="status-load fa-solid fa-circle-notch"></i>}
                     {status === 'success' && <i className="status-success fa-solid fa-check"></i>}
                 </div>

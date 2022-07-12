@@ -1,13 +1,12 @@
 import IconContent from "./IconContent";
 import ImageContent from "./ImageContent";
 
-function FileContent({url}){
-    if(url.includes("/img/icons/")){
-        return <IconContent src = {url}/>;
+function FileContent({message}){
+    if(message.typeFile === "icon"){
+        return <IconContent src = {message.src}/>;
     }
-    if(url.includes("/image/")){
-        console.log("abc");
-        return <ImageContent src = {url}/>;
+    if(message.typeFile === "image"){
+        return <ImageContent src = {message.src}/>;
     }
 }
 

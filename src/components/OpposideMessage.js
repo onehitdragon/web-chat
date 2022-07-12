@@ -11,7 +11,7 @@ function OpposideMessage({message, displayAvatar, displayTime}){
             <div className="content">
                 <div className="content__mes">
                     {message.typeMessage === 0 && <p>{message.content}</p>}
-                    {message.typeMessage === 1 && <FileContent url={ message.fileAttachUrl }/>}
+                    {message.typeMessage === 1 && <FileContent  message = { message }/>}
                 </div>
                 {displayTime && <div className="name-time">
                     <span className="name">{opposide.lastName + " " + opposide.firstName}</span>

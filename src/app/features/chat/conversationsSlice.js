@@ -60,7 +60,6 @@ const conversationsSlice = createSlice({
                 }
                 conversationFound.amountMessageNotRead += 1;
             }
-            console.log(conversationFound.amountMessageNotRead);
         },
         removeAmountMessageNotRead: (state, action) => {
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
@@ -79,6 +78,19 @@ const conversationsSlice = createSlice({
                 return false;
             });
             conversationFound.scroll = -1;
+        },
+        updateStateFileMessage: (state, action) => {
+            const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
+            const messages = currentConversation.messages;
+            messages.find(message => {
+                if(message.id === action.payload.idMessage){
+                    message.typeFile = action.payload.typeFile; 
+                    message.src = action.payload.src;
+                    message.loaded = action.payload.loaded;
+                    return true;
+                }
+                return false;
+            });
         }
     }
 });
@@ -89,7 +101,7 @@ function findCurrentConversation(conversations, currentConversationId){
 
 export default conversationsSlice.reducer;
 export const { initConversations, setCurrentConversationId, setScroll, addYourNewMessage,
-    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping}
+    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage}
     = conversationsSlice.actions;
 
 const selectConversations = (state) => state.conversations.conversations;

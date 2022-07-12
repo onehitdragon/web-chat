@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { selectCurrentConversaion, addYourNewMessage } from "../chat/conversationsSlice";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const sendFileMessage = (store) => (next) => (action) => {
@@ -18,9 +19,6 @@ const sendFileMessage = (store) => (next) => (action) => {
         uploadBytes(storageRef, file)
         .then(res => {
             console.log("success upload file to fire base");
-            return getDownloadURL(ref(storageFireBase, fileName));
-        })
-        .then(url => {
             const newMessage = {
                 content: "Đã gửi file",
                 createAt: new Date().toISOString(),
@@ -30,7 +28,7 @@ const sendFileMessage = (store) => (next) => (action) => {
                 status: 'load'
             }
 
-            const currentConversation = store.getState().currentConversation;
+            const currentConversation = selectCurrentConversaion(store.getState());
 
             store.getState().socket.invoke('SendMessage', JSON.stringify({
                 id: netId,
@@ -42,13 +40,10 @@ const sendFileMessage = (store) => (next) => (action) => {
             });
 
             newMessage.netId = netId;
-            newMessage.fileAttachUrl = url;
-            currentConversation.messages.push(newMessage);
-            currentConversation.scroll = undefined;
             
-            next({
-                type: "conversations/updateConversaions"
-            });
+            next(addYourNewMessage({
+                newMessage: newMessage
+            }));
         })
         .catch((e) => {
             console.log(e);

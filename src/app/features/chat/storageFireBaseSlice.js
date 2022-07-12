@@ -19,3 +19,4 @@ function storageFireBaseReducer(state = initialState, action){
 }
 
 export default storageFireBaseReducer;
+export { storageFireBase }

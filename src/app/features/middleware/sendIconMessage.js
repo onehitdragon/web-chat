@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { selectCurrentConversaion, addYourNewMessage } from "../chat/conversationsSlice";
 
 const sendIconMessageMiddleware = (store) => (next) => (action) => {
     if(action.type === "sendIconMessage"){
@@ -12,7 +13,7 @@ const sendIconMessageMiddleware = (store) => (next) => (action) => {
             status: 'load'
         }
 
-        const currentConversation = store.getState().currentConversation;
+        const currentConversation = selectCurrentConversaion(store.getState());
 
         store.getState().socket.invoke('SendMessage', JSON.stringify({
             id: netId,
@@ -24,12 +25,10 @@ const sendIconMessageMiddleware = (store) => (next) => (action) => {
         });
 
         newMessage.netId = netId;
-        currentConversation.messages.push(newMessage);
-        currentConversation.scroll = undefined;
         
-        next({
-            type: "conversations/updateConversaions"
-        });
+        next(addYourNewMessage({
+            newMessage: newMessage
+        }));
     }
     else{
         next(action);

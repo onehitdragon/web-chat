@@ -3,8 +3,9 @@ import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
 import { useSelector, useDispatch } from "react-redux";
-import { getDownloadURL, ref } from "firebase/storage";
-import { setScroll, selectCurrentConversaion } from '../app/features/chat/conversationsSlice';
+import { setScroll, selectCurrentConversaion, updateStateFileMessage } from '../app/features/chat/conversationsSlice';
+import checkFileType from '../tools/checkFileType';
+import { loadIconPromise, loadImagePromise } from '../tools/LoadFilePromise';
 
 function ContentChatArea(){
     const you = useSelector(state => state.you);
@@ -19,56 +20,38 @@ function ContentChatArea(){
     const [loading, setLoading] = useState(true);
     const storageFireBase = useSelector(state => state.storageFireBase);
 
-    const loadAllImage = () => {
-        const loadImagePromise = (imageSrc) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = imageSrc;
-                img.onload = () => {
-                    setTimeout(() => {
-                        resolve();
-                    }, 500);
+    useEffect(() => {
+        Promise.all(listMessage.map((message) => {
+            const type = checkFileType(message.fileAttachUrl);
+            if(type !== "text" && type !== "other" && !message.loaded){
+                if(type === "icon"){
+                    return loadIconPromise(message);
+                }
+                if(type === "image"){
+                    return loadImagePromise(message, storageFireBase);
+                }
+            }
+            return undefined;
+        }))
+        .then((data) => {
+            data.forEach(messageLoaded => {
+                if(messageLoaded !== undefined){
+                    dispatch(updateStateFileMessage({
+                        idMessage: messageLoaded.message.id,
+                        typeFile: messageLoaded.type,
+                        src: messageLoaded.src,
+                        loaded: true
+                    }));
+                    if(messageLoaded.message.id === listMessage.at(-1).id){
+                        dispatch(setScroll(undefined));
+                    }
                 }
             });
-        }
-        const loadImageFireBasePromise = (message) => {
-            return new Promise((resolve, reject) => {
-                getDownloadURL(ref(storageFireBase, message.fileAttachUrl))
-                .then((src) => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = () => {
-                        setTimeout(() => {
-                            message.fileAttachUrl = src;
-                            resolve();
-                        }, 500);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    reject(error);
-                });
-            });
-        }
-        Promise.all(listMessage.map(message => {
-            if(message.fileAttachUrl.includes("/img/icons/")){
-                return loadImagePromise(message.fileAttachUrl);
-            }
-            // is image from firebase
-            if(message.fileAttachUrl.includes("/image/")){
-                return loadImageFireBasePromise(message);
-            }
-            return "";
-        }))
-        .then(() => {
-            if(loading) setLoading(false);
+            setLoading(false);
         });
-    }
 
-    useEffect(() => {
-        loadAllImage();
         // eslint-disable-next-line
-    });
+    }, [listMessage]);
 
     const loadMessageNodes = () => {
         let previousId = -1;
