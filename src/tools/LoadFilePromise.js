@@ -39,5 +39,51 @@ const loadImagePromise = (message, storageFireBase) => {
     });
 }
 
-export { loadIconPromise, loadImagePromise }
+const loadMusicPromise = (message, storageFireBase) => {
+    return new Promise((resolve, reject) => {
+        getDownloadURL(ref(storageFireBase, message.fileAttachUrl))
+        .then((url) => {
+            const audio = new Audio();
+            audio.src = url;
+            audio.onloadstart = () => {
+                setTimeout(() => {
+                    resolve({
+                        message: message,
+                        type: "music",
+                        src: audio.src
+                    });
+                }, 500);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
+
+const loadVideoPromise = (message, storageFireBase) => {
+    return new Promise((resolve, reject) => {
+        getDownloadURL(ref(storageFireBase, message.fileAttachUrl))
+        .then((url) => {
+            const video = document.createElement("video");
+            video.src = url;
+            video.onloadstart = () => {
+                setTimeout(() => {
+                    resolve({
+                        message: message,
+                        type: "video",
+                        src: video.src
+                    });
+                }, 500);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
+
+export { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise }
 
