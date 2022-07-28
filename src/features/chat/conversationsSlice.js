@@ -120,7 +120,7 @@ const selectCurrentConversaion = createSelector(
 
 export { selectConversations, selectCurrentConversaionId, selectCurrentConversaion };
 
-// function actions
+// actions function
 const loadConversaions = (whenLoaded) => {
     return (dispatch, getState) => {
         doRequestApi('http://127.0.0.1:5001/home/index', 'GET')
@@ -155,5 +155,28 @@ const sendTextMessage = (content) => {
         dispatch(addYourNewMessage(newMessage));
     }
 }
+const sendIconMessage = (iconName) => {
+    return (dispatch, getState) => {
+        const netId = uuidv4();
+        const newMessage = {
+            content: "Đã gửi icon",
+            createAt: new Date().toISOString(),
+            fileAttachUrl: "/img/icons/" + iconName,
+            sender: getState().you.info,
+            typeMessage: 1,
+            status: 'load'
+        }
+        getState().socket.invoke('SendMessage', JSON.stringify({
+            id: netId,
+            idConversation: getState().conversations.currentConversationId,
+            newMessage: newMessage
+        }))
+        .catch((e) => {
+            console.log(e);
+        });
+        newMessage.netId = netId;
+        dispatch(addYourNewMessage(newMessage));
+    }
+}
 
-export { loadConversaions, sendTextMessage }
+export { loadConversaions, sendTextMessage, sendIconMessage }

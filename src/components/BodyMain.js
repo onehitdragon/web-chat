@@ -1,55 +1,14 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import NormalConversation from './NormalConversation';
-import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../features/chat/conversationsSlice";
+import { selectConversations, selectCurrentConversaion } from "../features/chat/conversationsSlice";
 
 function BodyMain(){
     const you = useSelector(state => state.you.info);
     const conversations = useSelector(selectConversations);
     const currentConversation = useSelector(selectCurrentConversaion);
-    const dispatch = useDispatch();
-    const socket = useSelector(state => state.socket);
-
-    useEffect(() => {
-        socket.invoke('Init', JSON.stringify({
-            user: you,
-            listConversation: conversations
-        }));
-
-        socket.on("haveNewMessage", (netId, res) => {
-            const conversation = JSON.parse(res);
-            const newMessage = conversation.messages.at(-1);
-            dispatch(addNewMessage({
-                idConversation: conversation.id,
-                you: you,
-                netId: netId,
-                newMessage: newMessage
-            }));
-        });
-
-        socket.on("haveTyping", (res) => {
-            const data = JSON.parse(res);
-            dispatch(updateTyping({
-                idConversation: data.idConversation,
-                idUser: data.idUser,
-                typing: true
-            }));
-        });
-
-        socket.on("haveStopTyping", (res) => {
-            const data = JSON.parse(res);
-            dispatch(updateTyping({
-                idConversation: data.idConversation,
-                idUser: data.idUser,
-                typing: false
-            }));
-        });
-
-        // eslint-disable-next-line
-    }, []);
     
     return (
         <div className="body__main-home">

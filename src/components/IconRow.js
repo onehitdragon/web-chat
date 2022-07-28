@@ -1,15 +1,13 @@
 import { memo, useState } from "react";
 import { useDispatch } from "react-redux";
+import { sendIconMessage } from "../features/chat/conversationsSlice";
 
 function IconRow({title, listIcon}){
     const [showing, setShowing] = useState(false);
     const dispatch = useDispatch();
 
     const handleIconClick = (icon) => {
-        dispatch({
-            type: "sendIconMessage",
-            icon: icon
-        });
+        dispatch(sendIconMessage(icon));
     }
 
     return (

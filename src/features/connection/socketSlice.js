@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-const signalr = require('@microsoft/signalr');
+import { addNewMessage, updateTyping } from "../chat/conversationsSlice";
 
+const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
     name: "socket",
     initialState: null,
@@ -23,6 +24,45 @@ const startSocket = (whenSocketStart) => {
         if(getState().socket !== null){
             getState().socket.start()
             .then(() => {
+                // start success
+                const socket = getState().socket;
+                const you = getState().you.info;
+                const conversations = getState().conversations.conversations;
+
+                socket.invoke('Init', JSON.stringify({
+                    user: you,
+                    listConversation: conversations
+                }));
+        
+                socket.on("haveNewMessage", (netId, res) => {
+                    const conversation = JSON.parse(res);
+                    const newMessage = conversation.messages.at(-1);
+                    dispatch(addNewMessage({
+                        idConversation: conversation.id,
+                        you: you,
+                        netId: netId,
+                        newMessage: newMessage
+                    }));
+                });
+        
+                socket.on("haveTyping", (res) => {
+                    const data = JSON.parse(res);
+                    dispatch(updateTyping({
+                        idConversation: data.idConversation,
+                        idUser: data.idUser,
+                        typing: true
+                    }));
+                });
+        
+                socket.on("haveStopTyping", (res) => {
+                    const data = JSON.parse(res);
+                    dispatch(updateTyping({
+                        idConversation: data.idConversation,
+                        idUser: data.idUser,
+                        typing: false
+                    }));
+                });
+
                 whenSocketStart();
             })
             .catch(e => {
