@@ -5,24 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux'
-import middleware from './app/features/middleware/middleware';
 import youReducer from "./app/features/chat/youSlice";
-import loginReducer from './app/features/login/loginSlice';
 import conversationsReducer from './app/features/chat/conversationsSlice'
 import socketReducer from './app/features/connection/socketSlice';
 import storageFireBaseReducer from './app/features/chat/storageFireBaseSlice';
+import thunkMiddleware from 'redux-thunk';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
   reducer: {
-    socket: socketReducer,
-    login: loginReducer,
     you: youReducer,
+    socket: socketReducer,
     conversations: conversationsReducer,
     storageFireBase: storageFireBaseReducer
   },
-  middleware : middleware
-})
+  middleware : [thunkMiddleware]
+});
 
 root.render(
   <Provider store={ store }>

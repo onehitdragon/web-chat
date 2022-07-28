@@ -2,72 +2,64 @@ import './Login.css';
 import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import {useNavigate} from 'react-router-dom';
-import doRequestApi from '../tools/doRequestApi';
 import { useDispatch } from "react-redux";
+import { checkStatus, login } from '../app/features/chat/youSlice';
 
 function Login({showDialog, hideDialog}) {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const [pageLoading, setPageLoading] = useState(true);
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        doRequestApi('http://127.0.0.1:5001/account/CheckLogined', 'GET')
-        .then((data) => {
-            if(data.logined){
-                dispatch({
-                    type: "login/updateStatus",
-                    status: "success"
-                });
-                navigate('/Home');
-            }
-        })
-        .catch((e) => {
-            showDialog(<Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>);
-        })
+        const navigateToHome = () => {
+            navigate("/Home");
+        };
+        const showLoginPage = () => {
+            setPageLoading(false);
+        };
+        dispatch(checkStatus(navigateToHome, showLoginPage));
+
         // eslint-disable-next-line
-    }, []); 
+    }, []);
 
     const handleLoginButtonClick = () => {
         setLoading(true);
-        let dialog;
-        doRequestApi('http://127.0.0.1:5001/account/login', 'POST', {
-            contentType: 'application/x-www-form-urlencoded',
-            body: `email=${email}&password=${password}`
-        })
-        .then((data) => {
-            console.log(data);
-            if(data.errorConnection){
+        const processResponse = (res) => {
+            let dialog;
+            res.then((data) => {
+                console.log(data);
+                if(data.errorConnection){
+                    dialog = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+                }
+                else if(data.isSuccess){
+                    dialog = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleAgree={handleLoginSuccess} handleCancer={hideDialog}/>;
+                }
+                else{
+                    dialog = <Dialog srcImg='/img/layout/fail0.png' title='Thất bại' content='Sai tài khoản hoặc mật khẩu' handleAgree={hideDialog} handleCancer={hideDialog}/>;
+                }
+            })
+            .catch((e) => {
+                console.log(e);
                 dialog = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
-            }
-            else if(data.isSuccess){
-                dialog = <Dialog srcImg='/img/layout/success.png' title='Thành công' content='Đăng nhập thành công' handleAgree={handleLoginSuccess} handleCancer={hideDialog}/>;
-            }
-            else{
-                dialog = <Dialog srcImg='/img/layout/fail0.png' title='Thất bại' content='Sai tài khoản hoặc mật khẩu' handleAgree={hideDialog} handleCancer={hideDialog}/>;
-            }
-        })
-        .catch((e) => {
-            console.log(e);
-            dialog = <Dialog srcImg='/img/layout/fail.png' title='Lỗi kết nối' content='Server mất kết nối' handleAgree={hideDialog} handleCancer={hideDialog}/>;
-        })
-        .finally(() => {
-            showDialog(dialog);
-            setLoading(false);
-        })
+            })
+            .finally(() => {
+                showDialog(dialog);
+                setLoading(false);
+            })
+        }
+        dispatch(login(email, password, processResponse));
     }
 
     const handleLoginSuccess = () => {
-        dispatch({
-            type: "login/updateStatus",
-            status: "success"
-        });
         navigate("/Home");
         hideDialog();
     }
 
     return (
+        !pageLoading &&
         <div className="body">
             <div className="body__main">
                 <p className="title">Đăng Nhập</p>

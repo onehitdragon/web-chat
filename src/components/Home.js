@@ -1,41 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import withHomeLoading from "../hoc/withHomeLoading";
 import BodyMain from './BodyMain';
+import { checkStatus } from '../app/features/chat/youSlice';
+import { buildSocket } from '../app/features/connection/socketSlice';
+import { loadConversaions } from '../app/features/chat/conversationsSlice';
 
 function Home(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const socket = useSelector(state => state.socket);
-    const login = useSelector(state => state.login);
     const [loading, setLoading] = useState(true);
     const BodyMainWithHomeLoading = withHomeLoading(BodyMain, loading);
 
     useEffect(() => {
-        dispatch({
-            type: "initState"
-        });
+        const navigateToLogin = () => {
+            navigate("/");
+        }
+        const showHomePage = () => {
+            dispatch(buildSocket({url: 'http://127.0.0.1:5001/chat'}));
+            dispatch(loadConversaions(() => {
+                setLoading(false);
+            }));
+        }
+        dispatch(checkStatus(showHomePage, navigateToLogin));
 
         // eslint-disable-next-line
     }, []);
-
-    useEffect(() => {
-        if(login.loginStatus === "nologin"){
-            navigate("/");
-        }
-        
-        // eslint-disable-next-line
-    }, [login.loginStatus]);
-
-    useEffect(() => {
-        if(socket !== null){
-            if(loading){
-                setLoading(false);
-            }
-        }
-    }, [socket, loading]);
 
     return (
         <div className="body">

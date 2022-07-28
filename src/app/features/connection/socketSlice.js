@@ -1,16 +1,35 @@
+import {createSlice} from "@reduxjs/toolkit";
 const signalr = require('@microsoft/signalr');
 
-const initialState = null;
-
-function socketReducer(state = initialState, action){
-    if(action.type === "socket/buildSocket"){
-        return (
-            new signalr.HubConnectionBuilder()
-                .withUrl('http://127.0.0.1:5001/chat')
-                .build()
-        );
+const socketSlice = createSlice({
+    name: "socket",
+    initialState: null,
+    reducers: {
+        buildSocket(state, action){
+            return (
+                new signalr.HubConnectionBuilder()
+                    .withUrl(action.payload.url)
+                    .build()
+            );
+        }
     }
-    return state;
+});
+
+export default socketSlice.reducer;
+export const { buildSocket } = socketSlice.actions;
+
+const startSocket = (whenSocketStart) => {
+    return (dispatch, getState) => {
+        if(getState().socket !== null){
+            getState().socket.start()
+            .then(() => {
+                whenSocketStart();
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }
+    }
 }
 
-export default socketReducer;
+export { startSocket }

@@ -4,27 +4,22 @@ import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import NormalConversation from './NormalConversation';
+import { startSocket } from "../app/features/connection/socketSlice";
 import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../app/features/chat/conversationsSlice";
 
 function BodyMain(){
+    const you = useSelector(state => state.you.info);
     const conversations = useSelector(selectConversations);
     const currentConversation = useSelector(selectCurrentConversaion);
     const dispatch = useDispatch();
     const socket = useSelector(state => state.socket);
-    const you = useSelector(state => state.you);
 
     useEffect(() => {
-        if(socket !== null){
-            socket.start()
-            .then(() => {
-                socket.invoke('Init', JSON.stringify({
-                    user: you,
-                    listConversation: conversations
-                }));
-            })
-            .catch(e => {
-                console.log(e);
-            });
+        const whenSocketStart = () => {
+            socket.invoke('Init', JSON.stringify({
+                user: you,
+                listConversation: conversations
+            }));
 
             socket.on("haveNewMessage", (netId, res) => {
                 const conversation = JSON.parse(res);
@@ -36,7 +31,7 @@ function BodyMain(){
                     newMessage: newMessage
                 }));
             });
-
+    
             socket.on("haveTyping", (res) => {
                 const data = JSON.parse(res);
                 dispatch(updateTyping({
@@ -52,10 +47,12 @@ function BodyMain(){
                     idUser: data.idUser,
                     typing: false
                 }));
-            }); 
+            });
         }
+        dispatch(startSocket(whenSocketStart));
+
         // eslint-disable-next-line
-    }, [socket]);
+    }, []);
     
     return (
         <div className="body__main-home">

@@ -1,11 +1,16 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
+import doRequestApi from "../../../tools/doRequestApi";
+import { loadedYou } from "./youSlice";
 
 const conversationsSlice = createSlice({
-    initialState: null,
+    initialState: {
+        conversations: null,
+        currentConversationId: null
+    },
     name: "conversations",
     reducers: {
-        initConversations: (state, action) => {
-            return action.payload;
+        loadedConversations: (state, action) => {
+            state.conversations = action.payload;
         },
         setCurrentConversationId: (state, action) => {
             state.currentConversationId = action.payload.id;
@@ -100,7 +105,7 @@ function findCurrentConversation(conversations, currentConversationId){
 }
 
 export default conversationsSlice.reducer;
-export const { initConversations, setCurrentConversationId, setScroll, addYourNewMessage,
+export const { loadedConversations, setCurrentConversationId, setScroll, addYourNewMessage,
     haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage}
     = conversationsSlice.actions;
 
@@ -114,3 +119,17 @@ const selectCurrentConversaion = createSelector(
 
 export { selectConversations, selectCurrentConversaionId, selectCurrentConversaion };
 
+// function actions
+const loadConversaions = (whenLoaded) => {
+    return (dispatch, getState) => {
+        doRequestApi('http://127.0.0.1:5001/home/index', 'GET')
+        .then((data) => {
+            console.log(data);
+            dispatch(loadedYou(data.you));
+            dispatch(loadedConversations(data.listConversation));
+            whenLoaded();
+        })
+    }
+}
+
+export { loadConversaions }
