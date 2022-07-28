@@ -7,8 +7,8 @@ import { checkStatus, login } from '../features/chat/youSlice';
 
 function Login({showDialog, hideDialog}) {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
     const [pageLoading, setPageLoading] = useState(true);
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();

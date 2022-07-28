@@ -4,7 +4,6 @@ import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import NormalConversation from './NormalConversation';
-import { startSocket } from "../features/connection/socketSlice";
 import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../features/chat/conversationsSlice";
 
 function BodyMain(){
@@ -15,41 +14,39 @@ function BodyMain(){
     const socket = useSelector(state => state.socket);
 
     useEffect(() => {
-        const whenSocketStart = () => {
-            socket.invoke('Init', JSON.stringify({
-                user: you,
-                listConversation: conversations
-            }));
+        socket.invoke('Init', JSON.stringify({
+            user: you,
+            listConversation: conversations
+        }));
 
-            socket.on("haveNewMessage", (netId, res) => {
-                const conversation = JSON.parse(res);
-                const newMessage = conversation.messages.at(-1);
-                dispatch(addNewMessage({
-                    idConversation: conversation.id,
-                    you: you,
-                    netId: netId,
-                    newMessage: newMessage
-                }));
-            });
-    
-            socket.on("haveTyping", (res) => {
-                const data = JSON.parse(res);
-                dispatch(updateTyping({
-                    idConversation: data.idConversation,
-                    idUser: data.idUser,
-                    typing: true
-                }));
-            });
-            socket.on("haveStopTyping", (res) => {
-                const data = JSON.parse(res);
-                dispatch(updateTyping({
-                    idConversation: data.idConversation,
-                    idUser: data.idUser,
-                    typing: false
-                }));
-            });
-        }
-        dispatch(startSocket(whenSocketStart));
+        socket.on("haveNewMessage", (netId, res) => {
+            const conversation = JSON.parse(res);
+            const newMessage = conversation.messages.at(-1);
+            dispatch(addNewMessage({
+                idConversation: conversation.id,
+                you: you,
+                netId: netId,
+                newMessage: newMessage
+            }));
+        });
+
+        socket.on("haveTyping", (res) => {
+            const data = JSON.parse(res);
+            dispatch(updateTyping({
+                idConversation: data.idConversation,
+                idUser: data.idUser,
+                typing: true
+            }));
+        });
+        
+        socket.on("haveStopTyping", (res) => {
+            const data = JSON.parse(res);
+            dispatch(updateTyping({
+                idConversation: data.idConversation,
+                idUser: data.idUser,
+                typing: false
+            }));
+        });
 
         // eslint-disable-next-line
     }, []);

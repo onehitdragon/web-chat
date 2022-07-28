@@ -7,6 +7,7 @@ import BodyMain from './BodyMain';
 import { checkStatus } from '../features/chat/youSlice';
 import { buildSocket } from '../features/connection/socketSlice';
 import { loadConversaions } from '../features/chat/conversationsSlice';
+import { startSocket } from '../features/connection/socketSlice';
 
 function Home(){
     const navigate = useNavigate();
@@ -21,7 +22,9 @@ function Home(){
         const showHomePage = () => {
             dispatch(buildSocket({url: 'http://127.0.0.1:5001/chat'}));
             dispatch(loadConversaions(() => {
-                setLoading(false);
+                dispatch(startSocket(() => {
+                    setLoading(false);
+                }));
             }));
         }
         dispatch(checkStatus(showHomePage, navigateToLogin));
