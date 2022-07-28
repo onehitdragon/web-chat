@@ -4,8 +4,8 @@ import ContentChatArea from './ContentChatArea';
 import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import NormalConversation from './NormalConversation';
-import { startSocket } from "../app/features/connection/socketSlice";
-import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../app/features/chat/conversationsSlice";
+import { startSocket } from "../features/connection/socketSlice";
+import { addNewMessage, selectConversations, selectCurrentConversaion, updateTyping } from "../features/chat/conversationsSlice";
 
 function BodyMain(){
     const you = useSelector(state => state.you.info);

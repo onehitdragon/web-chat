@@ -3,7 +3,7 @@ import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
 import { useSelector, useDispatch } from "react-redux";
-import { setScroll, selectCurrentConversaion, updateStateFileMessage } from '../app/features/chat/conversationsSlice';
+import { setScroll, selectCurrentConversaion, updateStateFileMessage } from '../features/chat/conversationsSlice';
 import checkFileType from '../tools/checkFileType';
 import { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise } from '../tools/LoadFilePromise';
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentConversaion } from "../app/features/chat/conversationsSlice";
+import { selectCurrentConversaion } from "../features/chat/conversationsSlice";
 
 
 function InputChatArea(){

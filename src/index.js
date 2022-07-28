@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux'
-import youReducer from "./app/features/chat/youSlice";
-import conversationsReducer from './app/features/chat/conversationsSlice'
-import socketReducer from './app/features/connection/socketSlice';
-import storageFireBaseReducer from './app/features/chat/storageFireBaseSlice';
+import youReducer from "./features/chat/youSlice";
+import conversationsReducer from './features/chat/conversationsSlice'
+import socketReducer from './features/connection/socketSlice';
+import storageFireBaseReducer from './features/chat/storageFireBaseSlice';
 import thunkMiddleware from 'redux-thunk';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import {useNavigate} from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { checkStatus, login } from '../app/features/chat/youSlice';
+import { checkStatus, login } from '../features/chat/youSlice';
 
 function Login({showDialog, hideDialog}) {
     const navigate = useNavigate();

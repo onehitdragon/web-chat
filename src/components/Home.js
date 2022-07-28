@@ -4,9 +4,9 @@ import './Home.css';
 import { useDispatch } from "react-redux";
 import withHomeLoading from "../hoc/withHomeLoading";
 import BodyMain from './BodyMain';
-import { checkStatus } from '../app/features/chat/youSlice';
-import { buildSocket } from '../app/features/connection/socketSlice';
-import { loadConversaions } from '../app/features/chat/conversationsSlice';
+import { checkStatus } from '../features/chat/youSlice';
+import { buildSocket } from '../features/connection/socketSlice';
+import { loadConversaions } from '../features/chat/conversationsSlice';
 
 function Home(){
     const navigate = useNavigate();
