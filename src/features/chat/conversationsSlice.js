@@ -1,6 +1,7 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import doRequestApi from "../../tools/doRequestApi";
 import { loadedYou } from "./youSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const conversationsSlice = createSlice({
     initialState: {
@@ -27,7 +28,7 @@ const conversationsSlice = createSlice({
         addYourNewMessage: (state, action) => {
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
             currentConversation.scroll = undefined;
-            currentConversation.messages.push(action.payload.newMessage);
+            currentConversation.messages.push(action.payload);
         },
         addNewMessage: (state, action) => {
             let conversationFound = state.conversations.find(conversation => conversation.id === action.payload.idConversation);
@@ -131,5 +132,28 @@ const loadConversaions = (whenLoaded) => {
         })
     }
 }
+const sendTextMessage = (content) => {
+    return (dispatch, getState) => {
+        const netId = uuidv4();
+        const newMessage = {
+            content: content,
+            createAt: new Date().toISOString(),
+            fileAttachUrl: "",
+            sender: getState().you.info,
+            typeMessage: 0,
+            status: 'load'
+        }
+        getState().socket.invoke('SendMessage', JSON.stringify({
+            id: netId,
+            idConversation: getState().conversations.currentConversationId,
+            newMessage: newMessage
+        }))
+        .catch((e) => {
+            console.log(e);
+        });
+        newMessage.netId = netId;
+        dispatch(addYourNewMessage(newMessage));
+    }
+}
 
-export { loadConversaions }
+export { loadConversaions, sendTextMessage }

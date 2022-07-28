@@ -38,7 +38,7 @@ function BodyMain(){
                 typing: true
             }));
         });
-        
+
         socket.on("haveStopTyping", (res) => {
             const data = JSON.parse(res);
             dispatch(updateTyping({

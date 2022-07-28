@@ -8,7 +8,7 @@ import checkFileType from '../tools/checkFileType';
 import { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise } from '../tools/LoadFilePromise';
 
 function ContentChatArea(){
-    const you = useSelector(state => state.you);
+    const you = useSelector(state => state.you.info);
     const currentConversation = useSelector(selectCurrentConversaion);
     const listMessage = currentConversation.messages;
     const listTypingOpposide = currentConversation.participants.filter(participant => {
