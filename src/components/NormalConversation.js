@@ -1,19 +1,17 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
-import { setCurrentConversationId } from "../app/features/chat/conversationsSlice";
+import { setCurrentConversationId, updateAmountMessageNotRead } from "../features/chat/conversationsSlice";
 
 function NormalConversation({infoConversation, lastMessage, you, isChoice, amountMessageNotRead}){
-    // const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
+    const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
     const dispatch = useDispatch();
     
     const handleClickConversaion = () => {
         dispatch(setCurrentConversationId({
             id: infoConversation.id
         }));
-        dispatch({
-            type: "removeAmountMessageNotRead"
-        });
+        dispatch(updateAmountMessageNotRead);
     }
 
     return (
@@ -24,7 +22,7 @@ function NormalConversation({infoConversation, lastMessage, you, isChoice, amoun
                 <i className="fa-solid fa-circle icon-status--green"></i>
             </div>
             <div className="info-area">
-                <p className="name">{infoConversation.title}</p>
+                <p className="name">{opposideUser.lastName + " " + opposideUser.firstName}</p>
                 <p className="last-mes">{lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'}</p>
             </div>
             <div className="status-area">

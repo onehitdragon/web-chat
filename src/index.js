@@ -3,26 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
+import store from './app/store';
 import { Provider } from 'react-redux'
-import middleware from './app/features/middleware/middleware';
-import youReducer from "./app/features/chat/youSlice";
-import loginReducer from './app/features/login/loginSlice';
-import conversationsReducer from './app/features/chat/conversationsSlice'
-import socketReducer from './app/features/connection/socketSlice';
-import storageFireBaseReducer from './app/features/chat/storageFireBaseSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const store = configureStore({
-  reducer: {
-    socket: socketReducer,
-    login: loginReducer,
-    you: youReducer,
-    conversations: conversationsReducer,
-    storageFireBase: storageFireBaseReducer
-  },
-  middleware : middleware
-})
 
 root.render(
   <Provider store={ store }>
