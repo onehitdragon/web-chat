@@ -3,13 +3,12 @@ import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentConversaion, setScroll, updateStateFileMessage } from '../features/chat/conversationsSlice';
+import { setScroll, updateStateFileMessage } from '../features/chat/conversationsSlice';
 import checkFileType from '../tools/checkFileType';
 import { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise } from '../tools/LoadFilePromise';
 
-function ContentChatArea(){
+function ContentChatArea({conversation}){
     const you = useSelector(state => state.you.info);
-    const conversation = useSelector(selectCurrentConversaion);
     const listMessage = conversation.messages;
     const listTypingOpposide = conversation.participants.filter(participant => {
         return participant.typing;

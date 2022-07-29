@@ -1,6 +1,7 @@
 import { memo } from "react";
 import ContentChatArea from './ContentChatArea';
-import HeaderChatArea from './HeaderChatArea';
+import NormalHeaderChatArea from "./NormalHeaderChatArea";
+import GroupHeaderChatArea from "./GroupHeaderChatArea";
 import InputChatArea from './InputChatArea';
 import { useSelector } from "react-redux";
 import { selectCurrentConversaion } from "../features/chat/conversationsSlice"
@@ -12,8 +13,11 @@ function BodyRight(){
         currentConversation != null &&
         <div className="body-right">
             <div className="body-right__before"></div>
-            <HeaderChatArea title={currentConversation.title} />
-            <ContentChatArea />
+            {currentConversation.participants.length === 2 ?
+                (<NormalHeaderChatArea conversation={currentConversation}/>) :
+                (<GroupHeaderChatArea conversation={currentConversation}/>)
+            }
+            <ContentChatArea conversation={currentConversation}/>
             <InputChatArea />
         </div>
     );

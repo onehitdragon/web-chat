@@ -1,12 +1,17 @@
 import { memo } from "react";
 
-function HeaderChatArea({title}){
+function HeaderChatArea({avatarUrl, title, status, bgColor}){
+    let bodyRightHeadClassName = "body-right__head";
+    if(bgColor === "group"){
+        bodyRightHeadClassName += " body-right__head--group";
+    }
+
     return (
-        <div className="body-right__head">
-            <img className="avatar" alt="error" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" />
+        <div className={bodyRightHeadClassName}>
+            {avatarUrl !== undefined && <img className="avatar" alt="error" src={avatarUrl} />}
             <div className="info-area">
                 <p className="name">{title}</p>
-                <p className="status">Đang gõ...</p>
+                <p className="status">{status}</p>
             </div>
             <div className="button-area">
                 <button type="button" name="profile">

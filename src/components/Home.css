@@ -516,12 +516,12 @@
 .body-right__head{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 20px;
     padding-right: 10px;
     position: relative;
+    min-height: 50px;
 }
 .body-right__head::after{
     content: "";
@@ -537,10 +537,14 @@
     opacity: .7;
     border-top-right-radius: 5px;
 }
+.body-right__head--group::after{
+    background-image: linear-gradient(-45deg, #5C258D, #4389A2, #2BC0E4, #EAECC6);
+}
 .body-right__head .avatar{
     border-radius: 50%;
 }
 .body-right__head .info-area{
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
