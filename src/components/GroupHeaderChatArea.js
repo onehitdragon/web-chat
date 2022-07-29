@@ -4,7 +4,7 @@ import HeaderChatArea from "./HeaderChatArea";
 function GroupHeaderChatArea({conversation}){
     return (
         <HeaderChatArea title={conversation.title} status={conversation.participants.length + " thành viên"}
-            bgColor={"group"}/>
+            type={"group"}/>
     );
 }
 
