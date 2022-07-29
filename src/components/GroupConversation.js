@@ -1,5 +1,7 @@
+import { memo } from "react";
+
 function GroupConversation(){
     
 }
 
-export default GroupConversation;
+export default memo(GroupConversation);

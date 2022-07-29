@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function HeaderChatArea({title}){
     return (
         <div className="body-right__head">
@@ -18,4 +20,4 @@ function HeaderChatArea({title}){
     );
 }
 
-export default HeaderChatArea;
+export default memo(HeaderChatArea);
