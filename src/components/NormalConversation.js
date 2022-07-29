@@ -10,6 +10,7 @@ function NormalConversation({conversation}){
     return (
         <BaseConversation id={conversation.id}
             title={title}
+            participants={conversation.participants}
             lastMessage={conversation.messages.at(-1)}
             amountMessageNotRead={conversation.amountMessageNotRead}
         />
