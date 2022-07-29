@@ -2,6 +2,8 @@ import { createSelector, createSlice } from "@reduxjs/toolkit";
 import doRequestApi from "../../tools/doRequestApi";
 import { loadedYou } from "./youSlice";
 import { v4 as uuidv4 } from "uuid";
+import { ref, uploadBytes } from "firebase/storage";
+import checkFileType from "../../tools/checkFileType";
 
 const conversationsSlice = createSlice({
     initialState: {
@@ -178,5 +180,69 @@ const sendIconMessage = (iconName) => {
         dispatch(addYourNewMessage(newMessage));
     }
 }
+const sendFileMessage = (file) => {
+    return (dispatch, getState) => {
+        // size < 50mb
+        if(file.size > 50000000){
+            console.log("file too large");
+            return;
+        }
 
-export { loadConversaions, sendTextMessage, sendIconMessage }
+        const netId = uuidv4();
+        const type = checkFileType(file.name);
+        let folderStorage;
+        if(type === "image"){
+            folderStorage = "/image/";
+        }
+        if(type === "music"){
+            folderStorage = "/music/";
+        }
+        if(type === "video"){
+            folderStorage = "/video/";
+        }
+        const fileName = folderStorage + netId + "-name-" + file.name;
+        const storageFireBase = getState().storageFireBase;
+        const storageRef = ref(storageFireBase, fileName);
+        uploadBytes(storageRef, file)
+        .then(res => {
+            console.log("success upload file to fire base");
+            const newMessage = {
+                content: "Đã gửi file",
+                createAt: new Date().toISOString(),
+                fileAttachUrl: fileName,
+                sender: getState().you.info,
+                typeMessage: 1,
+                status: 'load'
+            }
+            getState().socket.invoke('SendMessage', JSON.stringify({
+                id: netId,
+                idConversation: getState().conversations.currentConversationId,
+                newMessage: newMessage
+            }))
+            .catch((e) => {
+                console.log(e);
+            });
+            newMessage.netId = netId;
+            dispatch(addYourNewMessage(newMessage));
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+}
+const updateAmountMessageNotRead = (dispatch, getState) => {
+    const currentConversation = selectCurrentConversaion(getState());
+    const you = getState().you.info;
+    if(currentConversation.amountMessageNotRead > 0){
+        doRequestApi('http://127.0.0.1:5001/home/UpdateAmountMessageNotRead', 'PUT', {
+            contentType: 'application/x-www-form-urlencoded',
+            body: `idConversation=${currentConversation.id}&idUser=${you.id}`
+        })
+        .then(data => {
+            console.log(data);
+        })
+        dispatch(removeAmountMessageNotRead());
+    }
+}
+
+export { loadConversaions, sendTextMessage, sendIconMessage, sendFileMessage, updateAmountMessageNotRead }

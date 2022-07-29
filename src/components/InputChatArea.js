@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentConversaion } from "../features/chat/conversationsSlice";
-import { sendTextMessage } from "../features/chat/conversationsSlice";
+import { sendTextMessage, sendFileMessage } from "../features/chat/conversationsSlice";
 
 function InputChatArea(){
     const currentConversation = useSelector(selectCurrentConversaion);
@@ -57,10 +57,7 @@ function InputChatArea(){
         const inputElement = fileInputRef.current;
         const file = inputElement.files[0];
         inputElement.value = "";
-        dispatch({
-            type: "sendFileMessage",
-            file: file
-        });
+        dispatch(sendFileMessage(file));
     }
 
     return (
