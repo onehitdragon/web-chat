@@ -4,6 +4,7 @@ import HeaderChatArea from './HeaderChatArea';
 import InputChatArea from './InputChatArea';
 import NormalConversation from './NormalConversation';
 import { selectConversations, selectCurrentConversaion } from "../features/chat/conversationsSlice";
+import GroupConversation from "./GroupConversation";
 
 function BodyMain(){
     const you = useSelector(state => state.you.info);
@@ -56,7 +57,9 @@ function BodyMain(){
                                 isChoice={ currentConversation != null && conversation.id === currentConversation.id }
                                 amountMessageNotRead = { conversation.amountMessageNotRead }
                             />
-                        ) : "";
+                        ) : (
+                            <GroupConversation />
+                        );
                     })}
                 </div>
             </div>
