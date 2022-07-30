@@ -9,7 +9,7 @@ import { setCurrentConversationId } from "../features/chat/conversationsSlice";
 function GroupHeaderChatArea({conversation}){
     const dispatch = useDispatch();
     const isShowParticipants = useSelector(state => state.groupConversationSetting.isShowParticipants);
-    const [menu] = useState(<FirstMenu rows={[
+    const menu = (<FirstMenu rows={[
         {
             type: "normal",
             title: "Ẩn hội thoại",

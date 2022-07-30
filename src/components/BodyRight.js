@@ -5,6 +5,7 @@ import GroupHeaderChatArea from "./GroupHeaderChatArea";
 import InputChatArea from './InputChatArea';
 import { useSelector } from "react-redux";
 import { selectCurrentConversaion } from "../features/chat/conversationsSlice"
+import ListParticipantGroup from "./ListParticipantGroup";
 
 function BodyRight(){
     const currentConversation = useSelector(selectCurrentConversaion);
@@ -19,6 +20,10 @@ function BodyRight(){
             }
             <ContentChatArea conversation={currentConversation}/>
             <InputChatArea />
+            {currentConversation.participants.length > 2 && 
+                <ListParticipantGroup creatorId={currentConversation.creatorId}
+                    participants={currentConversation.participants}/>
+            }
         </div>
     );
 }

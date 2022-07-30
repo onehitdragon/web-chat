@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useRef } from "react";
 import { useState } from "react";
 
 function HeaderChatArea({avatarUrl, title, status, type, menu}){
@@ -6,10 +6,11 @@ function HeaderChatArea({avatarUrl, title, status, type, menu}){
     if(type === "group"){
         bodyRightHeadClassName += " body-right__head--group";
     }
+    const conversationMenuRef = useRef();
     const [showingMenu, setShowingMenu] = useState(false);
     useEffect(() => {
         const hide = (e) => {
-            if(showingMenu){
+            if(showingMenu && !conversationMenuRef.current.contains(e.target)){
                 setShowingMenu(false);
             }
         }
@@ -33,7 +34,7 @@ function HeaderChatArea({avatarUrl, title, status, type, menu}){
                 <button type="button" name="menu" onClick={(e) => { e.stopPropagation(); setShowingMenu(!showingMenu);}}>
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
-                <div className="conversation-menu">
+                <div className="conversation-menu" ref={conversationMenuRef}>
                     {showingMenu && menu}
                 </div>
             </div>
