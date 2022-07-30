@@ -1,10 +1,23 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useState } from "react";
 
 function HeaderChatArea({avatarUrl, title, status, type, menu}){
     let bodyRightHeadClassName = "body-right__head";
     if(type === "group"){
         bodyRightHeadClassName += " body-right__head--group";
     }
+    const [showingMenu, setShowingMenu] = useState(false);
+    useEffect(() => {
+        const hide = (e) => {
+            if(showingMenu){
+                setShowingMenu(false);
+            }
+        }
+        document.addEventListener("click", hide);
+        return () => {
+            document.removeEventListener("click", hide);
+        }
+    }, [showingMenu]);
 
     return (
         <div className={bodyRightHeadClassName}>
@@ -17,11 +30,11 @@ function HeaderChatArea({avatarUrl, title, status, type, menu}){
                 <button type="button" name="profile">
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button type="button" name="menu">
+                <button type="button" name="menu" onClick={(e) => { e.stopPropagation(); setShowingMenu(!showingMenu);}}>
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
                 <div className="conversation-menu">
-                    {menu}
+                    {showingMenu && menu}
                 </div>
             </div>
         </div>

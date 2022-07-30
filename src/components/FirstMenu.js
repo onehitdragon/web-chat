@@ -1,5 +1,6 @@
 import { memo} from "react";
 import FirstMenuItemCheck from "./FirstMenuItemCheck";
+import FirstMenuItemNormal from "./FirstMenuItemNormal";
 
 function FirstMenu({rows = []}){
     return (
@@ -13,10 +14,7 @@ function FirstMenu({rows = []}){
                     }
                     else {
                         return (
-                            <div key={index} className="menu-1__item"
-                                onClick={() => { row.handleOnClick() }}>
-                                {row.title}
-                            </div>
+                            <FirstMenuItemNormal key={index} row={row}/>
                         );
                     }
                 })

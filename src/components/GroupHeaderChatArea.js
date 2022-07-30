@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowParticipants } from "../features/setting/groupConversationSettingSlice";
 import FirstMenu from "./FirstMenu";
+import { setCurrentConversationId } from "../features/chat/conversationsSlice";
 
 function GroupHeaderChatArea({conversation}){
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function GroupHeaderChatArea({conversation}){
             type: "normal",
             title: "Ẩn hội thoại",
             handleOnClick: () => {
-                
+                dispatch(setCurrentConversationId({id: null}));
             }
         },
         {
