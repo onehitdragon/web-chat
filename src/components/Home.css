@@ -634,6 +634,7 @@
     font-size: 15px;
     border-radius: 2.5px;
     text-align: left;
+    user-select: none;
 }
 .menu-1 > .menu-1__item:hover{
     background-color: #5865f2;
@@ -643,9 +644,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.menu-1 > .menu-1__item--checkbox > input[type='checkbox']{
-    cursor: pointer;
-}
+
 /* menu */
 .body-right__messages{
     display: flex;

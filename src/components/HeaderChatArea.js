@@ -1,30 +1,9 @@
 import { memo } from "react";
-import FirstMenu from "./FirstMenu";
 
-function HeaderChatArea({avatarUrl, title, status, type}){
+function HeaderChatArea({avatarUrl, title, status, type, menu}){
     let bodyRightHeadClassName = "body-right__head";
     if(type === "group"){
         bodyRightHeadClassName += " body-right__head--group";
-    }
-    let menuRows = [
-        {
-            type: "normal",
-            title: "Ẩn hội thoại",
-            handleOnClick: () => {
-                
-            }
-        }
-    ];
-    if(type === "group"){
-        menuRows.push(
-            {
-                type: "checkbox",
-                title: "Hiển thị thành viên",
-                handleOnClick: (checked) => {
-                    console.log(checked);
-                }
-            }
-        );
     }
 
     return (
@@ -42,7 +21,7 @@ function HeaderChatArea({avatarUrl, title, status, type}){
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
                 <div className="conversation-menu">
-                    <FirstMenu rows={menuRows}/>
+                    {menu}
                 </div>
             </div>
         </div>
