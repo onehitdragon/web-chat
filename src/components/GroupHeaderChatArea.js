@@ -25,10 +25,19 @@ function GroupHeaderChatArea({conversation}){
             }
         }
     ]}/>);
+    const menuSearch = (<FirstMenu rows={[
+        {
+            type: "input",
+            placeholder: "Nhập nội dung tìm kiếm",
+            handleOnInput: () => {
+                
+            }
+        }
+    ]}/>);
 
     return (
         <HeaderChatArea title={conversation.title} status={conversation.participants.length + " thành viên"}
-            type={"group"} menu={menu}/>
+            type={"group"} menu={menu} menuSearch={menuSearch}/>
     );
 }
 

@@ -616,9 +616,12 @@
     right: 5px;
     z-index: 1;
 }
+.body-right__head .button-area > .conversation-menu--search{
+    right: 30px;
+}
 
 /* menu */
-.menu-1{
+.menu{
     display: flex;
     flex-direction: column;
     padding: 7px;
@@ -626,7 +629,7 @@
     width: 180px;
     box-shadow: 0px 0px 10px 1px rgba(77, 77, 77, 0.507);
 }
-.menu-1::after{
+.menu::after{
     content: "";
     position: absolute;
     top: 0;
@@ -653,6 +656,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.menu-1 > .menu-1__item--input{
+    outline: none;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 14.5px;
+    padding: 6px 8px;
 }
 /* menu */
 

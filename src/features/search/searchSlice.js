@@ -4,22 +4,17 @@ const searchSlice = createSlice({
     name: "search",
     initialState: {
         conversationKeyword: "",
-        conversationIdFounds: []
+        contentMessageKeyword: ""
     },
     reducers: {
         updateConversationKeyword(state, action){
             state.conversationKeyword = action.payload;
         },
-        addConversationIdFound(state, action){
-            if(state.conversationIdFounds.find((id) => id === action.payload) === undefined){
-                state.conversationIdFounds.push(action.payload);
-            }
-        },
-        removeConversationIdFound(state, action){
-            state.conversationIdFounds = state.conversationIdFounds.filter((id) => id !== action.payload);
+        updateContentMessageKeyword(state, action){
+            state.contentMessageKeyword = action.payload;
         }
     }
 });
 
 export default searchSlice.reducer;
-export const { updateConversationKeyword, addConversationIdFound, removeConversationIdFound } = searchSlice.actions;
+export const { updateConversationKeyword, updateContentMessageKeyword } = searchSlice.actions;
