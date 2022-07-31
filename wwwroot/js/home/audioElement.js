@@ -10,6 +10,7 @@ class AudioElement{
         const buttonPlayElement = document.createElement('button');
         buttonPlayElement.className = 'audio-main__play';
         const timeContainerElement = document.createElement('div');
+        
         timeContainerElement.className = 'audio-main__time';
         timeContainerElement.innerHTML = `
             <span class='progress-time'>0:00</span>

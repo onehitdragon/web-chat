@@ -75,8 +75,9 @@ namespace project.DataService{
             query = "SELECT * FROM conversation";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
                 query = "INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Nguyễn B', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
-                    +"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Ngọc A', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
-                    +"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Trần G', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);";
+                    +"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Ngọc A', 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
+                    +"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Trần G', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
+                    +"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'Nhóm 1', 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);";
                 dataProvider.ExcuteQuery(query);
             }
 
@@ -85,7 +86,7 @@ namespace project.DataService{
                 +"Id int PRIMARY KEY AUTO_INCREMENT,"
                 +"Conversation_Id int,"
                 +"Sender_Id BIGINT unsigned,"
-                +"Message_Type ENUM('text','file'),"
+                +"Message_Type ENUM('text', 'file'),"
                 +"Message varchar(255) charset utf8,"
                 +"Attachment_url text,"
                 +"Create_at DateTime,"
@@ -127,7 +128,10 @@ namespace project.DataService{
                     +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (2, 4, 3);"
                     +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (2, 5, 1);"
                     +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (3, 3, 2);"
-                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (3, 5, 5);";
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (3, 5, 5);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (4, 5, 7);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (4, 1, 8);"
+                    +"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (4, 4, 9);";
                 dataProvider.ExcuteQuery(query);
             }
 

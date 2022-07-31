@@ -23,7 +23,8 @@ namespace project.Socket{
             dynamic data = JsonTool.DeCode(json);   
             User user = JsonTool.DeCode<User>(data.user.ToString());
             List<Conversation> listConversation = JsonTool.DeCode<List<Conversation>>(data.listConversation.ToString());
-            
+
+            Console.WriteLine(Context.ConnectionId);
             ClientData clientData = new ClientData(user, listConversation);
             chatHubData.AddClient(Context.ConnectionId, clientData);
 

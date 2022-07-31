@@ -3,6 +3,7 @@ namespace project.Models{
     public class User{
         protected ulong id;
         protected string avatarUrl;
+        public static readonly string defaultAvatarUrl = "https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png";
         protected string lastName;
         protected string firstName;
         protected DateTime birthDay;
@@ -71,12 +72,12 @@ namespace project.Models{
         }
         public User(ulong id, string avatarUrl, string lastName){
             this.id = id;
-            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? defaultAvatarUrl : avatarUrl;
             this.lastName = lastName;
         }
         public User(ulong id, string avatarUrl, string lastName, string firstName, DateTime birthDay, bool gender, string phone){
             this.id = id;
-            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? defaultAvatarUrl : avatarUrl;
             this.lastName = lastName;
             this.firstName = firstName;
             this.birthDay = birthDay;
@@ -84,7 +85,7 @@ namespace project.Models{
             this.phone = phone;
         }
         public User(string avatarUrl, string lastName, string firstName, DateTime birthDay, bool gender, string phone){
-            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? "/img/layout/default-avatar.jpg" : avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? defaultAvatarUrl: avatarUrl;
             this.lastName = lastName;
             this.firstName = firstName;
             this.birthDay = birthDay;
