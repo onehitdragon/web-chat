@@ -14,7 +14,7 @@ function InputChatArea(){
 
     useEffect(() => {
         textInputRef.current.focus();
-    }, []);
+    }, [currentConversationId]);
 
     const handleOnChange = (e) => {
         setCurrentContent(e.target.value);
