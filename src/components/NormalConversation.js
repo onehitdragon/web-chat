@@ -1,45 +1,19 @@
 import { memo } from "react";
-import { useDispatch } from "react-redux";
-import convertTimeToDisplay from "../tools/covertTimeToDisplay";
-import { setCurrentConversationId, updateAmountMessageNotRead } from "../features/chat/conversationsSlice";
+import { useSelector } from "react-redux";
+import BaseConversation from "./BaseConversation";
 
-function NormalConversation({infoConversation, lastMessage, you, isChoice, amountMessageNotRead}){
-    const opposideUser = infoConversation.participants.find((participant) => participant.id !== you.id);
-    const dispatch = useDispatch();
-    
-    const handleClickConversaion = () => {
-        dispatch(setCurrentConversationId({
-            id: infoConversation.id
-        }));
-        dispatch(updateAmountMessageNotRead);
-    }
+function NormalConversation({conversation}){
+    const youId = useSelector(state => state.you.info.id);
+    const opposideUser = conversation.participants.find((participant) => participant.id !== youId);
+    const title = opposideUser.lastName + " " + opposideUser.firstName;
 
     return (
-        <div className={'conversation-item ' + (isChoice && 'conversation-item--choiced')}
-            onClick={ () => { handleClickConversaion(); } }>
-            <div className="avatar-area">
-                <img className="avatar" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" alt="error"/>
-                <i className="fa-solid fa-circle icon-status--green"></i>
-            </div>
-            <div className="info-area">
-                <p className="name">{opposideUser.lastName + " " + opposideUser.firstName}</p>
-                <p className="last-mes">{lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'}</p>
-            </div>
-            <div className="status-area">
-                <p className="time">
-                    <i className="fa-solid fa-check"></i>
-                    <span>
-                        {lastMessage != null && convertTimeToDisplay(lastMessage.createAt)}
-                    </span>
-                </p>
-                { 
-                    amountMessageNotRead !== 0 &&
-                    <i className="fa-solid fa-circle status">
-                        <span>{amountMessageNotRead < 10 && amountMessageNotRead}</span>
-                    </i>
-                }
-            </div>
-        </div>
+        <BaseConversation id={conversation.id}
+            title={title}
+            participants={conversation.participants}
+            lastMessage={conversation.messages.at(-1)}
+            amountMessageNotRead={conversation.amountMessageNotRead}
+        />
     );
 }
 

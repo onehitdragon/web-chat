@@ -379,13 +379,13 @@
     opacity: .45;
     transition: background-color .3s;
 }
-.body-left__conversations > .conversation-item > .avatar-area{
+.avatar-area{
     position: relative;
 }
-.body-left__conversations > .conversation-item > .avatar-area > .avatar{
+.avatar-area > .avatar{
     border-radius: 50%;
 }
-.body-left__conversations > .conversation-item > .avatar-area > i{
+.avatar-area > i{
     position: absolute;
     bottom: 0px;
     right: 0px;
@@ -398,6 +398,7 @@
 }
 .body-left__conversations > .conversation-item > .group--avatar > .avatar{
     width: 25px;
+    height: 25px;
 }
 .body-left__conversations > .conversation-item > .group--avatar > .amount{
     width: 25px;
@@ -515,12 +516,12 @@
 .body-right__head{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 20px;
     padding-right: 10px;
     position: relative;
+    min-height: 50px;
 }
 .body-right__head::after{
     content: "";
@@ -532,14 +533,18 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -10;
     opacity: .7;
     border-top-right-radius: 5px;
+}
+.body-right__head--group::after{
+    background-image: linear-gradient(-45deg, #5C258D, #4389A2, #2BC0E4, #EAECC6);
 }
 .body-right__head .avatar{
     border-radius: 50%;
 }
 .body-right__head .info-area{
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -557,6 +562,7 @@
 .body-right__head .button-area{
     display: flex;
     align-items: center;
+    position: relative;
 }
 .body-right__head .button-area > button{
     border: none;
@@ -595,6 +601,128 @@
         font-size: 26px;
     }
 }
+.body-right__head .button-area > .conversation-menu{
+    position: absolute;
+    top: 32px;
+    right: 5px;
+    z-index: 1;
+}
+
+/* menu */
+.menu-1{
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    position: relative;
+    width: 180px;
+    box-shadow: 0px 0px 10px 1px rgba(77, 77, 77, 0.507);
+}
+.menu-1::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 2.5px;
+    background-color: black;
+    opacity: 0.8;
+    z-index: -1;
+}
+.menu-1 > .menu-1__item{
+    cursor: pointer;
+    padding: 6px 8px;
+    font-size: 15px;
+    border-radius: 2.5px;
+    text-align: left;
+    user-select: none;
+}
+.menu-1 > .menu-1__item:hover{
+    background-color: #5865f2;
+}
+.menu-1 > .menu-1__item--checkbox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* menu */
+
+/* body-right__list-participant */
+.body-right__list-participant{
+    position: absolute;
+    top: 80px;
+    right: 0px;
+    transform: translateX(100%);
+    display: flex;
+    flex-direction: column;
+    height: 431px;
+    overflow: hidden;
+}
+.body-right__list-participant::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .4;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: -2;
+}
+.body-right__list-participant .list-participant{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    overflow-y: scroll;
+}
+.body-right__list-participant .list-participant > .list-participant__item-title{
+    display: flex;
+    padding: 7px 10px;
+}
+.body-right__list-participant .list-participant > .list-participant__item{
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.body-right__list-participant .list-participant > .list-participant__item:hover:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .45;
+    z-index: -1;
+    border-radius: 2.5px;
+}
+.body-right__list-participant .list-participant > .list-participant__item:hover:after {
+    
+}
+.list-participant__item > .avatar-area > .avatar{
+    width: 35px;
+    height: 35px;
+}
+.list-participant__item > .avatar-area > i{
+    font-size: 12px;
+}
+.list-participant__item > .name-area{
+    margin-left: 10px;
+}
+.list-participant__item > .name-area > span{
+    
+}
+.list-participant__item > .name-area > i{
+    margin-left: 5px;
+    color: darkgoldenrod;
+}
+
+/* body-right__list-participant */
+
 .body-right__messages{
     display: flex;
     flex-direction: column;

@@ -14,11 +14,15 @@ function IconChatArea(){
     const iconAreaElementRef = useRef(null);
 
     useEffect(() => {
-        document.addEventListener("click", (e) => {
+        const hide = (e) => {
             if(!iconAreaElementRef.current.contains(e.target)){
                 setShowing(false);
             }
-        })
+        }
+        document.addEventListener("click", hide)
+        return () => {
+            document.removeEventListener("click", hide);
+        }
     }, []);
 
     return (

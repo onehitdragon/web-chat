@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentConversaion } from "../features/chat/conversationsSlice";
 import { sendTextMessage, sendFileMessage } from "../features/chat/conversationsSlice";
 
 function InputChatArea(){
-    const currentConversation = useSelector(selectCurrentConversaion);
+    const currentConversationId = useSelector(state => state.conversations.currentConversationId);
     const socket = useSelector(state => state.socket);
     const [currentContent, setCurrentContent] = useState("");
     const [typing, setTyping] = useState(false);
@@ -14,12 +13,8 @@ function InputChatArea(){
     const fileInputRef = useRef();
 
     useEffect(() => {
-        if(currentConversation !== undefined){
-            textInputRef.current.focus();
-        }
-
-        // eslint-disable-next-line
-    }, [currentConversation]);
+        textInputRef.current.focus();
+    }, []);
 
     const handleOnChange = (e) => {
         setCurrentContent(e.target.value);
@@ -28,7 +23,7 @@ function InputChatArea(){
     const handleSendMessage = (e) => {
         if(e.key === 'Enter' && currentContent !== ''){
             setTyping(false);
-            socket.invoke("Typing", currentConversation.id, false);
+            socket.invoke("Typing", currentConversationId, false);
             dispatch(sendTextMessage(currentContent));
             setCurrentContent('');
         }
@@ -37,14 +32,14 @@ function InputChatArea(){
     const handleOnBlur = () => {
         if(typing){
             setTyping(false);
-            socket.invoke("Typing", currentConversation.id, false);
+            socket.invoke("Typing", currentConversationId, false);
         }
     }
 
     useEffect(() => {
         if(currentContent !== "" && !typing){
             setTyping(true);
-            socket.invoke("Typing", currentConversation.id, true);
+            socket.invoke("Typing", currentConversationId, true);
         }
         dispatch({
             type: "removeAmountMessageNotRead"
@@ -79,4 +74,4 @@ function InputChatArea(){
     );
 };
 
-export default InputChatArea;
+export default memo(InputChatArea);

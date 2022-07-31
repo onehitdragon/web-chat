@@ -1,20 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import MyMessage from './MyMessage';
 import OpposideMessage from "./OpposideMessage";
 import OpposideTypingMessage from './OpposideTypingMessage';
 import { useSelector, useDispatch } from "react-redux";
-import { setScroll, selectCurrentConversaion, updateStateFileMessage } from '../features/chat/conversationsSlice';
+import { setScroll, updateStateFileMessage } from '../features/chat/conversationsSlice';
 import checkFileType from '../tools/checkFileType';
 import { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise } from '../tools/LoadFilePromise';
 
-function ContentChatArea(){
+function ContentChatArea({conversation}){
     const you = useSelector(state => state.you.info);
-    const currentConversation = useSelector(selectCurrentConversaion);
-    const listMessage = currentConversation.messages;
-    const listTypingOpposide = currentConversation.participants.filter(participant => {
+    const listMessage = conversation.messages;
+    const listTypingOpposide = conversation.participants.filter(participant => {
         return participant.typing;
     });
-    const scroll = currentConversation.scroll;
+    const scroll = conversation.scroll;
     const dispatch = useDispatch();
     const bodyElement = useRef(null);
     const [loading, setLoading] = useState(true);
@@ -155,4 +154,4 @@ function ContentChatArea(){
     );
 }
 
-export default ContentChatArea;
+export default memo(ContentChatArea);

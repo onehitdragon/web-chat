@@ -16,7 +16,9 @@ const conversationsSlice = createSlice({
             state.conversations = action.payload;
         },
         setCurrentConversationId: (state, action) => {
-            state.currentConversationId = action.payload.id;
+            if(state.currentConversationId !== action.payload.id){
+                state.currentConversationId = action.payload.id;
+            }
         },
         setScroll: (state, action) => {
             state.conversations.find((conversation) => {
