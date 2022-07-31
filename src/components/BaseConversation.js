@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentConversationId, updateAmountMessageNotRead } from "../features/chat/conversationsSlice";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 import AvatarConversation from "./AvatarConversation";
+import InfoArea from "./InfoArea";
 
 function BaseConversation({id, title, participants, lastMessage, amountMessageNotRead}){
     const dispatch = useDispatch();
@@ -20,16 +21,7 @@ function BaseConversation({id, title, participants, lastMessage, amountMessageNo
         <div className={'conversation-item ' + (isChoice ? 'conversation-item--choiced' : "")}
             onClick={ () => { handleClickConversaion(); } }>
             <AvatarConversation participants={participants}/>
-            <div className="info-area">
-                <p className="name">
-                    {/* {title} */}
-                    Ng<span className="search-highlight search-highlight--red">uy</span>ễn B
-                </p>
-                <p className="last-mes">
-                    {/* {lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'} */}
-                    Trò chuyện ng<span className="search-highlight search-highlight--blue">ay</span>
-                </p>
-            </div>
+            <InfoArea title={title} contentLastMessage={lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'}/>
             <div className="status-area">
                 <p className="time">
                     <i className="fa-solid fa-check"></i>
