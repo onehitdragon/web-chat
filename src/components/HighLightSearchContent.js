@@ -1,18 +1,17 @@
 import { memo } from "react";
 
-function HighLightSearchContent({content, keyword, color = "red"}){
-    let result = content.toLowerCase().search(keyword.toLowerCase());
-    if(result === -1){
+function HighLightSearchContent({content, startPos, amount, color = "red"}){
+    if(startPos === -1){
         return content;
     }
     else{
         return (
             <div>
-                {content.substring(0, result)}
+                {content.substring(0, startPos)}
                 {<span className={`search-highlight search-highlight--${color}`}>
-                    {content.substring(result, result + keyword.length)}
+                    {content.substring(startPos, startPos + amount)}
                 </span>}
-                {content.substring(result + keyword.length, content.length)}
+                {content.substring(startPos + amount, content.length)}
             </div>
         );
     }
