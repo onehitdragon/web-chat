@@ -21,8 +21,14 @@ function BaseConversation({id, title, participants, lastMessage, amountMessageNo
             onClick={ () => { handleClickConversaion(); } }>
             <AvatarConversation participants={participants}/>
             <div className="info-area">
-                <p className="name">{title}</p>
-                <p className="last-mes">{lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'}</p>
+                <p className="name">
+                    {/* {title} */}
+                    Ng<span className="search-highlight search-highlight--red">uy</span>ễn B
+                </p>
+                <p className="last-mes">
+                    {/* {lastMessage != null ? lastMessage.content : 'Trò chuyện ngay'} */}
+                    Trò chuyện ng<span className="search-highlight search-highlight--blue">ay</span>
+                </p>
             </div>
             <div className="status-area">
                 <p className="time">

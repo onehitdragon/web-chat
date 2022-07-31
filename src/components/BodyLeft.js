@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useSelector } from "react-redux"
 import Conversations from "./Conversations";
+import SearchBar from "./SearchBar";
 
 function BodyLeft(){
     const you = useSelector(state => state.you.info);
@@ -35,14 +36,8 @@ function BodyLeft(){
                     <i className="fa-solid fa-ellipsis"></i>
                 </button>
             </div>
-            <div className="body-left__search-bar">
-                <i className="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Nhập nội dung tìm kiếm..." />
-                <p className="line"></p>
-            </div>
-            <div className="body-left__conversations">
-                <Conversations />
-            </div>
+            <SearchBar />
+            <Conversations />
         </div>
     );
 }

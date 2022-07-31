@@ -1,6 +1,5 @@
 import { memo } from "react";
 import HeaderChatArea from "./HeaderChatArea";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowParticipants } from "../features/setting/groupConversationSettingSlice";
 import FirstMenu from "./FirstMenu";

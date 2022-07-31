@@ -427,6 +427,15 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+.body-left__conversations > .conversation-item > .info-area .search-highlight{
+    border-radius: 2px;
+}
+.body-left__conversations > .conversation-item > .info-area .search-highlight--blue{
+    background-color: #23a6d5;
+}
+.body-left__conversations > .conversation-item > .info-area .search-highlight--red{
+    background-color: #e73c7e;
+}
 .body-left__conversations > .conversation-item > .info-area .friend{
     display: flex;
     justify-content: center;
