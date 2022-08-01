@@ -1,10 +1,10 @@
 import { memo } from "react";
 import HeaderChatArea from "./HeaderChatArea";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowParticipants } from "../features/setting/groupConversationSettingSlice";
 import FirstMenu from "./FirstMenu";
 import { setCurrentConversationId } from "../features/chat/conversationsSlice";
+import { updateContentMessageKeyword } from "../features/search/searchSlice";
 
 function GroupHeaderChatArea({conversation}){
     const dispatch = useDispatch();
@@ -26,10 +26,21 @@ function GroupHeaderChatArea({conversation}){
             }
         }
     ]}/>);
+    const contentMessageKeyword = useSelector(state => state.search.contentMessageKeyword);
+    const menuSearch = (<FirstMenu rows={[
+        {
+            type: "input",
+            placeholder: "Nhập nội dung...",
+            value: contentMessageKeyword,
+            handleOnInput: (inputValue) => {
+                dispatch(updateContentMessageKeyword(inputValue));
+            }
+        }
+    ]}/>);
 
     return (
         <HeaderChatArea title={conversation.title} status={conversation.participants.length + " thành viên"}
-            type={"group"} menu={menu}/>
+            type={"group"} menu={menu} menuSearch={menuSearch}/>
     );
 }
 

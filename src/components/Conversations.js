@@ -8,17 +8,21 @@ function Conversations(){
     const conversations = useSelector(selectConversations);
     
     return (
-        conversations.map((conversation) => {
-            return conversation.participants.length <= 2 ? (
-                <NormalConversation key = { conversation.id }
-                    conversation = { conversation }
-                />
-            ) : (
-                <GroupConversation key = { conversation.id }
-                    conversation = { conversation }
-                />
-            );
-        })
+        <div className="body-left__conversations">
+            {
+                conversations.map((conversation) => {
+                    return conversation.participants.length <= 2 ? (
+                        <NormalConversation key = { conversation.id }
+                            conversation = { conversation }
+                        />
+                    ) : (
+                        <GroupConversation key = { conversation.id }
+                            conversation = { conversation }
+                        />
+                    );
+                })
+            }
+        </div>
     );
 }
 
