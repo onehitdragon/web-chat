@@ -4,6 +4,7 @@ const searchSlice = createSlice({
     name: "search",
     initialState: {
         conversationKeyword: "",
+        showingSearchMenu: false,
         contentMessageKeyword: ""
     },
     reducers: {

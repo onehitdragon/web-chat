@@ -1,9 +1,21 @@
 import { memo } from "react";
+import { useSelector } from "react-redux";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 import HighLightSearchContent from "./HighLightSearchContent";
 
 function BaseMessage({side = "left", sender, status = undefined, displayAvatar, displayTime, type, content, createAt}){
+    const contentMessageKeyword = useSelector(state => state.search.contentMessageKeyword);
+    let hide = false;
+    let result;
+    if(type === 0){
+        result = content.toLowerCase().search(contentMessageKeyword.toLowerCase());
+        if(result === -1){
+            hide = true;
+        }
+    }
+
     return (
+        !hide &&
         <div className={`message ${side === "right" ? "message--mymessage" : ""}`}>
             {displayAvatar && <img className="avatar" alt="error" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" />}
             {!displayAvatar && <div className="placeholder-square"></div>}
@@ -13,7 +25,9 @@ function BaseMessage({side = "left", sender, status = undefined, displayAvatar, 
                         type === 0 && 
                         <div className="text">
                             {
-                                <HighLightSearchContent content={content} startPos={0} amount={1} color="black"/>
+                                <HighLightSearchContent content={content}
+                                    startPos={result}
+                                    amount={contentMessageKeyword.length} color="black"/>
                             }
                         </div>
                     }

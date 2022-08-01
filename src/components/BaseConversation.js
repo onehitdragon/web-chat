@@ -29,7 +29,7 @@ function BaseConversation({id, title, lastMessage, participants, amountMessageNo
     return (
         show && 
         <div className={'conversation-item ' + (isChoice ? 'conversation-item--choiced' : "")}
-            onClick={ () => { handleClickConversaion(); } }>
+            onClick={ (e) => { handleClickConversaion(); } }>
             <AvatarConversation participants={participants}/>
             <InfoArea title={
                     <HighLightSearchContent content={title} startPos={resultTitle}
