@@ -4,7 +4,7 @@ import BodyLeftMenu from "./BodyLeftMenu";
 
 function BodyLeftHeader(){
     const you = useSelector(state => state.you.info);
-    const [showingMenu, setShowingMenu] = useState(true);
+    const [showingMenu, setShowingMenu] = useState(false);
 
     return (
         <div className="body-left__head">
@@ -30,10 +30,10 @@ function BodyLeftHeader(){
                     </button>
                 </div>
             </div>
-            <button className="menu-button">
+            <button className="menu-button" onClick={() => { setShowingMenu(!showingMenu); }}>
                 <i className={!showingMenu ? "fa-solid fa-ellipsis" : "fa-solid fa-xmark close"}></i>
             </button>
-            <BodyLeftMenu />
+            <BodyLeftMenu isOpen={showingMenu}/>
         </div>
     );
 }
