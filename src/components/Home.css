@@ -326,18 +326,18 @@
 		background-position: 0% 50%;
 	}
 }
-.body-left__conversations{
+.body-left__list{
     display: flex;
     flex-direction: column;
     height: 370px;
     overflow-y: hidden;
 }
-.body-left__conversations:hover{
+.body-left__list:hover{
     overflow-y: scroll;
 }
 /* width */
 ::-webkit-scrollbar {
-    width: 4.5px;
+    width: 0px;
 }
   
   /* Track */
@@ -355,7 +355,7 @@
 ::-webkit-scrollbar-thumb:hover {
     background-image: linear-gradient(-45deg, #ee7752, #e73c7e);
 }
-.body-left__conversations > .conversation-item{
+.body-left__list > .list-item{
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -365,7 +365,7 @@
     position: relative;
     cursor: pointer;
 }
-.body-left__conversations > .conversation-item::after{
+.body-left__list > .list-item::after{
     content: "";
     position: absolute;
     width: 100%;
@@ -374,15 +374,29 @@
     left: 0;
     z-index: -10;
 }
-.body-left__conversations > .conversation-item:hover::after{
+.body-left__list > .list-item:hover::after{
     background-color: black;
     opacity: .45;
     transition: background-color .3s;
 }
-.body-left__conversations > .conversation-item--choiced::after{
+.body-left__list > .list-item--choiced::after{
     background-color: black;
     opacity: .45;
     transition: background-color .3s;
+}
+.body-left__list > .list-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+.body-left__list > .list-header:not(:first-child){
+    margin-top: 5px;
+}
+.body-left__list > .list-header > .list-header__title{
+    font-weight: bold;
 }
 .avatar-area{
     position: relative;
@@ -395,17 +409,17 @@
     bottom: 0px;
     right: 0px;
 }
-.body-left__conversations > .conversation-item > .group--avatar{
+.body-left__list > .list-item > .group--avatar{
     max-width: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.body-left__conversations > .conversation-item > .group--avatar > .avatar{
+.body-left__list > .list-item > .group--avatar > .avatar{
     width: 25px;
     height: 25px;
 }
-.body-left__conversations > .conversation-item > .group--avatar > .amount{
+.body-left__list > .list-item > .group--avatar > .amount{
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -416,16 +430,16 @@
     justify-content: center;
     align-items: center;
 }
-.body-left__conversations > .conversation-item > .info-area{
+.body-left__list > .list-item > .info-area{
     margin-left: 15px;
     text-align: left;
 }
-.body-left__conversations > .conversation-item > .info-area > .name{
+.body-left__list > .list-item > .info-area > .name{
     font-size: 14.5px;
     font-weight: bold;
     margin-bottom: 5px;
 }
-.body-left__conversations > .conversation-item > .info-area > .last-mes{
+.body-left__list > .list-item > .info-area > .last-mes{
     font-size: 13.5px;
     width: 150px;
     white-space: nowrap;
@@ -444,7 +458,7 @@
 .search-highlight--black{
     background-color: #4e4e4e;
 }
-.body-left__conversations > .conversation-item > .info-area .friend{
+.body-left__list > .list-item > .info-area .friend{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -454,7 +468,7 @@
     border-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) 1;
     border-radius: 3px;
 }
-.body-left__conversations > .conversation-item > .info-area .friend:hover{
+.body-left__list > .list-item > .info-area .friend:hover{
     background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400%;
     transition: background-image .2s;
@@ -462,35 +476,35 @@
     border-radius: 0px;
     padding: 6px 8px
 }
-.body-left__conversations > .conversation-item > .info-area > .friend > span{
+.body-left__list > .list-item > .info-area > .friend > span{
     font-size: 14.5px;
 }
-.body-left__conversations > .conversation-item > .status-area{
+.body-left__list > .list-item > .status-area{
     display: flex;
     flex-direction: column;
     margin-left: auto;
     justify-content: center;
 }
-.body-left__conversations > .conversation-item > .status-area > .time{
+.body-left__list > .list-item > .status-area > .time{
     display: flex;
     margin-bottom: 5px;
     align-items: center;
     opacity: .8;
 }
-.body-left__conversations > .conversation-item > .status-area > .time > i{
+.body-left__list > .list-item > .status-area > .time > i{
     margin-right: 5px;
     font-size: 14px;
 }
-.body-left__conversations > .conversation-item > .status-area > .time > span{
+.body-left__list > .list-item > .status-area > .time > span{
     font-size: 13.5px;
 }
-.body-left__conversations > .conversation-item > .status-area > i{
+.body-left__list > .list-item > .status-area > i{
     margin-left: auto;
     position: relative;
     color: #FF6F61;
     opacity: .9;
 }
-.body-left__conversations > .conversation-item > .status-area > i > span{
+.body-left__list > .list-item > .status-area > i > span{
     position: absolute;
     top: 3px;
     left: 4px;
@@ -1506,7 +1520,7 @@
     z-index: 1;
     border-radius: 5px;
 }
-#friend-search-area .list-search > .body-left__conversations > .conversation-item{
+#friend-search-area .list-search > .body-left__list > .list-item{
     padding-left: 10px;
 }
 #friend-search-area > .friend-search-main > .input-area > .input-area__search > .input::after{
@@ -1616,39 +1630,39 @@
 #friend-search-area .friend-search-main > .area-button > button[name='create-group-button']:hover::after{
     opacity: .75;
 }
-#friend-search-area .body-left__conversations{
+#friend-search-area .body-left__list{
     color: white;
     flex: 1;
     height: auto;
     min-height: 74px;
     max-height: 296px;
 }
-#friend-search-area .body-left__conversations > .conversation-item:hover::after{
+#friend-search-area .body-left__list > .list-item:hover::after{
     background-color: transparent !important;
 }
-#friend-search-area .body-left__conversations > .conversation-item{
+#friend-search-area .body-left__list > .list-item{
     padding-left: 0px;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .info-area{
+#friend-search-area .body-left__list > .list-item > .info-area{
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex: 1;
 }
-.body-left__conversations > .conversation-item > .info-area .friends{
+.body-left__list > .list-item > .info-area .friends{
     display: flex;
 }
-.body-left__conversations > .conversation-item > .info-area .friends > .friend:first-child{
+.body-left__list > .list-item > .info-area .friends > .friend:first-child{
     margin-right: 10px;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .checkbox{
+#friend-search-area .body-left__list > .list-item > .checkbox{
     margin-right: 10px;
     width: 16px;
     height: 16px;
     position: relative;
     cursor: pointer;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .checkbox::after{
+#friend-search-area .body-left__list > .list-item > .checkbox::after{
     content: '';
     position: absolute;
     top: 0;
@@ -1658,7 +1672,7 @@
     border: 1px solid #c1c1c1;
     border-radius: 50%;
 }
-#friend-search-area .body-left__conversations > .conversation-item > .checked::after{
+#friend-search-area .body-left__list > .list-item > .checked::after{
     background-color: #c1c1c1;
 }
 

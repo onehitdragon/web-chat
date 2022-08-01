@@ -4,6 +4,7 @@ import { loadedYou } from "./youSlice";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
 import checkFileType from "../../tools/checkFileType";
+import { loadedFriends } from "../friend/friendsSlice";
 
 const conversationsSlice = createSlice({
     initialState: {
@@ -132,6 +133,7 @@ const loadConversaions = (whenLoaded) => {
             console.log(data);
             dispatch(loadedYou(data.you));
             dispatch(loadedConversations(data.listConversation));
+            dispatch(loadedFriends(data.listFriending));
             whenLoaded();
         })
     }
