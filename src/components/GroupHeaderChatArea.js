@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleShowParticipants } from "../features/setting/groupConversationSettingSlice";
 import FirstMenu from "./FirstMenu";
 import { setCurrentConversationId } from "../features/chat/conversationsSlice";
+import { updateContentMessageKeyword } from "../features/search/searchSlice";
 
 function GroupHeaderChatArea({conversation}){
     const dispatch = useDispatch();
@@ -25,12 +26,14 @@ function GroupHeaderChatArea({conversation}){
             }
         }
     ]}/>);
+    const contentMessageKeyword = useSelector(state => state.search.contentMessageKeyword);
     const menuSearch = (<FirstMenu rows={[
         {
             type: "input",
-            placeholder: "Nhập nội dung tìm kiếm",
-            handleOnInput: () => {
-                
+            placeholder: "Nhập nội dung...",
+            value: contentMessageKeyword,
+            handleOnInput: (inputValue) => {
+                dispatch(updateContentMessageKeyword(inputValue));
             }
         }
     ]}/>);

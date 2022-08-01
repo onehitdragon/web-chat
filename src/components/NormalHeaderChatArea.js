@@ -23,7 +23,7 @@ function NormalHeaderChatArea({conversation}){
     const menuSearch = (<FirstMenu rows={[
         {
             type: "input",
-            placeholder: "Nhập nội dung tìm kiếm",
+            placeholder: "Nhập nội dung...",
             value: contentMessageKeyword,
             handleOnInput: (inputValue) => {
                 dispatch(updateContentMessageKeyword(inputValue));
