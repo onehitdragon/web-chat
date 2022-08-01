@@ -196,10 +196,15 @@
     color: white;
     border-radius: 50%;
     cursor: pointer;
+}
+.body-left__head > .menu-left--open > .menu-main > button{
     animation: menu-left-button-ani 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.body-left__head > .menu-left > .menu-main > button.close{
+.body-left__head > .menu-left--closing > .menu-main > button{
     animation: menu-left-button-ani-close 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.body-left__head > .menu-left--closed{
+    display: none;
 }
 .body-left__head > .menu-left > .menu-main > button[name='friend']{
     top: 0px;
