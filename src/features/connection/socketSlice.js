@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import { addNewMessage, updateTyping } from "../chat/conversationsSlice";
+import { addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
 
 const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
@@ -16,12 +17,24 @@ const socketSlice = createSlice({
         requestingFriend(state, action){
             state.invoke("RequestingFriend", action.payload);
             return state;
+        },
+        cancerRequesting(state, action){
+            state.invoke("CancerRequesting", action.payload);
+            return state;
+        },
+        denyRequesting(state, action){
+            state.invoke("DenyRequesting", action.payload);
+            return state;
+        },
+        acceptRequesting(state, action){
+            state.invoke("AcceptRequesting", action.payload);
+            return state;
         }
     }
 });
 
 export default socketSlice.reducer;
-export const { buildSocket, requestingFriend} = socketSlice.actions;
+export const { buildSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting} = socketSlice.actions;
 
 const startSocket = (whenSocketStart) => {
     return (dispatch, getState) => {
@@ -66,6 +79,22 @@ const startSocket = (whenSocketStart) => {
                         typing: false
                     }));
                 });
+
+                socket.on("requestingFriend", (friend) => {
+                    dispatch(addQuestingByOther(friend));
+                });
+
+                socket.on("cancerRequesting", (friend) => {
+                    dispatch(removeQuestingByOther(friend));
+                })
+
+                socket.on("denyRequesting", (friend) => {
+                    dispatch(removeQuestingByYou(friend));
+                })
+
+                socket.on("acceptRequesting", (friend) => {
+                    dispatch(removeQuestingByYou(friend));
+                })
 
                 whenSocketStart();
             })

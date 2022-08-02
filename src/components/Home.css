@@ -1428,6 +1428,7 @@
     flex-direction: column;
     width: 500px;
     border-radius: 5px;
+    margin-top: -296px;
 }
 #friend-search-area > .friend-search-main > .title{
     display: flex;
