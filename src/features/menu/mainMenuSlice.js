@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const mainMenuSlice = createSlice({
     name: "mainMenu",
     initialState: {
-        typeLeftContentShowing: "conversations"
+        typeLeftContentShowing: "friends"
     },
     reducers: {
         updateTypeLeftContentShowing(state, action){

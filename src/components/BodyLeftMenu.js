@@ -1,4 +1,6 @@
 import { memo, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTypeLeftContentShowing } from "../features/menu/mainMenuSlice";
 
 let firstRender = true;
 
@@ -12,13 +14,23 @@ function BodyLeftMenu({isOpen}){
     useEffect(() => {
         firstRender = false;
     }, []);
+    const typeLeftContentShowing = useSelector(state => state.mainMenu.typeLeftContentShowing);
+    const dispatch = useDispatch();
+    const handleOnButtonFriendClick = () => {
+        const type = typeLeftContentShowing === "friends" ? "conversations" : "friends";
+        dispatch(updateTypeLeftContentShowing(type));
+    }
 
     return (
         <div className={`menu-left menu-left--${firstRender ? "closed" : (isOpen ? "open" : "closing")}`}
             ref={menuLeftRef}>
             <div className="menu-main">
-                <button name="friend">
-                    <i className="fa-solid fa-user-group"></i>
+                <button name="friend" onClick={() => { handleOnButtonFriendClick() }}>
+                    {
+                        typeLeftContentShowing === "friends" ?
+                        (<i className="fa-solid fa-comments"></i>) :
+                        (<i className="fa-solid fa-user-group"></i>)
+                    }
                 </button>
                 <button name="friend-search">
                     <i className="fa-solid fa-user-plus"></i>

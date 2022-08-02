@@ -1,27 +1,21 @@
 import { memo } from "react"
+import { useSelector } from "react-redux";
+import Friend from "./Friend";
 
 function Friends(){
-
+    const friends = useSelector(state => state.friends.friends);
 
     return (
         <div className="body-left__list">
-            <div className="list-item">
-                <div className="avatar-area">
-                    <img className="avatar" src="/img/layout/default-avatar.jpg" alt="error"/>
-                    <i className="fa-solid fa-circle icon-status--green"></i>
-                </div>
-                <div className="info-area">
-                    <p className="name">Nguyễn B</p>
-                    <div className="friends">
-                        <div className="friend">
-                            <span>Nhắn tin</span>
-                        </div>
-                        <div className="friend call">
-                            <span>Gọi</span>
-                        </div>
-                    </div>
-                </div>
+            <div className="list-header">
+                <span className="list-header__title">Bạn bè ({friends.length})</span>
+                <i className="fa-solid fa-angle-down"></i>
             </div>
+            {
+                friends.map((friend) => {
+                    return (<Friend key={friend.id} friend={friend}/>);
+                })
+            }
         </div>
     )
 }
