@@ -391,6 +391,7 @@
     margin-left: 20px;
     margin-bottom: 5px;
     margin-right: 10px;
+    cursor: pointer;
 }
 .body-left__list > .list-header:not(:first-child){
     margin-top: 5px;
@@ -494,7 +495,7 @@
     border: none;
     padding: 2px;
 }
-.body-left__list > .list-item > .info-area--friend > .friends > .friend--call{
+.body-left__list > .list-item > .info-area--friend > .friends > .friend:not(:first-child){
     margin-left: 7px;
 }
 .body-left__list > .list-item > .info-area--friend > .friends > .friend > span{

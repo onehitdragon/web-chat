@@ -4,7 +4,7 @@ import { loadedYou } from "./youSlice";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
 import checkFileType from "../../tools/checkFileType";
-import { loadedFriends } from "../friend/friendsSlice";
+import { loadedFriends, loadedQuestingByOthers, loadedQuestingByYous } from "../friend/friendsSlice";
 
 const conversationsSlice = createSlice({
     initialState: {
@@ -102,6 +102,15 @@ const conversationsSlice = createSlice({
                 }
                 return false;
             });
+        },
+        setCurrentConversationWithFriendId(state, action){
+            for(let i = 0; i < state.conversations.length; i++){
+                const participants = state.conversations[i].participants;
+                if(participants.length === 2 && participants.find((participant) => {return participant.id === action.payload})){
+                    state.currentConversationId = state.conversations[i].id;
+                    break;
+                }
+            }
         }
     }
 });
@@ -112,7 +121,8 @@ function findCurrentConversation(conversations, currentConversationId){
 
 export default conversationsSlice.reducer;
 export const { loadedConversations, setCurrentConversationId, setScroll, addYourNewMessage,
-    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage}
+    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage,
+    setCurrentConversationWithFriendId }
     = conversationsSlice.actions;
 
 const selectConversations = (state) => state.conversations.conversations;
@@ -134,6 +144,8 @@ const loadConversaions = (whenLoaded) => {
             dispatch(loadedYou(data.you));
             dispatch(loadedConversations(data.listConversation));
             dispatch(loadedFriends(data.listFriending));
+            dispatch(loadedQuestingByOthers(data.listQuestingByOther));
+            dispatch(loadedQuestingByYous(data.listQuestingByYou));
             whenLoaded();
         })
     }
