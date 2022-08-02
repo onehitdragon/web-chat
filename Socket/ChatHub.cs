@@ -120,7 +120,20 @@ namespace project.Socket{
         public void CancerRequesting(User user){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             User me = clientData.User;
-            friendRepository.RemoveRequestingRelation(user, me);
+            friendRepository.RemoveRequestingRelation(me, user);
+            string connectionId = chatHubData.GetConnectionId(user);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("cancerRequesting", me);
+            }
+        }
+        public void DenyRequesting(User user){
+            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
+            User me = clientData.User;
+            friendRepository.RemoveRequestingRelation(me, user);
+            string connectionId = chatHubData.GetConnectionId(user);
+            if(!String.IsNullOrEmpty(connectionId)){
+                Clients.Client(connectionId).SendAsync("denyRequesting", me);
+            }
         }
         public void AcceptRequesting(User user){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);

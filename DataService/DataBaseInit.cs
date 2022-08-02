@@ -151,7 +151,7 @@ namespace project.DataService{
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
                 query = "INSERT INTO relation(Sender, Receiver, State) VALUES (5, 1, 'friending');"
                         +"INSERT INTO relation(Sender, Receiver, State) VALUES (5, 2, 'requesting');"
-                        +"INSERT INTO relation(Sender, Receiver, State) VALUES (3, 5, 'friending');"
+                        +"INSERT INTO relation(Sender, Receiver, State) VALUES (3, 5, 'requesting');"
                         +"INSERT INTO relation(Sender, Receiver, State) VALUES (4, 5, 'friending');";
                 dataProvider.ExcuteQuery(query);
             }

@@ -23,8 +23,11 @@ namespace project.Repository{
         public List<User> GetListFriend(User user, string type){
             List<User> listFriend = new List<User>();
             string query = $"SELECT * FROM relation WHERE (Sender = {user.Id} OR Receiver = {user.Id}) AND  State = '{type}'";
-            if(type == "requesting"){
-                query = $"SELECT * FROM relation WHERE Receiver = {user.Id} AND  State = '{type}'";
+            if(type == "requestingByOther"){
+                query = $"SELECT * FROM relation WHERE Receiver = {user.Id} AND  State = 'requesting'";
+            }
+            if(type == "requestingByYou"){
+                query = $"SELECT * FROM relation WHERE Sender = {user.Id} AND  State = 'requesting'";
             }
             DataTable friendTable = dataProvider.GetDataTable(query);
             foreach(DataRow friendRow in friendTable.Rows){
@@ -39,15 +42,18 @@ namespace project.Repository{
         public List<User> GetListFriending(User user){
             return GetListFriend(user, "friending");
         }
-        public List<User> GetListRequesting(User user){
-            return GetListFriend(user, "requesting");
+        public List<User> GetListRequestingByOther(User user){
+            return GetListFriend(user, "requestingByOther");
+        }
+        public List<User> GetListRequestingByYou(User user){
+            return GetListFriend(user, "requestingByYou");
         }
         public void AddRequestingRelation(User sender, User receiver){
             string query = $"INSERT INTO relation(Sender, Receiver, State) VALUES ({sender.Id}, {receiver.Id}, 'requesting')";
             dataProvider.ExcuteQuery(query);
         }
-        public void RemoveRequestingRelation(User sender, User receiver){
-            string query = $"DELETE FROM relation WHERE Sender = {sender.Id} AND Receiver = {receiver.Id} AND State = 'requesting'";
+        public void RemoveRequestingRelation(User user1, User user2){
+            string query = $"DELETE FROM relation WHERE ((Sender = {user1.Id} AND Receiver = {user2.Id}) OR Sender = {user2.Id} AND Receiver = {user1.Id}) AND State = 'requesting'";
             dataProvider.ExcuteQuery(query);
         }
         public void UpdateFriendingRelation(User sender, User receiver){

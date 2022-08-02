@@ -37,15 +37,15 @@ namespace project.Controllers
             ViewBag.ListConversation = JsonTool.EnCode(listConversation);
             ViewBag.User = JsonTool.EnCode(user);
             List<User> listFriending = friendRepository.GetListFriending(user);
-            ViewBag.ListFriending = JsonTool.EnCode(listFriending);
-            List<User> listQuesting = friendRepository.GetListRequesting(user);
-            ViewBag.ListQuesting = JsonTool.EnCode(listQuesting);
+            List<User> listQuestingByOther = friendRepository.GetListRequestingByOther(user);
+            List<User> listQuestingByYou = friendRepository.GetListRequestingByYou(user);
 
             return Json(new {
                 you = user,
                 listConversation = listConversation,
                 listFriending = listFriending,
-                listQuesting = listQuesting
+                listQuestingByYou = listQuestingByYou,
+                listQuestingByOther = listQuestingByOther
             });
         }
         [HttpPost]

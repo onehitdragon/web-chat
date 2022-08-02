@@ -127,8 +127,8 @@ namespace project.Repository{
             string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{user1.LastName + " " + user1.FirstName}', {user1.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
             dataProvider.ExcuteQuery(query);
             int idConversation = GetNewestConversationId();
-            query = $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {user1.Id});"
-                +$"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {user2.Id});";
+            query = $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {user1.Id}, 0);"
+                +$"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {user2.Id}, 0);";
             dataProvider.ExcuteQuery(query);
         }
         public void AddConversation(string nameConversation, User creator, User[] listParticipants){
@@ -136,9 +136,9 @@ namespace project.Repository{
             string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{nameConversation}', {creator.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
             dataProvider.ExcuteQuery(query);
             int idConversation = GetNewestConversationId();
-            query = $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {creator.Id});";
+            query = $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {creator.Id}, 0);";
             foreach(User participant in listParticipants){
-                query += $"INSERT INTO participants(Conversation_Id, Users_Id) VALUES ({idConversation}, {participant.Id});";
+                query += $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {participant.Id}, 0);";
             }
             dataProvider.ExcuteQuery(query);
         }

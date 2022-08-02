@@ -13,7 +13,9 @@ namespace project.Controllers{
         }
         public IActionResult SearchFriend(string key){
             if(!SessionTool.CheckSession(HttpContext, "account")){   
-                return Redirect("/Account/Login");
+                return Json(new {
+                    result = "fail"
+                });
             }
             User user = SessionTool.GetSession<User>(HttpContext, "user");
             List<User> listResult = friendRepository.SearchFriend(user, key);
