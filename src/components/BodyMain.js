@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import BodyLeft from './BodyLeft';
 import BodyRight from './BodyRight';
 
-function BodyMain(){    
+function BodyMain(){  
     return (
         <div className="body__main-home">
             <BodyLeft />
@@ -10,4 +11,4 @@ function BodyMain(){
     );
 }
 
-export default BodyMain;
+export default memo(BodyMain);

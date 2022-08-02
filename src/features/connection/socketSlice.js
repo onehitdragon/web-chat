@@ -12,12 +12,16 @@ const socketSlice = createSlice({
                     .withUrl(action.payload.url)
                     .build()
             );
+        },
+        requestingFriend(state, action){
+            state.invoke("RequestingFriend", action.payload);
+            return state;
         }
     }
 });
 
 export default socketSlice.reducer;
-export const { buildSocket } = socketSlice.actions;
+export const { buildSocket, requestingFriend} = socketSlice.actions;
 
 const startSocket = (whenSocketStart) => {
     return (dispatch, getState) => {

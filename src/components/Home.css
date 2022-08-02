@@ -392,13 +392,14 @@
     margin-bottom: 5px;
     margin-right: 10px;
     cursor: pointer;
+    user-select: none;
 }
 .body-left__list > .list-header:not(:first-child){
     margin-top: 5px;
 }
 .body-left__list > .list-header > .list-header__title{
     font-weight: bold;
-    font-size: 15.5px;
+    font-size: 15.3px;
 }
 .avatar-area{
     position: relative;
