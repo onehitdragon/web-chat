@@ -6,6 +6,8 @@ import storageFireBaseReducer from '../features/chat/storageFireBaseSlice';
 import thunkMiddleware from 'redux-thunk';
 import groupConversationSettingReducer from '../features/setting/groupConversationSettingSlice';
 import searchReducer from '../features/search/searchSlice';
+import friendsReducer from '../features/friend/friendsSlice';
+import mainMenuReducer from '../features/menu/mainMenuSlice';
 
 const store = configureStore({
     reducer: {
@@ -14,7 +16,9 @@ const store = configureStore({
         conversations: conversationsReducer,
         storageFireBase: storageFireBaseReducer,
         groupConversationSetting: groupConversationSettingReducer,
-        search: searchReducer
+        search: searchReducer,
+        friends: friendsReducer,
+        mainMenu: mainMenuReducer
     },
     middleware : [thunkMiddleware]
 });

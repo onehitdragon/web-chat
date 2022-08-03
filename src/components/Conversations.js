@@ -8,7 +8,11 @@ function Conversations(){
     const conversations = useSelector(selectConversations);
     
     return (
-        <div className="body-left__conversations">
+        <div className="body-left__list">
+            <div className="list-header">
+                <span className="list-header__title">Trò Truyện</span>
+                <i className="fa-solid fa-angle-down"></i>
+            </div>
             {
                 conversations.map((conversation) => {
                     return conversation.participants.length <= 2 ? (

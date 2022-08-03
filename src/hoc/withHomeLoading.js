@@ -1,6 +1,6 @@
-function withHomeLoading(Component, isLoading){
+function withHomeLoading(Component){
     return function (props){
-        if(isLoading) {
+        if(props.isLoading) {
             return (
                 <div className="message-loading">
                     <div className="content">

@@ -28,7 +28,7 @@ function BaseConversation({id, title, lastMessage, participants, amountMessageNo
 
     return (
         show && 
-        <div className={'conversation-item ' + (isChoice ? 'conversation-item--choiced' : "")}
+        <div className={'list-item ' + (isChoice ? 'list-item--choiced' : "")}
             onClick={ (e) => { handleClickConversaion(); } }>
             <AvatarConversation participants={participants}/>
             <InfoArea title={
