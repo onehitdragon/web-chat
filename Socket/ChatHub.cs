@@ -140,21 +140,23 @@ namespace project.Socket{
             User me = clientData.User;
             friendRepository.UpdateFriendingRelation(user, me);
             Conversation conversation = conversationRepository.AddConversation(user, me);
+
+            Clients.Caller.SendAsync("acceptRequesting", me, conversation);
             string connectionId = chatHubData.GetConnectionId(user);
             if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Caller.SendAsync("acceptRequesting", me, conversation);
                 Clients.Client(connectionId).SendAsync("acceptRequesting", me, conversation);
             }
         }
         public void CreateGroupConversation(string nameGroup, User[] listUser){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             User me = clientData.User;
-            conversationRepository.AddConversation(nameGroup, me, listUser);
-            Clients.Caller.SendAsync("createGroupConversation", me);
+            Conversation conversation = conversationRepository.AddConversation(nameGroup, me, listUser);
+
+            Clients.Caller.SendAsync("createGroupConversation", me, conversation);
             foreach(User user in listUser){
                 string connectionId = chatHubData.UserIsOnline(user);
                 if(!String.IsNullOrEmpty(connectionId)){
-                    Clients.Client(connectionId).SendAsync("createGroupConversation", me);
+                    Clients.Client(connectionId).SendAsync("createGroupConversation", me, conversation);
                 }
             }
         }
