@@ -139,10 +139,11 @@ namespace project.Socket{
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             User me = clientData.User;
             friendRepository.UpdateFriendingRelation(user, me);
-            conversationRepository.AddConversation(user, me);
+            Conversation conversation = conversationRepository.AddConversation(user, me);
             string connectionId = chatHubData.GetConnectionId(user);
             if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("acceptRequesting", me);
+                Clients.Caller.SendAsync("acceptRequesting", me, conversation);
+                Clients.Client(connectionId).SendAsync("acceptRequesting", me, conversation);
             }
         }
         public void CreateGroupConversation(string nameGroup, User[] listUser){

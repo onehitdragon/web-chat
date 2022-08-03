@@ -156,18 +156,15 @@ namespace project.DataService{
                 dataProvider.ExcuteQuery(query);
             }
 
-            // // create usernotread table
-            // query = "CREATE TABLE IF NOT EXISTS UserNotRead("
-            //         + "Conversation_Id INT,"
-            //         + "User_Id BIGINT unsigned,"
-            //         + "AmountMessage INT DEFAULT 0,"
-            //         + "FOREIGN KEY (Conversation_Id) REFERENCES Conversation(Id),"
-            //         + "FOREIGN KEY (User_Id) REFERENCES Users(Id)"
-            //         +")";
-            // dataProvider.ExcuteQuery(query);
-
-            // // init usernotread table
-            // query = "INSERT INTO UserNotRead VALUES (1, 1, 3)";
+            // store produce
+            // query = "CREATE PROCEDURE AddConversation(IN title VARCHAR(100), IN creatorId INT, IN participantId INT) "
+            //     + "BEGIN "
+            //     + "DECLARE idConversation INT;"
+            //     + "INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (title, creatorId, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
+            //     + "SET idConversation = (SELECT MAX(Id) FROM conversation);"
+            //     + "INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (idConversation, creatorId, 0);"
+            //     + "INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES (idConversation, participantId, 0);"
+            //     + "END";
             // dataProvider.ExcuteQuery(query);
         }
         public void DropChatAppDB(){

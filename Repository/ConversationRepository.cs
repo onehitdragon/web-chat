@@ -123,13 +123,17 @@ namespace project.Repository{
 
             return conversation;
         }
-        public void AddConversation(User user1, User user2){
-            string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{user1.LastName + " " + user1.FirstName}', {user1.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL)";
+        public Conversation AddConversation(User user1, User user2){
+            string query = $"INSERT INTO conversation(Title, Creator_Id, Create_at, Update_at, Delete_at) VALUES (N'{user1.LastName + " " + user1.FirstName}', {user1.Id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);"
+                + "SELECT MAX(Id) FROM conversation;";
+            DataTable conversationIdTable = dataProvider.GetDataTable(query);
+            int idConversation = int.Parse(conversationIdTable.Rows[0][0].ToString());
+
+            query = $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ((SELECT MAX(Id) FROM conversation), {user1.Id}, 0);"
+                + $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ((SELECT MAX(Id) FROM conversation), {user2.Id}, 0);";
             dataProvider.ExcuteQuery(query);
-            int idConversation = GetNewestConversationId();
-            query = $"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {user1.Id}, 0);"
-                +$"INSERT INTO participants(Conversation_Id, Users_Id, AmountMessageNotRead) VALUES ({idConversation}, {user2.Id}, 0);";
-            dataProvider.ExcuteQuery(query);
+
+            return GetConversation(idConversation);
         }
         public void AddConversation(string nameConversation, User creator, User[] listParticipants){
             if(listParticipants.Length == 0) return;
