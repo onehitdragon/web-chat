@@ -5,17 +5,24 @@ import FriendInvites from "./FriendInvites";
 import GroupNameInput from "./GroupNameInput";
 import InviteFriendSearchBar from "./InviteFriendSearchBar";
 import { reset } from "../features/CreateGroup/createGroupSlice";
+import { createGroupConversation } from "../features/connection/socketSlice";
 
 function GroupCreationMain() {
     const friends = useSelector(state => state.friends.friends);
     const nameGroup = useSelector(state => state.createGroup.nameGroup);
     const invites = useSelector(state => state.createGroup.invites);
     const dispatch = useDispatch();
+
     useEffect(() => {
         return () => {
             dispatch(reset());
         }
-    }, []);
+    }, [dispatch]);
+
+    const handleOnCreateGroupClick = () => {
+        dispatch(createGroupConversation);
+        dispatch(updateShowCreationMain(false))
+    }
 
     return (
         <div id="friend-search-area">
@@ -36,7 +43,7 @@ function GroupCreationMain() {
                 <div className="area-button">
                     {
                         invites.length >= 2 && nameGroup !== "" &&
-                        <button name="create-group-button">Xác nhận</button>
+                        <button name="create-group-button" onClick={() => { handleOnCreateGroupClick() }}>Xác nhận</button>
                     }
                 </div>
             </div>

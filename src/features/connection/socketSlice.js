@@ -13,28 +13,12 @@ const socketSlice = createSlice({
                     .withUrl(action.payload.url)
                     .build()
             );
-        },
-        requestingFriend(state, action){
-            state.invoke("RequestingFriend", action.payload);
-            return state;
-        },
-        cancerRequesting(state, action){
-            state.invoke("CancerRequesting", action.payload);
-            return state;
-        },
-        denyRequesting(state, action){
-            state.invoke("DenyRequesting", action.payload);
-            return state;
-        },
-        acceptRequesting(state, action){
-            state.invoke("AcceptRequesting", action.payload);
-            return state;
         }
     }
 });
 
 export default socketSlice.reducer;
-export const { buildSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting} = socketSlice.actions;
+export const { buildSocket } = socketSlice.actions;
 
 const startSocket = (whenSocketStart) => {
     return (dispatch, getState) => {
@@ -100,6 +84,10 @@ const startSocket = (whenSocketStart) => {
                     dispatch(addConversation(conversation));
                 });
 
+                socket.on("createGroupConversation", (friend, conversation) => {
+                    dispatch(addConversation(conversation));
+                });
+
                 whenSocketStart();
             })
             .catch(e => {
@@ -109,4 +97,34 @@ const startSocket = (whenSocketStart) => {
     }
 }
 
-export { startSocket }
+// function action
+const requestingFriend = (friend) => {
+    return (dispatch, getState) => {
+        getState().socket.invoke("RequestingFriend", friend);
+    }
+}
+
+const cancerRequesting = (friend) => {
+    return (dispatch, getState) => {
+        getState().socket.invoke("CancerRequesting", friend);
+    }
+}
+const denyRequesting = (friend) => {
+    return (dispatch, getState) => {
+        getState().socket.invoke("DenyRequesting", friend);
+    }
+}
+const acceptRequesting = (friend) => {
+    return (dispatch, getState) => {
+        getState().socket.invoke("AcceptRequesting", friend);
+    }
+}
+const createGroupConversation = (dispatch, getState) => {
+    const nameGroup = getState().createGroup.nameGroup;
+    const participants = getState().createGroup.invites;
+
+    getState().socket.invoke("CreateGroupConversation", nameGroup, participants);
+}
+
+
+export { startSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting, createGroupConversation}
