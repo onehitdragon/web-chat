@@ -1,7 +1,6 @@
 import { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateShowFriendSearchMain } from "../features/friend/friendsSlice";
-import { updateTypeLeftContentShowing } from "../features/menu/mainMenuSlice";
+import { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain } from "../features/menu/mainMenuSlice";
 
 let firstRender = true;
 
@@ -36,7 +35,7 @@ function BodyLeftMenu({isOpen}){
                 <button name="friend-search" onClick={() => { dispatch(updateShowFriendSearchMain(true)) }}>
                     <i className="fa-solid fa-user-plus"></i>
                 </button>
-                <button name="create-group">
+                <button name="create-group" onClick={() => { dispatch(updateShowCreationMain(true)) }}>
                     <i className="fa-solid fa-users"></i>
                 </button>
                 <button name="setting">

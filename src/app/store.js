@@ -8,6 +8,7 @@ import groupConversationSettingReducer from '../features/setting/groupConversati
 import searchReducer from '../features/search/searchSlice';
 import friendsReducer from '../features/friend/friendsSlice';
 import mainMenuReducer from '../features/menu/mainMenuSlice';
+import createGroupReducer from '../features/CreateGroup/createGroupSlice';
 
 const store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
         groupConversationSetting: groupConversationSettingReducer,
         search: searchReducer,
         friends: friendsReducer,
-        mainMenu: mainMenuReducer
+        mainMenu: mainMenuReducer,
+        createGroup: createGroupReducer
     },
     middleware : [thunkMiddleware]
 });

@@ -4,8 +4,8 @@ const searchSlice = createSlice({
     name: "search",
     initialState: {
         conversationKeyword: "",
-        showingSearchMenu: false,
-        contentMessageKeyword: ""
+        contentMessageKeyword: "",
+        searchInviteKeyword: ""
     },
     reducers: {
         updateConversationKeyword(state, action){
@@ -13,9 +13,12 @@ const searchSlice = createSlice({
         },
         updateContentMessageKeyword(state, action){
             state.contentMessageKeyword = action.payload;
+        },
+        updateSearchInviteKeyword(state, action){
+            state.searchInviteKeyword = action.payload;
         }
     }
 });
 
 export default searchSlice.reducer;
-export const { updateConversationKeyword, updateContentMessageKeyword } = searchSlice.actions;
+export const { updateConversationKeyword, updateContentMessageKeyword, updateSearchInviteKeyword } = searchSlice.actions;

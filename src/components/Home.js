@@ -9,13 +9,15 @@ import { buildSocket } from '../features/connection/socketSlice';
 import { loadConversaions } from '../features/chat/conversationsSlice';
 import { startSocket } from '../features/connection/socketSlice';
 import FriendSearchMain from './FriendSearchMain';
+import GroupCreationMain from './GroupCreationMain';
 
 const BodyMainWithHomeLoading = withHomeLoading(BodyMain);
 function Home() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const showFriendSearchMain = useSelector(state => state.friends.showFriendSearchMain);
+    const showFriendSearchMain = useSelector(state => state.mainMenu.showFriendSearchMain);
+    const showGroupCreationMain = useSelector(state => state.mainMenu.showGroupCreationMain)
 
     useEffect(() => {
         const navigateToLogin = () => {
@@ -40,6 +42,10 @@ function Home() {
             {
                 showFriendSearchMain &&
                 <FriendSearchMain />
+            }
+            {
+                showGroupCreationMain &&
+                <GroupCreationMain />
             }
         </div>
     );

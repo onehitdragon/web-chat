@@ -5,8 +5,7 @@ const friendsSlice = createSlice({
     initialState: {
         friends: null,
         questingByOthers: null,
-        questingByYous: null,
-        showFriendSearchMain: false
+        questingByYous: null
     },
     reducers: {
         loadedFriends(state, action){
@@ -17,9 +16,6 @@ const friendsSlice = createSlice({
         },
         loadedQuestingByYous(state, action){
             state.questingByYous = action.payload;
-        },
-        updateShowFriendSearchMain(state, action){
-            state.showFriendSearchMain = action.payload; 
         },
         addQuestingByYou(state, action){
             state.questingByYous.push(action.payload);
@@ -51,5 +47,5 @@ const friendsSlice = createSlice({
 
 export default friendsSlice.reducer;
 export const { loadedFriends, loadedQuestingByOthers, loadedQuestingByYous, addQuestingByYou,
-    updateShowFriendSearchMain, addQuestingByOther, removeQuestingByYou, removeQuestingByOther,
+    addQuestingByOther, removeQuestingByYou, removeQuestingByOther,
     addFriends } = friendsSlice.actions;

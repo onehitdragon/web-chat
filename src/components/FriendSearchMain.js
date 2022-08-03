@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateShowFriendSearchMain } from "../features/friend/friendsSlice";
+import { updateShowFriendSearchMain } from "../features/menu/mainMenuSlice";
 import doRequestApi from "../tools/doRequestApi";
 import FriendResults from "./FriendResults";
 

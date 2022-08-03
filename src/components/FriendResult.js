@@ -12,6 +12,7 @@ function FriendResult({friend}){
     return (
         !remove &&
         <BaseFriend friend={friend}
+            effectSearch={false}
             friendMenu={<FriendMenu rows={[
                 {
                     title: "Kết bạn",
@@ -21,7 +22,8 @@ function FriendResult({friend}){
                         dispatch(addQuestingByYou(friend));
                     }
                 }
-            ]}/>}/>
+            ]}
+        />}/>
     );
 }
 
