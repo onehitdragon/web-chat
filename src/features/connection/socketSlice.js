@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { addNewMessage, updateTyping } from "../chat/conversationsSlice";
-import { addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
+import { addConversation, addNewMessage, updateTyping } from "../chat/conversationsSlice";
+import { addFriends, addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
 
 const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
@@ -86,15 +86,19 @@ const startSocket = (whenSocketStart) => {
 
                 socket.on("cancerRequesting", (friend) => {
                     dispatch(removeQuestingByOther(friend));
-                })
+                });
 
                 socket.on("denyRequesting", (friend) => {
                     dispatch(removeQuestingByYou(friend));
-                })
+                });
 
-                socket.on("acceptRequesting", (friend) => {
-                    dispatch(removeQuestingByYou(friend));
-                })
+                socket.on("acceptRequesting", (friend, conversation) => {
+                    if(friend.id !== you.id){
+                        dispatch(removeQuestingByYou(friend));
+                        dispatch(addFriends(friend));
+                    }
+                    dispatch(addConversation(conversation));
+                });
 
                 whenSocketStart();
             })

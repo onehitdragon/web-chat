@@ -111,6 +111,9 @@ const conversationsSlice = createSlice({
                     break;
                 }
             }
+        },
+        addConversation(state, action){
+            state.conversations.push(action.payload);
         }
     }
 });
@@ -122,7 +125,7 @@ function findCurrentConversation(conversations, currentConversationId){
 export default conversationsSlice.reducer;
 export const { loadedConversations, setCurrentConversationId, setScroll, addYourNewMessage,
     haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage,
-    setCurrentConversationWithFriendId }
+    setCurrentConversationWithFriendId, addConversation }
     = conversationsSlice.actions;
 
 const selectConversations = (state) => state.conversations.conversations;

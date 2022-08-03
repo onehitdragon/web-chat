@@ -37,7 +37,7 @@ function FriendSearchMain(){
                     <div className="input-area__search">
                         <i className="fa-solid fa-magnifying-glass"></i>
                         <div className="input">
-                            <input placeholder="Nhập tên, số điện thoại..."
+                            <input placeholder="Nhập tên, số điện thoại..." autoFocus
                             onChange={(e) => { setKeyword(e.target.value) }}/>
                         </div>
                         <FriendResults friends={result}/>
