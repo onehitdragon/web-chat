@@ -1716,3 +1716,117 @@
         transform: translateX(0px);
     }
 }
+
+/* dialog */
+.wrapper{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: black;
+    opacity: .75;
+}
+.dialog{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: 280px;
+    position: relative;
+    z-index: 1;
+}
+.dialog::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: white;
+    opacity: .2;
+    border-radius: 5px;
+}
+.dialog > .info-area{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dialog > .info-area > .avatar{
+
+}
+.dialog > .info-area > .name{
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 10px;
+}
+.dialog > .info-area > .status{
+    font-size: 13.5px;
+}
+.dialog > .button-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-bottom: 15px;
+}
+.dialog > .button-area > button{
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+.dialog > .button-area > .button--red{
+    background-color: rgb(255, 66, 66);
+}
+.dialog > .button-area > .button--green{
+    background-color: #23d5ab;
+}
+.dialog > .button-area > .button--rotate-133{
+    transform: rotateZ(133deg);
+}
+.dialog > .button-area > button::after{
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.dialog > .button-area > button:hover::after{
+    border: 1px solid rgb(207, 207, 207);
+    animation: dialog-button-ani 5000s infinite linear;
+}
+@keyframes dialog-button-ani {
+    0.01%{
+        width: 60px;
+        height: 60px;
+        top: -10px;
+        left: -10px;
+    }
+}
+.dialog > .button-area > button:not(:first-child){
+    margin-left: 15px;
+}
+.dialog > .button-area > button > i{
+    color: white;
+}
+/* dialog */
