@@ -10,6 +10,7 @@ import { loadConversaions } from '../features/chat/conversationsSlice';
 import { startSocket } from '../features/connection/socketSlice';
 import FriendSearchMain from './FriendSearchMain';
 import GroupCreationMain from './GroupCreationMain';
+import CallVideoMain from './CallVideoMain';
 
 const BodyMainWithHomeLoading = withHomeLoading(BodyMain);
 function Home() {
@@ -64,23 +65,7 @@ function Home() {
                     </div>
                 </div>
             </div> */}
-            <div className='wrapper'>
-                <div className="dialog">
-                    <div className='info-area'>
-                        <img className='avatar' alt='error' src='https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png'/>
-                        <p className='name'>Nguyễn B</p>
-                        <p className='status'>Đang gọi...</p>
-                    </div>
-                    <div className='button-area'>
-                        <button className='button--green'>
-                            <i className="fa-solid fa-phone"></i>
-                        </button>
-                        <button className='button--red button--rotate-133'>
-                            <i className="fa-solid fa-phone"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <CallVideoMain />
         </div>
     );
 }
