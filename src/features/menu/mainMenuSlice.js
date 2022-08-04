@@ -5,7 +5,13 @@ const mainMenuSlice = createSlice({
     initialState: {
         typeLeftContentShowing: "friends",
         showFriendSearchMain: false,
-        showGroupCreationMain: false
+        showGroupCreationMain: false,
+        callVieoDialog: {
+            show: false,
+            friend: null,
+            status: "",
+            buttons: []
+        }
     },
     reducers: {
         updateTypeLeftContentShowing(state, action){
@@ -16,9 +22,13 @@ const mainMenuSlice = createSlice({
         },
         updateShowCreationMain(state, action){
             state.showGroupCreationMain = action.payload; 
+        },
+        updateCallVieoDialog(state, action){
+            state.callVieoDialog = action.payload;
         }
     }
 });
 
 export default mainMenuSlice.reducer;
-export const { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain } = mainMenuSlice.actions;
+export const { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain,
+    updateCallVieoDialog } = mainMenuSlice.actions;
