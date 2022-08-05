@@ -160,51 +160,37 @@ namespace project.Socket{
                 }
             }
         }
-        public void CallVideo(User receiver){
+        public void CallVideo(User receiver, Object offer){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             User me = clientData.User;
+
             string connectionId = chatHubData.UserIsOnline(receiver);
             if(String.IsNullOrEmpty(connectionId)){
-                Clients.Caller.SendAsync("canCallVideo", "offline");
+                Clients.Caller.SendAsync("callVideo", "offline");
             }
             else{
-                Clients.Caller.SendAsync("canCallVideo", "canCalling");
-                Clients.Client(connectionId).SendAsync("calling", me);
+                Clients.Client(connectionId).SendAsync("callVideo", "beCall", me, offer);
             }
         }
-        public void AcceptCalling(User sender){
-            string connectionId = chatHubData.UserIsOnline(sender);
-            if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("canCallVideo", "startCallVideo");
-            }
-        }
-        public void Offer(User receiver, Object sdp){
+        public void AcceptCallVideo(User receiver, Object answer){
             ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
             User me = clientData.User;
+
             string connectionId = chatHubData.UserIsOnline(receiver);
-            if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("offer", me, sdp);
+            if(String.IsNullOrEmpty(connectionId)){
+                Clients.Caller.SendAsync("acceptCallVideo", "offline");
+            }
+            else{
+                Clients.Caller.SendAsync("acceptCallVideo", "online");
+                Clients.Client(connectionId).SendAsync("acceptCallVideo", "beAnswer", me, answer);
             }
         }
-        public void Answer(User receiver, Object sdp){
+        public void Candidate(User receiver, Object candidate){
             string connectionId = chatHubData.UserIsOnline(receiver);
             if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("answer", sdp);
+                Clients.Client(connectionId).SendAsync("candidate", candidate);
             }
         }
-        public void UpdateCandidate(User receiver, Object candidate){
-            string connectionId = chatHubData.UserIsOnline(receiver);
-            if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("updateCandidate", candidate);
-            }
-        }
-        public void StopCall(User receiver){
-            ClientData clientData = chatHubData.GetClientData(Context.ConnectionId);
-            User me = clientData.User;
-            string connectionId = chatHubData.UserIsOnline(receiver);
-            if(!String.IsNullOrEmpty(connectionId)){
-                Clients.Client(connectionId).SendAsync("stopCall", me);
-            }
-        }
+        
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IpbVGW90F9NIMnK1XuXNTtOpPyipB5V7lxAk1IDy3Rs=",
+  "Hash": "JoWq0Fr2HLjsXbRxf8CyPjRp3lqvyoAlEs1frzts3No=",
   "Source": "project",
   "BasePath": "_content/project",
   "Mode": "Default",
@@ -33131,6 +33131,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sound\\ting.mp3"
+    },
+    {
+      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\y2mate.com - Japan in 8K ULTRA HD  Land of The Rising Sun 60 FPS_1080pFHR.mp4",
+      "SourceId": "project",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "BasePath": "_content/project",
+      "RelativePath": "y2mate.com - Japan in 8K ULTRA HD  Land of The Rising Sun 60 FPS_1080pFHR.mp4",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\y2mate.com - Japan in 8K ULTRA HD  Land of The Rising Sun 60 FPS_1080pFHR.mp4"
     }
   ]
 }
