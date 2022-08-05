@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import { addConversation, addNewMessage, updateTyping } from "../chat/conversationsSlice";
 import { addFriends, addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
 
+
 const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
     name: "socket",
@@ -126,5 +127,4 @@ const createGroupConversation = (dispatch, getState) => {
     getState().socket.invoke("CreateGroupConversation", nameGroup, participants);
 }
 
-
-export { startSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting, createGroupConversation}
+export { startSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting, createGroupConversation }

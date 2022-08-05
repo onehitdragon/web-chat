@@ -1777,6 +1777,7 @@
 }
 .dialog > .info-area > .status{
     font-size: 13.5px;
+    margin-top: 5px;
 }
 .dialog > .button-area{
     display: flex;

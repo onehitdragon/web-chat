@@ -1,47 +1,31 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import "../style/callvideo.css";
 import MyVideo from "./MyVideo";
 
 function CallVideoMain(){
     const mainVideoRef = useRef();
-    const [myStream, setMyStream] = useState({
-        isGetStream: false,
-        stream: null
-    });
+    const otherVideoRef = useRef();
+    const remoteStream = useSelector(state => state.videoCall.remoteStream);
+
+    useEffect(() => {
+        if(remoteStream){
+            otherVideoRef.current.srcObject = remoteStream;
+        }
+    }, [remoteStream])
 
     const handleOtherVideoOnLoad = (e) => {
         const video = e.target;
         mainVideoRef.current.style = `width: ${video.clientWidth}px; height: ${video.clientHeight}px`;
     }
 
-    useEffect(() => {
-        const mediaConstrain = {
-            audio: true,
-            video: true,
-        }
-        navigator.mediaDevices.getUserMedia(mediaConstrain)
-        .then((stream) => {
-            setMyStream({
-                isGetStream: true,
-                stream: stream
-            });
-            console.log(stream.getTracks());
-        })
-        .catch((error) => {
-            setMyStream({
-                isGetStream: true,
-                stream: null
-            });
-            console.log(error);
-        })
-    }, []);
-
     return (
         <div className='wrapper'>
             <div className="main-video" ref={mainVideoRef}>
-                <video className="otherVideo" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" autoPlay muted
+                <video className="otherVideo" autoPlay muted
+                    ref={otherVideoRef}
                     onLoadedMetadata={handleOtherVideoOnLoad}/>
-                {myStream.isGetStream && <MyVideo stream={myStream.stream}/>}
+                <MyVideo />
                 <div className="controls" >
                     <div className="call-time">
                         <i className="fa-solid fa-record-vinyl"></i>

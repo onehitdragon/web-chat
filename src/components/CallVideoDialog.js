@@ -1,6 +1,5 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
-import CallVideoDialogButton from "./CallVideoDialogButton";
 
 function CallVideoDialog(){
     const callVieoDialog = useSelector(state => state.mainMenu.callVieoDialog);
@@ -15,14 +14,7 @@ function CallVideoDialog(){
                     <p className='status'>{callVieoDialog.status}</p>
                 </div>
                 <div className='button-area'>
-                    {
-                        callVieoDialog.buttons.map((button, index) => {
-                            return (
-                                <CallVideoDialogButton key={index} color={button.color} rotate={button.rotate}
-                                    handleOnClick={button.handleOnClick}/>
-                            );
-                        })
-                    }
+                    {callVieoDialog.buttons}
                 </div>
             </div>
         </div>

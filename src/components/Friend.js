@@ -1,8 +1,10 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentConversationWithFriendId, updateAmountMessageNotRead } from "../features/chat/conversationsSlice";
-import { updateCallVieoDialog } from "../features/menu/mainMenuSlice";
+import { callVideo } from "../features/VideoCall/videoCallSlice";
+import { hideCallVideoDialog, updateCallVieoDialog } from "../features/menu/mainMenuSlice";
 import BaseFriend from "./BaseFriend";
+import CallVideoDialogButtonDeny from "./CallVideoDialogButtonDeny";
 import FriendMenu from "./FriendMenu";
 
 function Friend({friend}){
@@ -22,18 +24,14 @@ function Friend({friend}){
                 {
                     title: "Gọi",
                     handleOnClick: () => {
+                        dispatch(callVideo(friend));
                         dispatch(updateCallVieoDialog({
                             show: true,
                             friend: friend,
                             status: "Đang gọi...",
                             buttons: [
-                                {
-                                    color: "red",
-                                    rotate: true,
-                                    handleOnClick: () => {
-                                        dispatch(updateCallVieoDialog({show: false}));
-                                    }
-                                }
+                                <CallVideoDialogButtonDeny key={1}
+                                    onHandleClick={() => { dispatch(hideCallVideoDialog()) }}/>
                             ]
                         }));
                     }

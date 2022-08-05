@@ -1,12 +1,14 @@
 import { memo, useEffect } from "react";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 
-function MyVideo({stream}){
+function MyVideo(){
     const myVideoRef = useRef();
     const videoRef = useRef();
+    const stream = useSelector(state => state.videoCall.stream);
 
     useEffect(() => {
-        if(videoRef.current !== undefined){
+        if(stream){
             videoRef.current.srcObject = stream;
         }
     }, [stream]);

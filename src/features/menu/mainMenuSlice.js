@@ -11,7 +11,8 @@ const mainMenuSlice = createSlice({
             friend: null,
             status: "",
             buttons: []
-        }
+        },
+        showCallVideoMain: false
     },
     reducers: {
         updateTypeLeftContentShowing(state, action){
@@ -25,10 +26,19 @@ const mainMenuSlice = createSlice({
         },
         updateCallVieoDialog(state, action){
             state.callVieoDialog = action.payload;
+        },
+        updateStatusCallVieoDialog(state, action){
+            state.callVieoDialog.status = action.payload;
+        },
+        hideCallVideoDialog(state, action){
+            state.callVieoDialog.show = false;
+        },
+        updateShowCallVideoMain(state, action){
+            state.showCallVideoMain = action.payload; 
         }
     }
 });
 
 export default mainMenuSlice.reducer;
 export const { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain,
-    updateCallVieoDialog } = mainMenuSlice.actions;
+    updateCallVieoDialog, updateStatusCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain } = mainMenuSlice.actions;
