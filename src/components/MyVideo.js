@@ -14,8 +14,8 @@ function MyVideo(){
     }, [stream]);
 
     const handleMyVideoOnLoad = (e) => {
-        const video = e.target;
-        myVideoRef.current.style = `width: ${video.clientWidth}px; height: ${video.clientHeight}px`;
+        console.log(stream.getTracks()[1].getSettings());
+        
     }
 
     return (

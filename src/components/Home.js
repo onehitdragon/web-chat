@@ -28,7 +28,7 @@ function Home() {
             navigate("/");
         }
         const showHomePage = () => {
-            dispatch(buildSocket({ url: 'http://127.0.0.1:5001/chat' }));
+            dispatch(buildSocket({ url: 'https://192.168.1.153:5001/chat' }));
             dispatch(buildConnection);
             dispatch(loadConversaions(() => {
                 dispatch(startSocket(() => {

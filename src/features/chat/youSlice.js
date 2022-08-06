@@ -15,7 +15,7 @@ const youSlice = createSlice({
 
 const checkStatus = (doLogin, doNotLogin) => {
     return (dispatch, getState) => {
-        doRequestApi('http://127.0.0.1:5001/account/CheckLogined', 'GET')
+        doRequestApi('https://192.168.1.153:5001/account/CheckLogined', 'GET')
         .then((data) => {
             if(data.logined){
                 doLogin();
@@ -29,7 +29,7 @@ const checkStatus = (doLogin, doNotLogin) => {
 
 const login = (email, password, processResponse) => {
     return (dispatch, getState) => {
-        const res = doRequestApi('http://127.0.0.1:5001/account/login', 'POST', {
+        const res = doRequestApi('https://192.168.1.153:5001/account/login', 'POST', {
             contentType: 'application/x-www-form-urlencoded',
             body: `email=${email}&password=${password}`
         })

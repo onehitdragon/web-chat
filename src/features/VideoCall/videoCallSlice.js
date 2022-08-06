@@ -69,7 +69,10 @@ const {updateConnection, updateStream, updateRemoteStream, updateFriend} = video
 const getStream = async () => {
     const mediaConstrain = {
         audio: true,
-        video: true,
+        video: {
+            "width": 1280,
+            "height": 720
+        }
     }
     return await navigator.mediaDevices.getUserMedia(mediaConstrain).catch(() => {});
 }
