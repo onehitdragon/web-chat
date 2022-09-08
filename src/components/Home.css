@@ -1831,3 +1831,13 @@
     color: white;
 }
 /* dialog */
+/* reposive */
+@media screen and (max-width: 480px) {
+    .body > .body__main-home .body-left{
+        width: 320px;
+    }
+    .body > .body__main-home .body-right{
+        width: 320px;
+    }
+}
+/* reposive */

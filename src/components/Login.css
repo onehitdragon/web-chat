@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 425px;
 }
 .body > .body__main::before{
     content: "";
@@ -47,7 +48,11 @@
     justify-content: space-around;
 }
 .body > .body__main .other-login > div{
-    padding: 7px 45px;
+    width: 179px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid rgb(255, 255, 255);
     font-size: 15.5px;
 }
@@ -68,10 +73,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .body > .body__main .login-form > .login-form__row{
+    width: 100%;
     margin-bottom: 20px;
-    min-width: 450px;
     display: flex;
     position: relative;
 }
@@ -165,4 +171,18 @@
 .body > .body__main .login-form > button[type='button']:hover{
     opacity: .8;
     transition: all .3s;
+}
+
+@media screen and (max-width: 480px){
+
+    .body > .body__main{
+        width: 280px;
+    }
+    .body > .body__main .other-login{
+        flex-direction: column;
+    }
+    .body > .body__main .other-login > div:first-child{
+        margin-bottom: 10px;
+    }
+
 }
