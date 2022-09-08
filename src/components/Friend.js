@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentConversationWithFriendId, updateAmountMessageNotRead } from "../features/chat/conversationsSlice";
+import { callVideo } from "../features/VideoCall/videoCallSlice";
 import BaseFriend from "./BaseFriend";
 import FriendMenu from "./FriendMenu";
 
@@ -21,7 +22,7 @@ function Friend({friend}){
                 {
                     title: "Gọi",
                     handleOnClick: () => {
-                        
+                        dispatch(callVideo(friend));
                     }
                 }
             ]}/>}/>

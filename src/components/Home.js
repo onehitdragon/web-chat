@@ -10,6 +10,9 @@ import { loadConversaions } from '../features/chat/conversationsSlice';
 import { startSocket } from '../features/connection/socketSlice';
 import FriendSearchMain from './FriendSearchMain';
 import GroupCreationMain from './GroupCreationMain';
+import CallVideoDialog from './CallVideoDialog';
+import CallVideoMain from './CallVideoMain';
+import { buildConnection } from '../features/VideoCall/videoCallSlice';
 
 const BodyMainWithHomeLoading = withHomeLoading(BodyMain);
 function Home() {
@@ -17,14 +20,16 @@ function Home() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const showFriendSearchMain = useSelector(state => state.mainMenu.showFriendSearchMain);
-    const showGroupCreationMain = useSelector(state => state.mainMenu.showGroupCreationMain)
+    const showGroupCreationMain = useSelector(state => state.mainMenu.showGroupCreationMain);
+    const showCallVideoMain = useSelector(state => state.mainMenu.showCallVideoMain);
 
     useEffect(() => {
         const navigateToLogin = () => {
             navigate("/");
         }
         const showHomePage = () => {
-            dispatch(buildSocket({ url: 'http://127.0.0.1:5001/chat' }));
+            dispatch(buildSocket({ url: 'https://192.168.1.153:5001/chat' }));
+            dispatch(buildConnection);
             dispatch(loadConversaions(() => {
                 dispatch(startSocket(() => {
                     setLoading(false);
@@ -46,6 +51,11 @@ function Home() {
             {
                 showGroupCreationMain &&
                 <GroupCreationMain />
+            }
+            <CallVideoDialog />
+            {
+                showCallVideoMain &&
+                <CallVideoMain />
             }
         </div>
     );
