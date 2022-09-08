@@ -13,14 +13,9 @@ function MyVideo(){
         }
     }, [stream]);
 
-    const handleMyVideoOnLoad = (e) => {
-        console.log(stream.getTracks()[1].getSettings());
-        
-    }
-
     return (
         <div className="myVideo" ref={myVideoRef}>
-            <video ref={videoRef} onLoadedMetadata={handleMyVideoOnLoad} autoPlay muted />
+            <video ref={videoRef} autoPlay muted />
             {
                 !stream &&
                 <div className="controls controls--black" >

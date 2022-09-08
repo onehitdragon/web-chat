@@ -33,6 +33,9 @@ const mainMenuSlice = createSlice({
         hideCallVideoDialog(state, action){
             state.callVieoDialog.show = false;
         },
+        removeButtonCallVideoDialog(state, action){
+            state.callVieoDialog.buttons.splice(action.payload, 1);
+        },
         updateShowCallVideoMain(state, action){
             state.showCallVideoMain = action.payload; 
         }
@@ -41,4 +44,5 @@ const mainMenuSlice = createSlice({
 
 export default mainMenuSlice.reducer;
 export const { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain,
-    updateCallVieoDialog, updateStatusCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain } = mainMenuSlice.actions;
+    updateCallVieoDialog, updateStatusCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain, 
+    removeButtonCallVideoDialog } = mainMenuSlice.actions;

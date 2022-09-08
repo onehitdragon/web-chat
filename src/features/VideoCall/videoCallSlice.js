@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import CallVideoDialogButtonAgree from "../../components/CallVideoDialogButtonAgree";
 import CallVideoDialogButtonDeny from "../../components/CallVideoDialogButtonDeny";
-import { updateStatusCallVieoDialog, updateCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain } from "../menu/mainMenuSlice";
+import { updateStatusCallVieoDialog, updateCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain, removeButtonCallVideoDialog } from "../menu/mainMenuSlice";
 
 const configure = {
     iceServers: [
@@ -104,6 +104,7 @@ const signaling = (peer, dispatch, getState) => {
                 dispatch(acceptCallVideo(friend, offer));
             }
             const onDeny = () => {
+                dispatch(denyCallVideo(friend));
                 dispatch(hideCallVideoDialog());
             }
             dispatch(updateCallVieoDialog({
@@ -148,12 +149,34 @@ const signaling = (peer, dispatch, getState) => {
             candidates.push(candidate);
         }
     })
+
+    socket.on("cancerCallVideo", (friend) => {
+        dispatch(removeButtonCallVideoDialog(0));
+        dispatch(updateStatusCallVieoDialog("Người gọi đã ngắt..."));
+    })
+
+    socket.on("denyCallVideo", (friend) => {
+        dispatch(updateStatusCallVieoDialog("Người gọi đã từ chối..."));
+    })
 }
 
 const callVideo = (friend) => {
     return async (dispatch, getState) => {
         const connection = getState().videoCall.connection;
 
+        const onCancer = () => {
+            getState().socket.invoke("CancerCallVideo", friend);
+            dispatch(hideCallVideoDialog());
+        }
+        dispatch(updateCallVieoDialog({
+            show: true,
+            friend: friend,
+            status: "Đang gọi...",
+            buttons: [
+                <CallVideoDialogButtonDeny key={1}
+                    onHandleClick={onCancer}/>
+            ]
+        }));
         dispatch(updateFriend(friend));
         dispatch(updateStream(await getStream()));
         const offer = await connection.createOffer();
@@ -176,4 +199,11 @@ const acceptCallVideo = (friend, offer) => {
     }
 }
 
-export { callVideo, acceptCallVideo, buildConnection }
+const denyCallVideo = (friend) => {
+    return (dispatch, getState) => {
+        getState().socket.invoke("DenyCallVideo", friend);
+        candidates = [];
+    }
+}
+
+export { callVideo, buildConnection }
