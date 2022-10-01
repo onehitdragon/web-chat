@@ -1,5 +1,7 @@
 using MySql.Data.MySqlClient;
 using System.Data;
+using System;
+
 namespace project.DataService{
     public class DataProvider{
         private string connectionStr = DataBaseConfig.mySqlConnectionStr;
@@ -9,7 +11,8 @@ namespace project.DataService{
                 connect.Open();
                 connect.Close();
             }
-            catch{
+            catch(Exception e){
+                Console.WriteLine(e);
                 return false;
             }
             return true;
@@ -20,7 +23,8 @@ namespace project.DataService{
                 connect.Open();
                 connect.Close();
             }
-            catch{
+            catch(Exception e){
+                Console.WriteLine(e);
                 return false;
             }
             return true;

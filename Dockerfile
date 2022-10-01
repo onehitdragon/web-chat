@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY project.csproj .
 RUN dotnet restore
@@ -12,7 +12,7 @@ RUN dotnet dev-certs https --trust
 FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS run
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS run
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=certificate /https /https

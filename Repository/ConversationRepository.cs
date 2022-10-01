@@ -27,7 +27,7 @@ namespace project.Repository{
                 );
 
                 int idConversation = conversation.Id;
-                query = $"SELECT users.*, AmountMessageNotRead FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
+                query = $"SELECT Users.*, AmountMessageNotRead FROM participants JOIN Users ON participants.Users_Id = Users.id WHERE Conversation_Id = {idConversation}";
                 DataTable userTable = dataProvider.GetDataTable(query);
                 foreach(DataRow userRow in userTable.Rows){
                     User user = userRepository.CreateUserByDataRow(userRow);
@@ -94,7 +94,7 @@ namespace project.Repository{
                     new List<Message>()
                 );
 
-            query = $"SELECT users.* FROM participants JOIN users ON participants.Users_Id = users.id WHERE Conversation_Id = {idConversation}";
+            query = $"SELECT Users.* FROM participants JOIN Users ON participants.Users_Id = Users.id WHERE Conversation_Id = {idConversation}";
             DataTable userTable = dataProvider.GetDataTable(query);
             foreach(DataRow userRow in userTable.Rows){
                 User user = userRepository.CreateUserByDataRow(userRow);
