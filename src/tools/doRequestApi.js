@@ -1,6 +1,8 @@
+const BASE_URL = "https://vijnh.online";
+
 function doRequestApi(url, medthod, option = {}){
     if(medthod == null || medthod.toUpperCase() === 'GET'){
-        return fetch(url, {
+        return fetch(BASE_URL + url, {
             method: 'GET',
             mode: 'cors',
             credentials: 'include'
@@ -11,7 +13,7 @@ function doRequestApi(url, medthod, option = {}){
         })
     }
     if(medthod.toUpperCase() === 'POST' || medthod.toUpperCase() === 'PUT'){
-        return fetch(url, {
+        return fetch(BASE_URL + url, {
             method: medthod.toUpperCase(),
             mode: 'cors',
             credentials: 'include',
