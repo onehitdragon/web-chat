@@ -141,7 +141,7 @@ export { selectConversations, selectCurrentConversaionId, selectCurrentConversai
 // actions function
 const loadConversaions = (whenLoaded) => {
     return (dispatch, getState) => {
-        doRequestApi('https://192.168.1.153:5001/home/index', 'GET')
+        doRequestApi('/home/index', 'GET')
         .then((data) => {
             console.log(data);
             dispatch(loadedYou(data.you));
@@ -253,7 +253,7 @@ const updateAmountMessageNotRead = (dispatch, getState) => {
     const currentConversation = selectCurrentConversaion(getState());
     const you = getState().you.info;
     if(currentConversation.amountMessageNotRead > 0){
-        doRequestApi('https://192.168.1.153:5001/home/UpdateAmountMessageNotRead', 'PUT', {
+        doRequestApi('/home/UpdateAmountMessageNotRead', 'PUT', {
             contentType: 'application/x-www-form-urlencoded',
             body: `idConversation=${currentConversation.id}&idUser=${you.id}`
         })
