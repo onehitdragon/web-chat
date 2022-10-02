@@ -73,7 +73,8 @@ namespace project
                 });
                 endpoints.MapControllerRoute(
                     "friend",
-                    "friend/{action}"
+                    "friend/{action}",
+                    new {controller = "Friend"}
                 );
                 endpoints.MapControllerRoute(
                     "home",

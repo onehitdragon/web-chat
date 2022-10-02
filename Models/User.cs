@@ -68,12 +68,14 @@ namespace project.Models{
         public User(){}
         public User(string lastName, string avatarUrl){
             this.lastName = lastName;
-            this.avatarUrl = avatarUrl;
+            this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? defaultAvatarUrl : avatarUrl;
+            this.firstName = "";
         }
         public User(ulong id, string avatarUrl, string lastName){
             this.id = id;
             this.avatarUrl = String.IsNullOrEmpty(avatarUrl) ? defaultAvatarUrl : avatarUrl;
             this.lastName = lastName;
+            this.firstName = "";
         }
         public User(ulong id, string avatarUrl, string lastName, string firstName, DateTime birthDay, bool gender, string phone){
             this.id = id;
