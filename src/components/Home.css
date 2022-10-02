@@ -442,12 +442,12 @@
     font-weight: bold;
     margin-bottom: 5px;
 }
-.body-left__list > .list-item > .info-area > .last-mes{
+.body-left__list > .list-item > .info-area > .last-mes > div{
     font-size: 13.5px;
     width: 150px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 .search-highlight{
     border-radius: 2px;
@@ -860,21 +860,23 @@
     align-self: flex-start;
 }
 .body-right__messages > .message > .placeholder-square{
-    width: 50px;
-    height: 0px;
+    min-width: 50px;
 }
 .body-right__messages > .message > .content{
     display: flex;
     flex-direction: column;
+    padding: 4px 0px;
     margin-left: 15px;
+    padding-right: 65px;
 }
 .body-right__messages > .message--mymessage > .content{
     margin-left: 0px !important;
     margin-right: 15px;
+    padding-right: 0px !important;
+    padding-left: 65px;
     align-items: flex-end;
 }
 .body-right__messages > .message > .content > .content__mes{
-    margin-bottom: 5px;
     display: flex;
 }
 .body-right__messages > .message--mymessage > .content > .content__mes{
@@ -885,9 +887,6 @@
     font-size: 16px;
     padding: 7px 10px;  
     position: relative;
-    width: fit-content;
-    max-width: 300px;
-    word-wrap: break-word;
 }
 .body-right__messages > .message > .content > .content__mes > .text::after{
     content: "";
@@ -1188,6 +1187,7 @@
     align-items: center;
     color: white;
     opacity: .8;
+    margin-top: 6px;
 }
 .body-right__messages > .message > .content > .name-time{
     flex: 1;
@@ -1831,3 +1831,16 @@
     color: white;
 }
 /* dialog */
+/* reposive */
+@media screen and (max-width: 480px) {
+    .body > .body__main-home .body-left{
+        width: 320px;
+    }
+    .body > .body__main-home .body-right{
+        width: 320px;
+    }
+    #friend-search-area{
+        width: 320px;
+    }
+}
+/* reposive */

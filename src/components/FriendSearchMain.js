@@ -12,7 +12,7 @@ function FriendSearchMain(){
     useEffect(() => {
         const timeout = setTimeout(() => {
             if(keyword !== ""){
-                doRequestApi(`http://127.0.0.1:5001/Friend/SearchFriend?key=${keyword}`, "GET")
+                doRequestApi(`/Friend/SearchFriend?key=${keyword}`, "GET")
                 .then((data) => {
                     setResult(data);
                 });

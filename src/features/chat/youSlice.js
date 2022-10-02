@@ -37,6 +37,26 @@ const login = (email, password, processResponse) => {
     }
 }
 
+const loginGoogle = (email, name, avatar, processResponse) => {
+    return (dispatch, getState) => {
+        const res = doRequestApi('/account/LoginGoogle', 'POST', {
+            contentType: 'application/x-www-form-urlencoded',
+            body: `EmailGoogle=${email}&GoogleName=${name}&AvatarUrl=${avatar}`
+        })
+        processResponse(res);
+    }
+}
+
+const loginFacebook = (id, name, avatar, processResponse) => {
+    return (dispatch, getState) => {
+        const res = doRequestApi('/account/LoginFacebook', 'POST', {
+            contentType: 'application/x-www-form-urlencoded',
+            body: `IdUser=${id}&FacebookName=${name}&AvatarUrl=${avatar}`
+        })
+        processResponse(res);
+    }
+}
+
 export default youSlice.reducer;
 export const { loadedYou } = youSlice.actions;
-export { checkStatus, login }
+export { checkStatus, login, loginGoogle, loginFacebook}
