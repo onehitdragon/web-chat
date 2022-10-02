@@ -21,7 +21,7 @@ function BodyLeft(){
                 currentConversationId !== null &&
                 <style>
                     {
-                        `@media screen and (max-width: 480px){
+                        `@media screen and (max-width: 768px){
                             .body > .body__main-home .body-left{
                                 display: none;
                             }

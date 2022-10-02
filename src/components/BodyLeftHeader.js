@@ -8,7 +8,7 @@ function BodyLeftHeader(){
 
     return (
         <div className="body-left__head">
-            <img className="avatar" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" alt="error" />
+            <img className="avatar" src={you.avatarUrl} alt="error" />
             <div className="name-area">
                 <p className="name">{you !== null && (you.lastName + ' ' + you.firstName)}</p>
                 <p className="status">

@@ -3,7 +3,8 @@ import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import {useNavigate} from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { checkStatus, login } from '../features/chat/youSlice';
+import { checkStatus, login, loginFacebook, loginGoogle } from '../features/chat/youSlice';
+import { BASE_URL } from '../tools/doRequestApi';
 
 function Login({showDialog, hideDialog}) {
     const navigate = useNavigate();
@@ -13,7 +14,74 @@ function Login({showDialog, hideDialog}) {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
+    const loginGoogleHandle = () => {
+        window.open("https://accounts.google.com/o/oauth2/v2/auth?"
+        +"scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&"
+        +"response_type=token&"
+        +`redirect_uri=${BASE_URL}&`
+        +"client_id=493170822018-t5jhkkr1aqo6o7svs0j1gfg03ipfir6e.apps.googleusercontent.com&"
+        +"state=loginGoogle"
+        , "_top");
+    }
+
+    const loginFacebookHandle = () => {
+        window.open("https://www.facebook.com/v15.0/dialog/oauth?"
+        +"client_id=435845621984441&"
+        +`redirect_uri=${BASE_URL}&`
+        +"state=loginFacebook&"
+        +"response_type=token",
+        "_top");
+    }
+
     useEffect(() => {
+        // check google login
+        if(window.location.hash?.includes("state=loginGoogle")){
+            const access_token = window.location.hash.split('&')[1];
+            fetch(`https://www.googleapis.com/drive/v3/about?fields=user&${access_token}`, { method: "GET" })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if(data.user){
+                    dispatch(loginGoogle(
+                        data.user.emailAddress,
+                        data.user.displayName,
+                        data.user.photoLink,
+                        (res) => {
+                            res.then(() => {
+                                navigate("/Home");
+                            })
+                        }
+                    ));
+                }
+            })
+            return;
+        }
+
+        // check login facebook
+        if(window.location.hash?.includes("state=loginFacebook")){
+            const access_token = window.location.hash.split('#')[1].split("&")[0];
+            fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&${access_token}`, { method: "GET" })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if(data.id){
+                    dispatch(loginFacebook(
+                        data.id,
+                        data.name,
+                        data.picture.data.url.replaceAll("&", "#"),
+                        (res) => {
+                            res.then(() => {
+                                navigate("/Home");
+                            })
+                        }
+                    ));
+                }
+            })
+            return;
+        }
+
         const navigateToHome = () => {
             navigate("/Home");
         };
@@ -65,13 +133,13 @@ function Login({showDialog, hideDialog}) {
                 <p className="title">Đăng Nhập</p>
                 <p className="title-2">Đăng nhập với</p>
                 <div className="other-login">
-                    <div>
+                    <div onClick={ loginFacebookHandle }>
                         <i className="fa-brands fa-facebook-f"></i>
-                        <a href="/">Facebook</a>
+                        <a href="/" onClick={(e) => { e.preventDefault() }}>Facebook</a>
                     </div>
-                    <div>
+                    <div onClick={ loginGoogleHandle }>
                         <i className="fa-brands fa-google"></i>
-                        <a href="/">Google</a>
+                        <a href="/" onClick={(e) => { e.preventDefault() }}>Google</a>
                     </div>
                 </div>
                 <p className="title-2">Hoặc sử dụng tài khoản của bạn</p>

@@ -13,6 +13,7 @@ import GroupCreationMain from './GroupCreationMain';
 import CallVideoDialog from './CallVideoDialog';
 import CallVideoMain from './CallVideoMain';
 import { buildConnection } from '../features/VideoCall/videoCallSlice';
+import { BASE_URL } from '../tools/doRequestApi';
 
 const BodyMainWithHomeLoading = withHomeLoading(BodyMain);
 function Home() {
@@ -28,11 +29,7 @@ function Home() {
             navigate("/");
         }
         const showHomePage = () => {
-<<<<<<< HEAD
-            dispatch(buildSocket({ url: '/chat' }));
-=======
-            dispatch(buildSocket({ url: 'http://192.168.1.153:5000/chat' }));
->>>>>>> efb347c (add style)
+            dispatch(buildSocket({ url: BASE_URL + '/chat' }));
             dispatch(buildConnection);
             dispatch(loadConversaions(() => {
                 dispatch(startSocket(() => {

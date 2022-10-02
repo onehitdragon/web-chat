@@ -5,7 +5,7 @@ function doRequestApi(url, medthod, option = {}){
         return fetch(BASE_URL + url, {
             method: 'GET',
             mode: 'cors',
-            credentials: 'include'
+            credentials: "include"
         })
         .then((res) => {
             if(!res.ok) throw new Error("error");
@@ -30,3 +30,4 @@ function doRequestApi(url, medthod, option = {}){
 }
 
 export default doRequestApi;
+export { BASE_URL }
