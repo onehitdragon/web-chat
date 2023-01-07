@@ -1647,11 +1647,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Code\\practiceteamwork\\project.csproj",
+      "projectUniqueName": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\project.csproj",
       "projectName": "project",
-      "projectPath": "C:\\Code\\practiceteamwork\\project.csproj",
+      "projectPath": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\project.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Code\\practiceteamwork\\obj\\",
+      "outputPath": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"

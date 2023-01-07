@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lek07G8D0cgOWJ3FaJfVPbuo5DNhI2V1iEvc4iFk2dM=",
+  "Hash": "+ll7mCIooizad8a9b3eK59uOYHpLpS5I8qPM0Ab/Apc=",
   "Source": "project",
   "BasePath": "_content/project",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "project\\wwwroot",
       "Source": "project",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\asset-manifest.json",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\asset-manifest.json",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "asset-manifest.json",
       "AssetKind": "All",
@@ -34,10 +34,27 @@
       "OriginalItemSpec": "wwwroot\\asset-manifest.json"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\favicon copy.ico",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
+      "BasePath": "_content/project",
+      "RelativePath": "favicon copy.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon copy.ico"
+    },
+    {
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\favicon.ico",
+      "SourceId": "project",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -51,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\fail.gif",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\gif\\fail.gif",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/gif/fail.gif",
       "AssetKind": "All",
@@ -68,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\img\\gif\\fail.gif"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\loader.gif",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\gif\\loader.gif",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/gif/loader.gif",
       "AssetKind": "All",
@@ -85,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\img\\gif\\loader.gif"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\loading-mes.gif",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\gif\\loading-mes.gif",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/gif/loading-mes.gif",
       "AssetKind": "All",
@@ -102,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\img\\gif\\loading-mes.gif"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\ankylosaurus.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\ankylosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/ankylosaurus.png",
       "AssetKind": "All",
@@ -119,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\ankylosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\apatosaurus.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\apatosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/apatosaurus.png",
       "AssetKind": "All",
@@ -136,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\apatosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\archaeopteryx.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\archaeopteryx.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/archaeopteryx.png",
       "AssetKind": "All",
@@ -153,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\archaeopteryx.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\confused.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\confused.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/confused.png",
       "AssetKind": "All",
@@ -170,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\confused.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\cool.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\cool.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/cool.png",
       "AssetKind": "All",
@@ -187,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\cool.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dilophosaurus.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\dilophosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/dilophosaurus.png",
       "AssetKind": "All",
@@ -204,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\dilophosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dinosaur-egg.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\dinosaur-egg.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/dinosaur-egg.png",
       "AssetKind": "All",
@@ -221,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\dinosaur-egg.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dried-insect-in-amber.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\dried-insect-in-amber.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/dried-insect-in-amber.png",
       "AssetKind": "All",
@@ -238,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\dried-insect-in-amber.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\elasmosaurus.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\elasmosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/elasmosaurus.png",
       "AssetKind": "All",
@@ -255,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\elasmosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\fossil.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\fossil.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/fossil.png",
       "AssetKind": "All",
@@ -272,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\fossil.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\in-love-1.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\in-love-1.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/in-love-1.png",
       "AssetKind": "All",
@@ -289,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\in-love-1.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\in-love.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\in-love.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/in-love.png",
       "AssetKind": "All",
@@ -306,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\in-love.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-tanks.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-tanks.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-tanks.png",
       "AssetKind": "All",
@@ -323,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-tanks.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-violence.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-violence.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-violence.png",
       "AssetKind": "All",
@@ -340,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-violence.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-1.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-1.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-1.png",
       "AssetKind": "All",
@@ -357,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-1.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-10.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-10.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-10.png",
       "AssetKind": "All",
@@ -374,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-10.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-11.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-11.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-11.png",
       "AssetKind": "All",
@@ -391,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-11.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-20.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-20.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-20.png",
       "AssetKind": "All",
@@ -408,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-20.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-3.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-3.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-3.png",
       "AssetKind": "All",
@@ -425,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-3.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-4.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-4.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-4.png",
       "AssetKind": "All",
@@ -442,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-4.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-5.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-5.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-5.png",
       "AssetKind": "All",
@@ -459,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-5.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-6.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-6.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-6.png",
       "AssetKind": "All",
@@ -476,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-6.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-7.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-7.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-7.png",
       "AssetKind": "All",
@@ -493,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-7.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-8.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war-8.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war-8.png",
       "AssetKind": "All",
@@ -510,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war-8.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\no-war.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/no-war.png",
       "AssetKind": "All",
@@ -527,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\no-war.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\party.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\party.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/party.png",
       "AssetKind": "All",
@@ -544,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\party.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\pteranodon.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\pteranodon.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/pteranodon.png",
       "AssetKind": "All",
@@ -561,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\pteranodon.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad-1.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\sad-1.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/sad-1.png",
       "AssetKind": "All",
@@ -578,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\sad-1.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad-2.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\sad-2.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/sad-2.png",
       "AssetKind": "All",
@@ -595,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\sad-2.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\sad.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/sad.png",
       "AssetKind": "All",
@@ -612,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\sad.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\smile-1.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\smile-1.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/smile-1.png",
       "AssetKind": "All",
@@ -629,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\smile-1.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\smile.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\smile.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/smile.png",
       "AssetKind": "All",
@@ -646,27 +663,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\smile.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\something.gif",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\spinosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
-      "BasePath": "_content/project",
-      "RelativePath": "img/icons/something.gif",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\icons\\something.gif"
-    },
-    {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\spinosaurus.png",
-      "SourceId": "project",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/spinosaurus.png",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\spinosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\stegosaurus.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\stegosaurus.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/stegosaurus.png",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\stegosaurus.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\surprised.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\surprised.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/surprised.png",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\surprised.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\triceratops.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\triceratops.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/triceratops.png",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\triceratops.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\velociraptor.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\icons\\velociraptor.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/icons/velociraptor.png",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\velociraptor.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg.jpeg",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg1.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg1.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg1.jpeg",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg1.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg2.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg2.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg2.jpeg",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg2.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg3.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg3.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg3.jpeg",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg3.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg4.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg4.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg4.jpeg",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg4.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg5.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\bg5.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/bg5.jpeg",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\bg5.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\default-avatar.jpg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\default-avatar.jpg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/default-avatar.jpg",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\default-avatar.jpg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\fail.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\fail.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/fail.png",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\fail.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\fail0.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\fail0.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/fail0.png",
       "AssetKind": "All",
@@ -901,10 +901,10 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\fail0.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\success.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\img\\layout\\success.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "img/layout/success.png",
       "AssetKind": "All",
@@ -918,10 +918,27 @@
       "OriginalItemSpec": "wwwroot\\img\\layout\\success.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\index.html",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\index copy.html",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
+      "BasePath": "_content/project",
+      "RelativePath": "index copy.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index copy.html"
+    },
+    {
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\index.html",
+      "SourceId": "project",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -935,10 +952,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\logo192.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\logo192.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "logo192.png",
       "AssetKind": "All",
@@ -952,10 +969,10 @@
       "OriginalItemSpec": "wwwroot\\logo192.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\logo512.png",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\logo512.png",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "logo512.png",
       "AssetKind": "All",
@@ -969,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\logo512.png"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\manifest.json",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\manifest.json",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "manifest.json",
       "AssetKind": "All",
@@ -986,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot\\manifest.json"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\robots.txt",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\robots.txt",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "robots.txt",
       "AssetKind": "All",
@@ -1003,12 +1020,12 @@
       "OriginalItemSpec": "wwwroot\\robots.txt"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\css\\main.8d46bb3c.css",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\css\\main.d8e59949.css",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
-      "RelativePath": "static/css/main.8d46bb3c.css",
+      "RelativePath": "static/css/main.d8e59949.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1017,15 +1034,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\css\\main.8d46bb3c.css"
+      "OriginalItemSpec": "wwwroot\\static\\css\\main.d8e59949.css"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\css\\main.8d46bb3c.css.map",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\css\\main.d8e59949.css.map",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
-      "RelativePath": "static/css/main.8d46bb3c.css.map",
+      "RelativePath": "static/css/main.d8e59949.css.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1034,13 +1051,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\css\\main.8d46bb3c.css.map"
+      "OriginalItemSpec": "wwwroot\\static\\css\\main.d8e59949.css.map"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/js/787.a0990629.chunk.js",
       "AssetKind": "All",
@@ -1054,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.a0990629.chunk.js"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js.map",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js.map",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/js/787.a0990629.chunk.js.map",
       "AssetKind": "All",
@@ -1071,12 +1088,12 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.a0990629.chunk.js.map"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\js\\main.47733a83.js",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
-      "RelativePath": "static/js/main.6bbf0761.js",
+      "RelativePath": "static/js/main.47733a83.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,15 +1102,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.6bbf0761.js"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.47733a83.js"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js.LICENSE.txt",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\js\\main.47733a83.js.LICENSE.txt",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
-      "RelativePath": "static/js/main.6bbf0761.js.LICENSE.txt",
+      "RelativePath": "static/js/main.47733a83.js.LICENSE.txt",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1102,15 +1119,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.6bbf0761.js.LICENSE.txt"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.47733a83.js.LICENSE.txt"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js.map",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\js\\main.47733a83.js.map",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
-      "RelativePath": "static/js/main.6bbf0761.js.map",
+      "RelativePath": "static/js/main.47733a83.js.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1119,13 +1136,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.6bbf0761.js.map"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.47733a83.js.map"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\bg1.25ff4cf44c04d4a7ec38.jpeg",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\bg1.25ff4cf44c04d4a7ec38.jpeg",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/bg1.25ff4cf44c04d4a7ec38.jpeg",
       "AssetKind": "All",
@@ -1139,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\bg1.25ff4cf44c04d4a7ec38.jpeg"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.0a1b701f5563c2288281.ttf",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.0a1b701f5563c2288281.ttf",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-brands-400.0a1b701f5563c2288281.ttf",
       "AssetKind": "All",
@@ -1156,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-brands-400.0a1b701f5563c2288281.ttf"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.f77bcc98bb7468c8b15a.woff2",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.f77bcc98bb7468c8b15a.woff2",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-brands-400.f77bcc98bb7468c8b15a.woff2",
       "AssetKind": "All",
@@ -1173,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-brands-400.f77bcc98bb7468c8b15a.woff2"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.15d98c18221c8bcb2334.ttf",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.15d98c18221c8bcb2334.ttf",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-regular-400.15d98c18221c8bcb2334.ttf",
       "AssetKind": "All",
@@ -1190,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-regular-400.15d98c18221c8bcb2334.ttf"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.d79c2ec96ab9ff1161a2.woff2",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.d79c2ec96ab9ff1161a2.woff2",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-regular-400.d79c2ec96ab9ff1161a2.woff2",
       "AssetKind": "All",
@@ -1207,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-regular-400.d79c2ec96ab9ff1161a2.woff2"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.4896d4b04430cc3dfb06.woff2",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.4896d4b04430cc3dfb06.woff2",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-solid-900.4896d4b04430cc3dfb06.woff2",
       "AssetKind": "All",
@@ -1224,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-solid-900.4896d4b04430cc3dfb06.woff2"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.79da213423ac0def2058.ttf",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.79da213423ac0def2058.ttf",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-solid-900.79da213423ac0def2058.ttf",
       "AssetKind": "All",
@@ -1241,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-solid-900.79da213423ac0def2058.ttf"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.3d503f89ccaf1b224aa5.woff2",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.3d503f89ccaf1b224aa5.woff2",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-v4compatibility.3d503f89ccaf1b224aa5.woff2",
       "AssetKind": "All",
@@ -1258,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\static\\media\\fa-v4compatibility.3d503f89ccaf1b224aa5.woff2"
     },
     {
-      "Identity": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.52eba2c567c521b8d58a.ttf",
+      "Identity": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.52eba2c567c521b8d58a.ttf",
       "SourceId": "project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Code\\practiceteamwork\\wwwroot\\",
+      "ContentRoot": "C:\\Code\\practiceteamwork-api\\practiceteamwork\\wwwroot\\",
       "BasePath": "_content/project",
       "RelativePath": "static/media/fa-v4compatibility.52eba2c567c521b8d58a.ttf",
       "AssetKind": "All",
