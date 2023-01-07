@@ -63,7 +63,7 @@ namespace project
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors(x => x.WithOrigins("http://localhost:3000", "https://vijnh.online").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseCors(x => x.WithOrigins("http://*:*").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

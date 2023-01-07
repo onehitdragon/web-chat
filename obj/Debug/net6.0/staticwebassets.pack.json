@@ -1,0 +1,317 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\asset-manifest.json",
+      "PackagePath": "staticwebassets\\asset-manifest.json"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\fail.gif",
+      "PackagePath": "staticwebassets\\img\\gif\\fail.gif"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\loader.gif",
+      "PackagePath": "staticwebassets\\img\\gif\\loader.gif"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\gif\\loading-mes.gif",
+      "PackagePath": "staticwebassets\\img\\gif\\loading-mes.gif"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\ankylosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\ankylosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\apatosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\apatosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\archaeopteryx.png",
+      "PackagePath": "staticwebassets\\img\\icons\\archaeopteryx.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\confused.png",
+      "PackagePath": "staticwebassets\\img\\icons\\confused.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\cool.png",
+      "PackagePath": "staticwebassets\\img\\icons\\cool.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dilophosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\dilophosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dinosaur-egg.png",
+      "PackagePath": "staticwebassets\\img\\icons\\dinosaur-egg.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\dried-insect-in-amber.png",
+      "PackagePath": "staticwebassets\\img\\icons\\dried-insect-in-amber.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\elasmosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\elasmosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\fossil.png",
+      "PackagePath": "staticwebassets\\img\\icons\\fossil.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\in-love-1.png",
+      "PackagePath": "staticwebassets\\img\\icons\\in-love-1.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\in-love.png",
+      "PackagePath": "staticwebassets\\img\\icons\\in-love.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-tanks.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-tanks.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-violence.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-violence.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-1.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-1.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-10.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-10.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-11.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-11.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-20.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-20.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-3.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-3.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-4.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-4.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-5.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-5.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-6.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-6.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-7.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-7.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war-8.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war-8.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\no-war.png",
+      "PackagePath": "staticwebassets\\img\\icons\\no-war.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\party.png",
+      "PackagePath": "staticwebassets\\img\\icons\\party.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\pteranodon.png",
+      "PackagePath": "staticwebassets\\img\\icons\\pteranodon.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad-1.png",
+      "PackagePath": "staticwebassets\\img\\icons\\sad-1.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad-2.png",
+      "PackagePath": "staticwebassets\\img\\icons\\sad-2.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\sad.png",
+      "PackagePath": "staticwebassets\\img\\icons\\sad.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\smile-1.png",
+      "PackagePath": "staticwebassets\\img\\icons\\smile-1.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\smile.png",
+      "PackagePath": "staticwebassets\\img\\icons\\smile.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\something.gif",
+      "PackagePath": "staticwebassets\\img\\icons\\something.gif"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\spinosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\spinosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\stegosaurus.png",
+      "PackagePath": "staticwebassets\\img\\icons\\stegosaurus.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\surprised.png",
+      "PackagePath": "staticwebassets\\img\\icons\\surprised.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\triceratops.png",
+      "PackagePath": "staticwebassets\\img\\icons\\triceratops.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\icons\\velociraptor.png",
+      "PackagePath": "staticwebassets\\img\\icons\\velociraptor.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg1.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg1.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg2.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg2.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg3.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg3.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg4.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg4.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\bg5.jpeg",
+      "PackagePath": "staticwebassets\\img\\layout\\bg5.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\default-avatar.jpg",
+      "PackagePath": "staticwebassets\\img\\layout\\default-avatar.jpg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\fail.png",
+      "PackagePath": "staticwebassets\\img\\layout\\fail.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\fail0.png",
+      "PackagePath": "staticwebassets\\img\\layout\\fail0.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\img\\layout\\success.png",
+      "PackagePath": "staticwebassets\\img\\layout\\success.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\logo192.png",
+      "PackagePath": "staticwebassets\\logo192.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\logo512.png",
+      "PackagePath": "staticwebassets\\logo512.png"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\manifest.json",
+      "PackagePath": "staticwebassets\\manifest.json"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\robots.txt",
+      "PackagePath": "staticwebassets\\robots.txt"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\css\\main.8d46bb3c.css",
+      "PackagePath": "staticwebassets\\static\\css\\main.8d46bb3c.css"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\css\\main.8d46bb3c.css.map",
+      "PackagePath": "staticwebassets\\static\\css\\main.8d46bb3c.css.map"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js",
+      "PackagePath": "staticwebassets\\static\\js\\787.a0990629.chunk.js"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\787.a0990629.chunk.js.map",
+      "PackagePath": "staticwebassets\\static\\js\\787.a0990629.chunk.js.map"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js",
+      "PackagePath": "staticwebassets\\static\\js\\main.6bbf0761.js"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js.LICENSE.txt",
+      "PackagePath": "staticwebassets\\static\\js\\main.6bbf0761.js.LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\js\\main.6bbf0761.js.map",
+      "PackagePath": "staticwebassets\\static\\js\\main.6bbf0761.js.map"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\bg1.25ff4cf44c04d4a7ec38.jpeg",
+      "PackagePath": "staticwebassets\\static\\media\\bg1.25ff4cf44c04d4a7ec38.jpeg"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.0a1b701f5563c2288281.ttf",
+      "PackagePath": "staticwebassets\\static\\media\\fa-brands-400.0a1b701f5563c2288281.ttf"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-brands-400.f77bcc98bb7468c8b15a.woff2",
+      "PackagePath": "staticwebassets\\static\\media\\fa-brands-400.f77bcc98bb7468c8b15a.woff2"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.15d98c18221c8bcb2334.ttf",
+      "PackagePath": "staticwebassets\\static\\media\\fa-regular-400.15d98c18221c8bcb2334.ttf"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-regular-400.d79c2ec96ab9ff1161a2.woff2",
+      "PackagePath": "staticwebassets\\static\\media\\fa-regular-400.d79c2ec96ab9ff1161a2.woff2"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.4896d4b04430cc3dfb06.woff2",
+      "PackagePath": "staticwebassets\\static\\media\\fa-solid-900.4896d4b04430cc3dfb06.woff2"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-solid-900.79da213423ac0def2058.ttf",
+      "PackagePath": "staticwebassets\\static\\media\\fa-solid-900.79da213423ac0def2058.ttf"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.3d503f89ccaf1b224aa5.woff2",
+      "PackagePath": "staticwebassets\\static\\media\\fa-v4compatibility.3d503f89ccaf1b224aa5.woff2"
+    },
+    {
+      "Id": "C:\\Code\\practiceteamwork\\wwwroot\\static\\media\\fa-v4compatibility.52eba2c567c521b8d58a.ttf",
+      "PackagePath": "staticwebassets\\static\\media\\fa-v4compatibility.52eba2c567c521b8d58a.ttf"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.project.props",
+      "PackagePath": "build\\project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.project.props",
+      "PackagePath": "buildMultiTargeting\\project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.project.props",
+      "PackagePath": "buildTransitive\\project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.project.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
