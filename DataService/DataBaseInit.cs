@@ -47,7 +47,7 @@ namespace project.DataService{
             query = "CREATE TABLE IF NOT EXISTS UserActive ("
                 +"id BIGINT unsigned,"
                 +"ActiveCode varchar(100),"
-                +"FOREIGN KEY (id) REFERENCES users(id)"           
+                +"FOREIGN KEY (id) REFERENCES Users(id)"           
             +")";
             dataProvider.ExcuteQuery(query);
 
@@ -67,7 +67,7 @@ namespace project.DataService{
                 +"Create_at DateTime,"
                 +"Update_at DateTime,"
                 +"Delete_at DateTime,"
-                +"FOREIGN KEY (Creator_Id) REFERENCES users(id)"
+                +"FOREIGN KEY (Creator_Id) REFERENCES Users(id)"
             +")";
             dataProvider.ExcuteQuery(query);
 
@@ -92,7 +92,7 @@ namespace project.DataService{
                 +"Create_at DateTime,"
                 +"Delete_at DateTime,"
                 +"FOREIGN KEY (Conversation_Id) REFERENCES conversation(Id),"
-                +"FOREIGN KEY (Sender_Id) REFERENCES users(id)"
+                +"FOREIGN KEY (Sender_Id) REFERENCES Users(id)"
             +")";
             dataProvider.ExcuteQuery(query);
 
@@ -116,7 +116,7 @@ namespace project.DataService{
                 +"Users_Id BIGINT unsigned,"
                 +"AmountMessageNotRead int,"
                 +"FOREIGN KEY (Conversation_Id) REFERENCES conversation(Id),"
-                +"FOREIGN KEY (Users_Id) REFERENCES users(id)"
+                +"FOREIGN KEY (Users_Id) REFERENCES Users(id)"
             +")";
             dataProvider.ExcuteQuery(query);
 
@@ -141,8 +141,8 @@ namespace project.DataService{
                 +"Sender BIGINT UNSIGNED,"
                 +"Receiver BIGINT UNSIGNED,"
                 +"State ENUM('requesting','friending'),"
-                +"FOREIGN KEY (Sender) REFERENCES users(id),"
-                +"FOREIGN KEY (Receiver) REFERENCES users(id)"
+                +"FOREIGN KEY (Sender) REFERENCES Users(id),"
+                +"FOREIGN KEY (Receiver) REFERENCES Users(id)"
             +")";
             dataProvider.ExcuteQuery(query);
 

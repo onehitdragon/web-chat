@@ -10,21 +10,21 @@ namespace project.Repository{
             accountFactory = new AccountFactory();
         }
         public Account GetAccount(Account account){
-            string query = $"SELECT * FROM users WHERE Email LIKE BINARY '{account.Email}' AND Password LIKE BINARY MD5('{account.Password}')";
+            string query = $"SELECT * FROM Users WHERE Email LIKE BINARY '{account.Email}' AND Password LIKE BINARY MD5('{account.Password}')";
             if(dataProvider.HasRow(query)){
                 return account;
             }
             return null;
         }
         public Account GetAccountWithEmail(Account account){
-            string query = $"SELECT * FROM users WHERE Email LIKE BINARY '{account.Email}'";
+            string query = $"SELECT * FROM Users WHERE Email LIKE BINARY '{account.Email}'";
             if(dataProvider.HasRow(query)){
                 return account;
             }
             return null;
         }
         public Account GetAccountWithEmail(string email){
-            string query = $"SELECT * FROM users WHERE Email LIKE BINARY '{email}'";
+            string query = $"SELECT * FROM Users WHERE Email LIKE BINARY '{email}'";
             if(dataProvider.HasRow(query)){
                 return accountFactory.CreateAccount(email, "");
             }

@@ -26,7 +26,7 @@ namespace project.Repository{
             }   
         }
         public User GetUser(User user){
-            string query = $"SELECT * FROM users WHERE id = {user.Id}";
+            string query = $"SELECT * FROM Users WHERE id = {user.Id}";
             if(dataProvider.HasRow(query)){
                 return user;
             }         
@@ -44,7 +44,7 @@ namespace project.Repository{
             );
         }
         public User GetUser(string email){
-            string query = $"SELECT * FROM users WHERE email = '{email}'";
+            string query = $"SELECT * FROM Users WHERE email = '{email}'";
             DataTable userTable = dataProvider.GetDataTable(query);
             if(userTable.Rows.Count == 0){
                 return null;
@@ -53,7 +53,7 @@ namespace project.Repository{
             return CreateUserByDataRow(userRow);
         }
         public User GetUser(ulong id){
-            string query = $"SELECT * FROM users WHERE id = {id}";
+            string query = $"SELECT * FROM Users WHERE id = {id}";
             DataTable userTable = dataProvider.GetDataTable(query);
             if(userTable.Rows.Count == 0){
                 return null;
@@ -62,12 +62,12 @@ namespace project.Repository{
             return CreateUserByDataRow(userRow);
         }
         public void UpdateUser(User newUser){
-            string query = $"UPDATE users SET AvatarUrl = '{newUser.AvatarUrl}', FirstName = '{newUser.FirstName}', LastName = '{newUser.LastName}', BirthDay = '{newUser.BirthDay.ToString("yyyy/MM/dd")}', Gender = {Convert.ToInt32(newUser.Gender)}, Phone = '{newUser.Phone}' WHERE id = '{newUser.Id}'";
+            string query = $"UPDATE Users SET AvatarUrl = '{newUser.AvatarUrl}', FirstName = '{newUser.FirstName}', LastName = '{newUser.LastName}', BirthDay = '{newUser.BirthDay.ToString("yyyy/MM/dd")}', Gender = {Convert.ToInt32(newUser.Gender)}, Phone = '{newUser.Phone}' WHERE id = '{newUser.Id}'";
             dataProvider.ExcuteQuery(query);
         }
         public void UpdateUser(string email, User newUser){
             if(accountRepository.GetAccountWithEmail(email) != null){
-                string query = $"UPDATE users SET AvatarUrl = '{newUser.AvatarUrl}', FirstName = '{newUser.FirstName}', LastName = '{newUser.LastName}', BirthDay = '{newUser.BirthDay.ToString("yyyy/MM/dd")}', Gender = {Convert.ToInt32(newUser.Gender)}, Phone = '{newUser.Phone}' WHERE Email = '{email}'";
+                string query = $"UPDATE Users SET AvatarUrl = '{newUser.AvatarUrl}', FirstName = '{newUser.FirstName}', LastName = '{newUser.LastName}', BirthDay = '{newUser.BirthDay.ToString("yyyy/MM/dd")}', Gender = {Convert.ToInt32(newUser.Gender)}, Phone = '{newUser.Phone}' WHERE Email = '{email}'";
                 dataProvider.ExcuteQuery(query);
             }
         }        

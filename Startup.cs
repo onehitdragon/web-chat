@@ -60,16 +60,21 @@ namespace project
             }
 
             app.UseSession();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseCors(x => x.WithOrigins("http://*:*").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {   
+            {  
+                endpoints.MapGet("/{any}", async (http) => {
+                    await http.Response.SendFileAsync("./wwwroot/index.html");
+                });
                 endpoints.MapControllerRoute(
                     "friend",
-                    "friend/{action}"
+                    "friend/{action}",
+                    new {controller = "Friend"}
                 );
                 endpoints.MapControllerRoute(
                     "home",
@@ -86,10 +91,10 @@ namespace project
                     "DataBase/{action}",
                     new {controller = "DataBase", action = "Init"}
                 );
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
-                ); 
+                // endpoints.MapControllerRoute(
+                //     name: "default",
+                //     pattern: "{controller=Home}/{action=Index}/{id?}"
+                // ); 
                 endpoints.MapHub<Chat>("/chat");                       
             });
         }

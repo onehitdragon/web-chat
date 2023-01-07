@@ -100,7 +100,7 @@ namespace project.Controllers{
             }
 
             Account account = new UserAccount("","");
-            User user = new User(IdUser, AvatarUrl, FacebookName);
+            User user = new User(IdUser, AvatarUrl.Replace('#', '&'), FacebookName);
             if(userRepository.GetUser(user) == null){
                 userRepository.AddUser(user);
             }

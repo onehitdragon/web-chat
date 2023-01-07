@@ -12,7 +12,7 @@ namespace project.Repository{
         }
         public List<User> SearchFriend(User user, string key){
             List<User> resultList = new List<User>();
-            string query = $"SELECT * FROM users WHERE NOT EXISTS (SELECT relation.Sender FROM relation WHERE (Sender = users.id AND Receiver = {user.Id}) OR (Sender = {user.Id} AND Receiver = users.id)) AND CONCAT(LastName,' ',FirstName,' ',Phone) LIKE '%{key}%' AND users.id != {user.Id}";
+            string query = $"SELECT * FROM Users WHERE NOT EXISTS (SELECT relation.Sender FROM relation WHERE (Sender = Users.id AND Receiver = {user.Id}) OR (Sender = {user.Id} AND Receiver = Users.id)) AND CONCAT(LastName,' ',FirstName,' ',Phone) LIKE '%{key}%' AND Users.id != {user.Id}";
             DataTable resultTable = dataProvider.GetDataTable(query);
             foreach(DataRow userRow in resultTable.Rows){
                 User _user = userRepository.CreateUserByDataRow(userRow);
