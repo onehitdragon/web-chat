@@ -9,7 +9,7 @@ interface User{
     typing?: boolean
 }
 
-type MessageType = "Text" | "File";
+type MessageType = "Text" | "File" | 0 | 1;
 type MessageStatus = "success" | "load";
 
 interface Message{
@@ -18,7 +18,7 @@ interface Message{
     content: string,
     typeMessage: MessageType,
     createAt: string,
-    netId?: number,
+    netId?: string,
     status?: MessageStatus
 }
 
@@ -27,6 +27,10 @@ interface MessageFile extends Message{
     typeFile: string,
     src: string,
     loaded?: boolean
+}
+
+interface MessageRequest extends Message{
+    fileAttachUrl: string
 }
 
 interface Conversation{

@@ -1,7 +1,7 @@
 import {ThunkAction, createSlice} from "@reduxjs/toolkit";
 import { addConversation, addNewMessage, updateTyping } from "../chat/conversationsSlice";
 import { addFriends, addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
-import signalr, { HubConnection } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { RootState } from "../../app/store";
 
 const socketSlice = createSlice({
@@ -10,7 +10,7 @@ const socketSlice = createSlice({
     reducers: {
         buildSocket(state, action: { payload: { url: string } }){
             return (
-                new signalr.HubConnectionBuilder()
+                new HubConnectionBuilder()
                     .withUrl(action.payload.url)
                     .build()
             );
@@ -102,32 +102,54 @@ const startSocket = (whenSocketStart: Function) => {
 }
 
 // function action
-const requestingFriend = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("RequestingFriend", friend);
+const requestingFriend = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("RequestingFriend", friend);
     }
+
+    return thunk;
 }
 
-const cancerRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("CancerRequesting", friend);
+const cancerRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("CancerRequesting", friend);
     }
+
+    return thunk;
 }
-const denyRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("DenyRequesting", friend);
+const denyRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("DenyRequesting", friend);
     }
+
+    return thunk;
 }
-const acceptRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("AcceptRequesting", friend);
+const acceptRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("AcceptRequesting", friend);
     }
+
+    return thunk;
 }
-const createGroupConversation = (dispatch, getState) => {
+const createGroupConversation: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
     const nameGroup = getState().createGroup.nameGroup;
     const participants = getState().createGroup.invites;
+    const socket = getState().socket;
+    if(socket === null) return;
 
-    getState().socket.invoke("CreateGroupConversation", nameGroup, participants);
+    socket.invoke("CreateGroupConversation", nameGroup, participants);
 }
 
 export { startSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting, createGroupConversation }

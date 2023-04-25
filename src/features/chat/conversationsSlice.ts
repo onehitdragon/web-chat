@@ -7,7 +7,6 @@ import checkFileType from "../../tools/checkFileType";
 import { loadedFriends, loadedQuestingByOthers, loadedQuestingByYous } from "../friend/friendsSlice";
 import { isMessageFile } from "../typeChecking";
 import { RootState } from "../../app/store";
-import { z } from "zod";
 
 interface ConversationState{
     conversations: Conversation[] | null,
@@ -51,7 +50,7 @@ const conversationsSlice = createSlice({
                 currentConversation.messages.push(action.payload);
             }
         },
-        addNewMessage: (state, action: { payload: { idConversation: number, newMessage: Message, you: User, netId: number } }) => {
+        addNewMessage: (state, action: { payload: { idConversation: number, newMessage: Message, you: User, netId: string } }) => {
             if(state.conversations === null) return;
             let conversationFound = state.conversations.find(conversation => conversation.id === action.payload.idConversation);
             if(typeof conversationFound === "undefined") return;
@@ -76,7 +75,7 @@ const conversationsSlice = createSlice({
             else{
                 const result = conversationFound.messages.find((message, index) => {
                     if(message.status === "load"){
-                        if(typeof conversationFound === "undefined") return;
+                        if(typeof conversationFound === "undefined") return false;
                         // insert before
                         conversationFound.messages.splice(index, 0, newMessage);
                         return true;
@@ -92,7 +91,7 @@ const conversationsSlice = createSlice({
                 conversationFound.amountMessageNotRead += 1;
             }
         },
-        removeAmountMessageNotRead: (state, action) => {
+        removeAmountMessageNotRead: (state) => {
             if(state.conversations === null) return;
             if(state.currentConversationId === null) return;
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
@@ -199,20 +198,25 @@ const loadConversaions = (whenLoaded: Function) => {
 
     return thunk;
 }
-const sendTextMessage = (content) => {
+const sendTextMessage = (content: string) => {
     const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         const netId = uuidv4();
-        const newMessage = {
-            content: content,
+        const newMessage: MessageRequest = {
+            id: -1,
+            content,
             createAt: new Date().toISOString(),
             fileAttachUrl: "",
-            sender: getState().you.info,
+            sender,
             typeMessage: 0,
             status: 'load'
         }
-        if(getState().socket === null) return;
 
-        getState().socket.invoke('SendMessage', JSON.stringify({
+        socket.invoke('SendMessage', JSON.stringify({
             id: netId,
             idConversation: getState().conversations.currentConversationId,
             newMessage: newMessage
@@ -226,18 +230,24 @@ const sendTextMessage = (content) => {
 
     return thunk;
 }
-const sendIconMessage = (iconName) => {
-    return (dispatch, getState) => {
+const sendIconMessage = (iconName: string) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         const netId = uuidv4();
-        const newMessage = {
+        const newMessage: MessageRequest = {
+            id: -1,
             content: "Đã gửi icon",
             createAt: new Date().toISOString(),
             fileAttachUrl: "/img/icons/" + iconName,
-            sender: getState().you.info,
+            sender,
             typeMessage: 1,
             status: 'load'
         }
-        getState().socket.invoke('SendMessage', JSON.stringify({
+        socket.invoke('SendMessage', JSON.stringify({
             id: netId,
             idConversation: getState().conversations.currentConversationId,
             newMessage: newMessage
@@ -248,9 +258,16 @@ const sendIconMessage = (iconName) => {
         newMessage.netId = netId;
         dispatch(addYourNewMessage(newMessage));
     }
+
+    return thunk;
 }
-const sendFileMessage = (file) => {
-    return (dispatch, getState) => {
+const sendFileMessage = (file: File) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         // size < 50mb
         if(file.size > 50000000){
             console.log("file too large");
@@ -275,15 +292,16 @@ const sendFileMessage = (file) => {
         uploadBytes(storageRef, file)
         .then(res => {
             console.log("success upload file to fire base");
-            const newMessage = {
+            const newMessage: MessageRequest = {
+                id: -1,
                 content: "Đã gửi file",
                 createAt: new Date().toISOString(),
                 fileAttachUrl: fileName,
-                sender: getState().you.info,
+                sender,
                 typeMessage: 1,
                 status: 'load'
             }
-            getState().socket.invoke('SendMessage', JSON.stringify({
+            socket.invoke('SendMessage', JSON.stringify({
                 id: netId,
                 idConversation: getState().conversations.currentConversationId,
                 newMessage: newMessage
@@ -298,10 +316,15 @@ const sendFileMessage = (file) => {
             console.log(e);
         });
     }
+
+    return thunk;
 }
-const updateAmountMessageNotRead = (dispatch, getState) => {
+const updateAmountMessageNotRead: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
     const currentConversation = selectCurrentConversaion(getState());
+    if(typeof currentConversation === "undefined") return;
     const you = getState().you.info;
+    if(typeof you === "undefined") return;
+
     if(currentConversation.amountMessageNotRead > 0){
         doRequestApi('/home/UpdateAmountMessageNotRead', 'PUT', {
             contentType: 'application/x-www-form-urlencoded',

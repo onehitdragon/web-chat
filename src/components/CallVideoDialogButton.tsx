@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-function CallVideoDialogButton({color = "green", rotate, handleOnClick}){
+function CallVideoDialogButton({color = "green", rotate = false, handleOnClick = () => {}}){
 
     return (
         <button className={`button--${color} ` + (rotate ? "button--rotate-133" : "")}

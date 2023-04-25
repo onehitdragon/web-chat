@@ -5,7 +5,7 @@ interface Option{
     body?: string
 }
 
-type Medthod = 'GET' | 'POST';
+type Medthod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 function doRequestApi<T>(url: string, medthod: Medthod = 'GET', option: Option = {}){
     if(medthod.toUpperCase() === 'POST' || medthod.toUpperCase() === 'PUT'){
@@ -14,7 +14,7 @@ function doRequestApi<T>(url: string, medthod: Medthod = 'GET', option: Option =
             mode: 'cors',
             credentials: 'include',
             headers: {
-                "Content-Type: ": option.contentType ? option.contentType : ""
+                "Content-Type": option.contentType ? option.contentType : ""
             },
             body: option.body
         })

@@ -1,16 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface CreateGroupState{
+    nameGroup: String,
+    invites: User[]
+}
+
+const init: CreateGroupState = {
+    nameGroup: "",
+    invites: []
+}
+
 const createGroupSlice = createSlice({
     name: "createGroup",
-    initialState: {
-        nameGroup: "",
-        invites: []
-    },
+    initialState: init,
     reducers: {
-        updateNameGroup(state, action){
+        updateNameGroup(state, action: { payload: string }){
             state.nameGroup = action.payload;
         },
-        toggleInvite(state, action){
+        toggleInvite(state, action: { payload: User }){
             const result = state.invites.find((invite, index) => {
                 if(invite.id === action.payload.id){
                     state.invites.splice(index, 1);
