@@ -3,13 +3,17 @@ import doRequestApi from "../../tools/doRequestApi";
 import { RootState } from "../../app/store";
 import z from "zod";
 
+interface YouState{
+    info?: User
+}
+
+const init: YouState = {};
+
 const youSlice = createSlice({
     name: "you",
-    initialState: {
-        info: undefined
-    },
+    initialState: init,
     reducers: {
-        loadedYou(state, action){
+        loadedYou(state, action: { payload: User }){
             state.info = action.payload;
         }
     }

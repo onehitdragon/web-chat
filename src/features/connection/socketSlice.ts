@@ -1,14 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {ThunkAction, createSlice} from "@reduxjs/toolkit";
 import { addConversation, addNewMessage, updateTyping } from "../chat/conversationsSlice";
 import { addFriends, addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
+import signalr, { HubConnection } from '@microsoft/signalr';
+import { RootState } from "../../app/store";
 
-
-const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
     name: "socket",
-    initialState: null,
+    initialState: null as HubConnection | null,
     reducers: {
-        buildSocket(state, action){
+        buildSocket(state, action: { payload: { url: string } }){
             return (
                 new signalr.HubConnectionBuilder()
                     .withUrl(action.payload.url)
@@ -21,14 +21,15 @@ const socketSlice = createSlice({
 export default socketSlice.reducer;
 export const { buildSocket } = socketSlice.actions;
 
-const startSocket = (whenSocketStart) => {
-    return (dispatch, getState) => {
-        if(getState().socket !== null){
-            getState().socket.start()
+const startSocket = (whenSocketStart: Function) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket !== null){
+            socket.start()
             .then(() => {
                 // start success
-                const socket = getState().socket;
                 const you = getState().you.info;
+                if(typeof you === "undefined") return;
                 const conversations = getState().conversations.conversations;
 
                 socket.invoke('Init', JSON.stringify({
@@ -96,6 +97,8 @@ const startSocket = (whenSocketStart) => {
             });
         }
     }
+
+    return thunk;
 }
 
 // function action

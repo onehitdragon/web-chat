@@ -33,6 +33,13 @@ const addAllCandidates = (peer) => {
     candidates = [];
 }
 
+interface VideoCallState{
+    connection: RTCPeerConnection,
+    stream: MediaStream,
+    remoteStream: MediaStream,
+    friend: 
+}
+
 const videoCallSlice = createSlice({
     name: "videoCall",
     initialState: {
