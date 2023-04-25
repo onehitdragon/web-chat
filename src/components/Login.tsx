@@ -7,7 +7,7 @@ import { checkStatus, login, loginFacebook, loginGoogle } from '../features/chat
 import { BASE_URL } from '../tools/doRequestApi';
 
 interface LoginProps{
-    showDialog: Function,
+    showDialog: (dialogNeedShow: React.ReactNode) => any,
     hideDialog: Function
 }
 
@@ -172,4 +172,4 @@ function Login({showDialog, hideDialog}: LoginProps) {
     );
 }
 
-export default Login;
+export default Login as React.FunctionComponent<LoginProps>;
