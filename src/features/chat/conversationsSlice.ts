@@ -1,27 +1,37 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { ThunkAction, createSelector, createSlice } from "@reduxjs/toolkit";
 import doRequestApi from "../../tools/doRequestApi";
 import { loadedYou } from "./youSlice";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
 import checkFileType from "../../tools/checkFileType";
 import { loadedFriends, loadedQuestingByOthers, loadedQuestingByYous } from "../friend/friendsSlice";
+import { isMessageFile } from "../typeChecking";
+import { RootState } from "../../app/store";
+
+interface ConversationState{
+    conversations: Conversation[] | null,
+    currentConversationId: number | null
+}
+
+const init: ConversationState = {
+    conversations: null,
+    currentConversationId: null
+}
 
 const conversationsSlice = createSlice({
-    initialState: {
-        conversations: null,
-        currentConversationId: null
-    },
+    initialState: init,
     name: "conversations",
     reducers: {
-        loadedConversations: (state, action) => {
+        loadedConversations: (state, action: { payload: Conversation[] }) => {
             state.conversations = action.payload;
         },
-        setCurrentConversationId: (state, action) => {
+        setCurrentConversationId: (state, action: { payload: { id: number } }) => {
             if(state.currentConversationId !== action.payload.id){
                 state.currentConversationId = action.payload.id;
             }
         },
-        setScroll: (state, action) => {
+        setScroll: (state, action: { payload: number }) => {
+            if(state.conversations === null) return;
             state.conversations.find((conversation) => {
                 if(conversation.id === state.currentConversationId){
                     conversation.scroll = action.payload;
@@ -30,13 +40,21 @@ const conversationsSlice = createSlice({
                 return false;
             });
         },
-        addYourNewMessage: (state, action) => {
+        addYourNewMessage: (state, action: { payload: Message }) => {
+            if(state.conversations === null) return;
+            if(state.currentConversationId === null) return;
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
-            currentConversation.scroll = undefined;
-            currentConversation.messages.push(action.payload);
+            
+            if(typeof currentConversation !== "undefined"){
+                currentConversation.scroll = undefined;
+                currentConversation.messages.push(action.payload);
+            }
         },
-        addNewMessage: (state, action) => {
+        addNewMessage: (state, action: { payload: { idConversation: number, newMessage: Message, you: User, netId: string } }) => {
+            if(state.conversations === null) return;
             let conversationFound = state.conversations.find(conversation => conversation.id === action.payload.idConversation);
+            if(typeof conversationFound === "undefined") return;
+            
             const newMessage = action.payload.newMessage;
             const you = action.payload.you;
             const sender = newMessage.sender;
@@ -57,6 +75,7 @@ const conversationsSlice = createSlice({
             else{
                 const result = conversationFound.messages.find((message, index) => {
                     if(message.status === "load"){
+                        if(typeof conversationFound === "undefined") return false;
                         // insert before
                         conversationFound.messages.splice(index, 0, newMessage);
                         return true;
@@ -72,14 +91,21 @@ const conversationsSlice = createSlice({
                 conversationFound.amountMessageNotRead += 1;
             }
         },
-        removeAmountMessageNotRead: (state, action) => {
+        removeAmountMessageNotRead: (state) => {
+            if(state.conversations === null) return;
+            if(state.currentConversationId === null) return;
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
+            if(typeof currentConversation === "undefined") return;
+
             if(currentConversation.amountMessageNotRead > 0){
                 currentConversation.amountMessageNotRead = 0;
             }
         },
-        updateTyping: (state, action) => {
+        updateTyping: (state, action: { payload: { idConversation: number, idUser: number, typing: boolean } }) => {
+            if(state.conversations === null) return;
             const conversationFound = state.conversations.find(conversation => conversation.id === action.payload.idConversation);
+            if(typeof conversationFound === "undefined") return;
+
             const participants = conversationFound.participants;
             participants.find(participant => {
                 if(participant.id === action.payload.idUser){
@@ -91,10 +117,14 @@ const conversationsSlice = createSlice({
             conversationFound.scroll = -1;
         },
         updateStateFileMessage: (state, action) => {
+            if(state.conversations === null) return;
+            if(state.currentConversationId === null) return;
             const currentConversation = findCurrentConversation(state.conversations, state.currentConversationId);
+            if(typeof currentConversation === "undefined") return;
+            
             const messages = currentConversation.messages;
             messages.find(message => {
-                if(message.id === action.payload.idMessage){
+                if(isMessageFile(message) && message.id === action.payload.idMessage){
                     message.typeFile = action.payload.typeFile; 
                     message.src = action.payload.src;
                     message.loaded = action.payload.loaded;
@@ -103,7 +133,9 @@ const conversationsSlice = createSlice({
                 return false;
             });
         },
-        setCurrentConversationWithFriendId(state, action){
+        setCurrentConversationWithFriendId(state, action: { payload: number }){
+            if(state.conversations === null) return;
+
             for(let i = 0; i < state.conversations.length; i++){
                 const participants = state.conversations[i].participants;
                 if(participants.length === 2 && participants.find((participant) => {return participant.id === action.payload})){
@@ -112,24 +144,29 @@ const conversationsSlice = createSlice({
                 }
             }
         },
-        addConversation(state, action){
+        addConversation(state, action: { payload: Conversation }){
+            if(state.conversations === null) return;
+
             state.conversations.push(action.payload);
         }
     }
 });
 
-function findCurrentConversation(conversations, currentConversationId){
+function findCurrentConversation(conversations: Conversation[] | null, currentConversationId: number | null){
+    if(conversations === null) return;
+    if(currentConversationId === null) return;
+    
     return conversations.find(conversation => conversation.id === currentConversationId);
 }
 
 export default conversationsSlice.reducer;
 export const { loadedConversations, setCurrentConversationId, setScroll, addYourNewMessage,
-    haveNewMessage, addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage,
+    addNewMessage, removeAmountMessageNotRead, updateTyping, updateStateFileMessage,
     setCurrentConversationWithFriendId, addConversation }
     = conversationsSlice.actions;
 
-const selectConversations = (state) => state.conversations.conversations;
-const selectCurrentConversaionId = (state) => state.conversations.currentConversationId;
+const selectConversations = (state: RootState) => state.conversations.conversations;
+const selectCurrentConversaionId = (state: RootState) => state.conversations.currentConversationId;
 const selectCurrentConversaion = createSelector(
     selectConversations,
     selectCurrentConversaionId,
@@ -139,9 +176,15 @@ const selectCurrentConversaion = createSelector(
 export { selectConversations, selectCurrentConversaionId, selectCurrentConversaion };
 
 // actions function
-const loadConversaions = (whenLoaded) => {
-    return (dispatch, getState) => {
-        doRequestApi('/home/index', 'GET')
+const loadConversaions = (whenLoaded: Function) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        doRequestApi<{
+            you: User,
+            listConversation: Conversation[],
+            listFriending: User[],
+            listQuestingByOther: User[],
+            listQuestingByYou: User[]
+        }>('/home/index', 'GET')
         .then((data) => {
             console.log(data);
             dispatch(loadedYou(data.you));
@@ -152,19 +195,28 @@ const loadConversaions = (whenLoaded) => {
             whenLoaded();
         })
     }
+
+    return thunk;
 }
-const sendTextMessage = (content) => {
-    return (dispatch, getState) => {
+const sendTextMessage = (content: string) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         const netId = uuidv4();
-        const newMessage = {
-            content: content,
+        const newMessage: MessageRequest = {
+            id: -1,
+            content,
             createAt: new Date().toISOString(),
             fileAttachUrl: "",
-            sender: getState().you.info,
+            sender,
             typeMessage: 0,
             status: 'load'
         }
-        getState().socket.invoke('SendMessage', JSON.stringify({
+
+        socket.invoke('SendMessage', JSON.stringify({
             id: netId,
             idConversation: getState().conversations.currentConversationId,
             newMessage: newMessage
@@ -175,19 +227,27 @@ const sendTextMessage = (content) => {
         newMessage.netId = netId;
         dispatch(addYourNewMessage(newMessage));
     }
+
+    return thunk;
 }
-const sendIconMessage = (iconName) => {
-    return (dispatch, getState) => {
+const sendIconMessage = (iconName: string) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         const netId = uuidv4();
-        const newMessage = {
+        const newMessage: MessageRequest = {
+            id: -1,
             content: "Đã gửi icon",
             createAt: new Date().toISOString(),
             fileAttachUrl: "/img/icons/" + iconName,
-            sender: getState().you.info,
+            sender,
             typeMessage: 1,
             status: 'load'
         }
-        getState().socket.invoke('SendMessage', JSON.stringify({
+        socket.invoke('SendMessage', JSON.stringify({
             id: netId,
             idConversation: getState().conversations.currentConversationId,
             newMessage: newMessage
@@ -198,9 +258,16 @@ const sendIconMessage = (iconName) => {
         newMessage.netId = netId;
         dispatch(addYourNewMessage(newMessage));
     }
+
+    return thunk;
 }
-const sendFileMessage = (file) => {
-    return (dispatch, getState) => {
+const sendFileMessage = (file: File) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+        const sender = getState().you.info;
+        if(typeof sender === "undefined") return;
+
         // size < 50mb
         if(file.size > 50000000){
             console.log("file too large");
@@ -225,15 +292,16 @@ const sendFileMessage = (file) => {
         uploadBytes(storageRef, file)
         .then(res => {
             console.log("success upload file to fire base");
-            const newMessage = {
+            const newMessage: MessageRequest = {
+                id: -1,
                 content: "Đã gửi file",
                 createAt: new Date().toISOString(),
                 fileAttachUrl: fileName,
-                sender: getState().you.info,
+                sender,
                 typeMessage: 1,
                 status: 'load'
             }
-            getState().socket.invoke('SendMessage', JSON.stringify({
+            socket.invoke('SendMessage', JSON.stringify({
                 id: netId,
                 idConversation: getState().conversations.currentConversationId,
                 newMessage: newMessage
@@ -248,10 +316,15 @@ const sendFileMessage = (file) => {
             console.log(e);
         });
     }
+
+    return thunk;
 }
-const updateAmountMessageNotRead = (dispatch, getState) => {
+const updateAmountMessageNotRead: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
     const currentConversation = selectCurrentConversaion(getState());
+    if(typeof currentConversation === "undefined") return;
     const you = getState().you.info;
+    if(typeof you === "undefined") return;
+
     if(currentConversation.amountMessageNotRead > 0){
         doRequestApi('/home/UpdateAmountMessageNotRead', 'PUT', {
             contentType: 'application/x-www-form-urlencoded',

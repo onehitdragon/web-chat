@@ -1,16 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {ThunkAction, createSlice} from "@reduxjs/toolkit";
 import { addConversation, addNewMessage, updateTyping } from "../chat/conversationsSlice";
 import { addFriends, addQuestingByOther, removeQuestingByOther, removeQuestingByYou } from "../friend/friendsSlice";
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { RootState } from "../../app/store";
 
-
-const signalr = require('@microsoft/signalr');
 const socketSlice = createSlice({
     name: "socket",
-    initialState: null,
+    initialState: null as HubConnection | null,
     reducers: {
-        buildSocket(state, action){
+        buildSocket(state, action: { payload: { url: string } }){
             return (
-                new signalr.HubConnectionBuilder()
+                new HubConnectionBuilder()
                     .withUrl(action.payload.url)
                     .build()
             );
@@ -21,14 +21,15 @@ const socketSlice = createSlice({
 export default socketSlice.reducer;
 export const { buildSocket } = socketSlice.actions;
 
-const startSocket = (whenSocketStart) => {
-    return (dispatch, getState) => {
-        if(getState().socket !== null){
-            getState().socket.start()
+const startSocket = (whenSocketStart: Function) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket !== null){
+            socket.start()
             .then(() => {
                 // start success
-                const socket = getState().socket;
                 const you = getState().you.info;
+                if(typeof you === "undefined") return;
                 const conversations = getState().conversations.conversations;
 
                 socket.invoke('Init', JSON.stringify({
@@ -96,35 +97,59 @@ const startSocket = (whenSocketStart) => {
             });
         }
     }
+
+    return thunk;
 }
 
 // function action
-const requestingFriend = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("RequestingFriend", friend);
+const requestingFriend = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("RequestingFriend", friend);
     }
+
+    return thunk;
 }
 
-const cancerRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("CancerRequesting", friend);
+const cancerRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("CancerRequesting", friend);
     }
+
+    return thunk;
 }
-const denyRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("DenyRequesting", friend);
+const denyRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("DenyRequesting", friend);
     }
+
+    return thunk;
 }
-const acceptRequesting = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("AcceptRequesting", friend);
+const acceptRequesting = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("AcceptRequesting", friend);
     }
+
+    return thunk;
 }
-const createGroupConversation = (dispatch, getState) => {
+const createGroupConversation: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
     const nameGroup = getState().createGroup.nameGroup;
     const participants = getState().createGroup.invites;
+    const socket = getState().socket;
+    if(socket === null) return;
 
-    getState().socket.invoke("CreateGroupConversation", nameGroup, participants);
+    socket.invoke("CreateGroupConversation", nameGroup, participants);
 }
 
 export { startSocket, requestingFriend, cancerRequesting, denyRequesting, acceptRequesting, createGroupConversation }

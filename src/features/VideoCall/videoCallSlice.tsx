@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ThunkAction, ThunkDispatch, createSlice } from "@reduxjs/toolkit";
 import CallVideoDialogButtonAgree from "../../components/CallVideoDialogButtonAgree";
 import CallVideoDialogButtonDeny from "../../components/CallVideoDialogButtonDeny";
 import { updateStatusCallVieoDialog, updateCallVieoDialog, hideCallVideoDialog, updateShowCallVideoMain, removeButtonCallVideoDialog } from "../menu/mainMenuSlice";
+import { RootState } from "../../app/store";
 
 const configure = {
     iceServers: [
@@ -25,45 +26,55 @@ const configure = {
         }
     ]
 }
-let candidates = [];
-const addAllCandidates = (peer) => {
+let candidates: any[] = [];
+const addAllCandidates = (peer: any) => {
     candidates.forEach((candidate) => {
         peer.addIceCandidate(candidate);
     });
     candidates = [];
 }
 
+interface VideoCallState{
+    connection: RTCPeerConnection | null,
+    stream: MediaStream | null,
+    remoteStream: MediaStream | null,
+    friend: User | null,
+}
+
+const init: VideoCallState = {
+    connection: null,
+    stream: null,
+    remoteStream: null,
+    friend: null
+}
+
 const videoCallSlice = createSlice({
     name: "videoCall",
-    initialState: {
-        connection: null,
-        stream: null,
-        remoteStream: null,
-        friend: null
-    },
+    initialState: init,
     reducers: {
-        updateConnection(state, action){
+        updateConnection(state, action: { payload: RTCPeerConnection }){
             state.connection = action.payload;
         },
-        updateStream(state, action){
+        updateStream(state, action: { payload: MediaStream }){
             state.stream = action.payload;
             if(action.payload){
                 action.payload.getTracks().forEach((track) => {
-                    state.connection.addTrack(track, action.payload);
+                    if(state.connection !== null){
+                        state.connection.addTrack(track, action.payload);
+                    }
                 });
             }
         },
-        updateRemoteStream(state, action){
+        updateRemoteStream(state, action: { payload: MediaStream }){
             state.remoteStream = action.payload;
         },
-        updateFriend(state, action){
+        updateFriend(state, action: { payload: User }){
             state.friend = action.payload;
         }
     }
 });
 
 export default videoCallSlice.reducer;
-export const { addTracks } = videoCallSlice.actions;
 const {updateConnection, updateStream, updateRemoteStream, updateFriend} = videoCallSlice.actions;
 
 const getStream = async () => {
@@ -74,11 +85,11 @@ const getStream = async () => {
             "height": 720
         }
     }
-    return await navigator.mediaDevices.getUserMedia(mediaConstrain).catch(() => {});
+    return await navigator.mediaDevices.getUserMedia(mediaConstrain).catch((err) => { throw Error(err) });
 }
 
 // function action
-const buildConnection = (dispatch, getState) => {
+const buildConnection: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
     const peer = new RTCPeerConnection(configure);
     peer.addEventListener("connectionstatechange", () => {
         console.log("vinh: " + peer.connectionState);
@@ -93,8 +104,10 @@ const buildConnection = (dispatch, getState) => {
     signaling(peer, dispatch, getState);
 }
 
-const signaling = (peer, dispatch, getState) => {
+const signaling = (peer: RTCPeerConnection, dispatch: ThunkDispatch<RootState, any, any>, getState: () => RootState) => {
     const socket = getState().socket;
+    if(socket === null) return;
+    
     socket.on("callVideo", (reply, friend, offer) => {
         if(reply === "offline"){
             dispatch(updateStatusCallVieoDialog("Người này không trực tuyến..."));
@@ -142,8 +155,10 @@ const signaling = (peer, dispatch, getState) => {
     });
 
     socket.on("candidate", (candidate) => {
+        const connection = getState().videoCall.connection;
+        if(connection === null) return;
         if(peer.currentRemoteDescription){
-            getState().videoCall.connection.addIceCandidate(candidate);
+            connection.addIceCandidate(candidate);
         }
         else{
             candidates.push(candidate);
@@ -160,12 +175,15 @@ const signaling = (peer, dispatch, getState) => {
     })
 }
 
-const callVideo = (friend) => {
-    return async (dispatch, getState) => {
+const callVideo = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = async (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
         const connection = getState().videoCall.connection;
+        if(connection === null) return;
 
         const onCancer = () => {
-            getState().socket.invoke("CancerCallVideo", friend);
+            socket.invoke("CancerCallVideo", friend);
             dispatch(hideCallVideoDialog());
         }
         dispatch(updateCallVieoDialog({
@@ -181,29 +199,41 @@ const callVideo = (friend) => {
         dispatch(updateStream(await getStream()));
         const offer = await connection.createOffer();
         await connection.setLocalDescription(offer);
-        getState().socket.invoke("CallVideo", friend, offer);
+        socket.invoke("CallVideo", friend, offer);
     }
+
+    return thunk;
 }
 
-const acceptCallVideo = (friend, offer) => {
-    return async (dispatch, getState) => {
+const acceptCallVideo = (friend: User, offer: RTCSessionDescription) => {
+    const thunk: ThunkAction<void, RootState, any, any> = async (dispatch, getState) => {
         const connection = getState().videoCall.connection;
+        if(connection === null) return;
         await connection.setRemoteDescription(offer);
+        const socket = getState().socket;
+        if(socket === null) return;
 
         dispatch(updateFriend(friend));
         dispatch(updateStream(await getStream()));
         const answer = await connection.createAnswer();  
         await connection.setLocalDescription(answer);
         addAllCandidates(connection);
-        getState().socket.invoke("AcceptCallVideo", friend, answer);
+        socket.invoke("AcceptCallVideo", friend, answer);
     }
+
+    return thunk;
 }
 
-const denyCallVideo = (friend) => {
-    return (dispatch, getState) => {
-        getState().socket.invoke("DenyCallVideo", friend);
+const denyCallVideo = (friend: User) => {
+    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+        const socket = getState().socket;
+        if(socket === null) return;
+
+        socket.invoke("DenyCallVideo", friend);
         candidates = [];
     }
+
+    return thunk;
 }
 
 export { callVideo, buildConnection }

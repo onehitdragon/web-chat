@@ -30,7 +30,7 @@ const mainMenuSlice = createSlice({
         updateStatusCallVieoDialog(state, action){
             state.callVieoDialog.status = action.payload;
         },
-        hideCallVideoDialog(state, action){
+        hideCallVideoDialog(state){
             state.callVieoDialog.show = false;
         },
         removeButtonCallVideoDialog(state, action){
