@@ -118,3 +118,7 @@ main{
 #message-popup .container > .buttons > .button--gray{
   background-color: rgb(148, 148, 148);
 }
+
+#__next{
+  height: 100%;
+}

@@ -1,10 +1,10 @@
-import './Login.css';
+import styles from './Login.module.css';
 import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
-import {useNavigate} from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { checkStatus, login, loginFacebook, loginGoogle } from '../features/chat/youSlice';
 import { BASE_URL } from '../tools/doRequestApi';
+import { useRouter } from 'next/navigation';
 
 interface LoginProps{
     showDialog: (dialogNeedShow: React.ReactNode) => any,
@@ -12,7 +12,7 @@ interface LoginProps{
 }
 
 function Login({showDialog, hideDialog}: LoginProps) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [pageLoading, setPageLoading] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -54,7 +54,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
                         data.user.photoLink,
                         (res) => {
                             res.then(() => {
-                                navigate("/Home");
+                                router.push("/Home");
                             })
                         }
                     ));
@@ -78,7 +78,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
                         data.picture.data.url.replaceAll("&", "#"),
                         (res) => {
                             res.then(() => {
-                                navigate("/Home");
+                                router.push("/Home");
                             })
                         }
                     ));
@@ -88,7 +88,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
         }
 
         const navigateToHome = () => {
-            navigate("/Home");
+            router.push("/Home");
         };
         const showLoginPage = () => {
             setPageLoading(false);
@@ -127,17 +127,17 @@ function Login({showDialog, hideDialog}: LoginProps) {
     }
 
     const handleLoginSuccess = () => {
-        navigate("/Home");
+        router.push("/Home");
         hideDialog();
     }
 
     return (
         !pageLoading &&
-        <div className="body">
-            <div className="body__main">
-                <p className="title">Đăng Nhập</p>
-                <p className="title-2">Đăng nhập với</p>
-                <div className="other-login">
+        <div className={styles["body"]}>
+            <div className={styles["body__main"]}>
+                <p className={styles["title"]}>Đăng Nhập</p>
+                <p className={styles["title-2"]}>Đăng nhập với</p>
+                <div className={styles["other-login"]}>
                     <div onClick={ loginFacebookHandle }>
                         <i className="fa-brands fa-facebook-f"></i>
                         <a href="/" onClick={(e) => { e.preventDefault() }}>Facebook</a>
@@ -147,23 +147,23 @@ function Login({showDialog, hideDialog}: LoginProps) {
                         <a href="/" onClick={(e) => { e.preventDefault() }}>Google</a>
                     </div>
                 </div>
-                <p className="title-2">Hoặc sử dụng tài khoản của bạn</p>
-                <form className="login-form">
-                    <div className="login-form__row login-form__row--normal">
-                        <input name="Email" value={ email } onChange={(e) => { setEmail(e.target.value); }} type="text" placeholder="Email" />
+                <p className={styles["title-2"]}>Hoặc sử dụng tài khoản của bạn</p>
+                <form className={styles["login-form"]}>
+                    <div className={styles["login-form__row"] + " " + styles["login-form__row--normal"]}>
+                        <input className={styles["input"]} name="Email" value={ email } onChange={(e) => { setEmail(e.target.value); }} type="text" placeholder="Email" />
                     </div>
-                    <div className="login-form__row login-form__row--normal">
-                        <input name="Password" value={ password } onChange={(e) => { setPassword(e.target.value); }} type="password" placeholder="Mật khẩu" />
+                    <div className={styles["login-form__row"] + " " + styles["login-form__row--normal"]}>
+                        <input className={styles["input"]} name="Password" value={ password } onChange={(e) => { setPassword(e.target.value); }} type="password" placeholder="Mật khẩu" />
                     </div>
-                    <div className="login-form__row login-form__row--custom">
+                    <div className={styles["login-form__row"] + " " + styles["login-form__row--custom"]}>
                         <div>
-                            <input name="SavePassword" type="checkbox"/> Nhớ mật khẩu
+                            <input className={styles["input"]} name="SavePassword" type="checkbox"/> Nhớ mật khẩu
                         </div>
                         <div>
                             <a href="/">Quên mật khẩu</a>
                         </div>
                     </div>
-                    <img style={{display: loading ? 'block' : 'none'}} className="loading" src="/img/gif/loader.gif" alt="error"/>
+                    <img style={{display: loading ? 'block' : 'none'}} className={styles["loading"]} src="/img/gif/loader.gif" alt="error"/>
                     {!loading && <button type="button" name="login" onClick={handleLoginButtonClick}>Đăng nhập</button>}
                     <button type="button" name="register">Đăng ký</button>
                 </form>
