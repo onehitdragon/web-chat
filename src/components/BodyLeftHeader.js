@@ -13,20 +13,20 @@ function BodyLeftHeader(){
             <div className={styles["name-area"]}>
                 <p className={styles.name}>{you !== null && (you.lastName + ' ' + you.firstName)}</p>
                 <p className={styles.status}>
-                    <i className={styles["fa-solid fa-circle"]}></i>
+                    <i className={"fa-solid fa-circle"}></i>
                     <span> Trực tuyến</span>
                 </p>
                 <div className={styles["status-menu"]}>
                     <button type="button" name="online">
-                        <i className={styles["fa-solid fa-circle  icon-status--green"]}></i>
+                        <i className={"fa-solid fa-circle " + styles["icon-status--green"]}></i>
                         <span>Trực tuyến</span>
                     </button>
                     <button type="button" name="offline">
-                        <i className={styles["fa-solid fa-moon  icon-status--yellow"]}></i>
+                        <i className={"fa-solid fa-moon " + styles["icon-status--yellow"]}></i>
                         <span>Tạm vắng</span>
                     </button>
                     <button type="button" name="verybusy">
-                        <i className={styles["fa-solid fa-circle-minus  icon-status--red"]}></i>
+                        <i className={"fa-solid fa-circle-minus " + styles["icon-status--red"]}></i>
                         <span>Rất bận</span>
                     </button>
                 </div>

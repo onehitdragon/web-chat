@@ -2,10 +2,11 @@ import { memo} from "react";
 import FirstMenuItemCheck from "./FirstMenuItemCheck";
 import FirstMenuItemInput from "./FirstMenuItemInput";
 import FirstMenuItemNormal from "./FirstMenuItemNormal";
+import styles from "./Home.module.css";
 
 function FirstMenu({rows = []}){
     return (
-        <div className="menu menu-1">
+        <div className={styles["menu"] + " " + styles["menu-1"]}>
             {
                 rows.map((row, index) => {
                     if(row.type === "checkbox"){

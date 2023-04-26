@@ -25,7 +25,7 @@ function AvatarConversation({participants}){
     return (
         <div className={styles["avatar-area"] + " " + (amountParticipant > 2 ? styles["group--avatar"] : "")}>
             {avatar}
-            {amountParticipant === 2 && <i className={styles["fa-solid fa-circle icon-status--green"]}></i>}
+            {amountParticipant === 2 && <i className={"fa-solid fa-circle " + styles["icon-status--green"]}></i>}
         </div>
     );
 }

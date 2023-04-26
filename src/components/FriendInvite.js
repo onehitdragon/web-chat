@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleInvite } from "../features/CreateGroup/createGroupSlice";
+import styles from "./Home.module.css";
 
 function FriendInvite({friend}){
     const name = friend.lastName + " " + friend.firstName;
@@ -11,13 +12,13 @@ function FriendInvite({friend}){
 
     return (
         show &&
-        <div className={`list-added__item ${choice ? "list-added__item--choice" : ""}`}
+        <div className={`${styles["list-added__item"]} ${choice ? styles["list-added__item--choice"] : ""}`}
             onClick={() => { dispatch(toggleInvite(friend)); setChoice(!choice) }}>
-            <img className="avatar" src={friend.avatarUrl} alt="error"/>
+            <img className={styles.avatar} src={friend.avatarUrl} alt="error"/>
             <span>{name}</span>
             {
                 choice &&
-                <img className="choice" src="https://marketplace.canva.com/5EAds/MAEmCa5EAds/2/tl/canva-yellow-encircle-icon-MAEmCa5EAds.png" alt="error" />
+                <img className={styles.choice} src="https://marketplace.canva.com/5EAds/MAEmCa5EAds/2/tl/canva-yellow-encircle-icon-MAEmCa5EAds.png" alt="error" />
             }
         </div>
     );

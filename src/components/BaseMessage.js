@@ -33,12 +33,12 @@ function BaseMessage({side = "left", sender, status = undefined, displayAvatar, 
                         </div>
                     }
                     {type === 1 && content}
-                    {status === 'load' && <i className={styles["status-load fa-solid fa-circle-notch"]}></i>}
-                    {status === 'success' && <i className={styles["status-success fa-solid fa-check"]}></i>}
+                    {status === 'load' && <i className={styles["status-load"] + " fa-solid fa-circle-notch"}></i>}
+                    {status === 'success' && <i className={styles["status-success"] + " fa-solid fa-check"}></i>}
                 </div>
                 {displayTime && <div className={styles["name-time"] + " " + styles["message--myname-time"]}>
                     <span className={styles.name}>{sender.lastName + " " + sender.firstName}</span>
-                    <i className={styles["fa-solid fa-circle"]}></i>
+                    <i className={"fa-solid fa-circle"}></i>
                     <span className={styles.time}>{convertTimeToDisplay(createAt)}</span>
                 </div>}
             </div>

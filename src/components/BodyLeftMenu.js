@@ -29,24 +29,24 @@ function BodyLeftMenu({isOpen}){
                 <button name="friend" onClick={() => { handleOnButtonFriendClick() }}>
                     {
                         typeLeftContentShowing === "friends" ?
-                        (<i className={styles["fa-solid fa-comments"]}></i>) :
-                        (<i className={styles["fa-solid fa-user-group"]}></i>)
+                        (<i className={"fa-solid fa-comments"}></i>) :
+                        (<i className={"fa-solid fa-user-group"}></i>)
                     }
                 </button>
                 <button name="friend-search" onClick={() => { dispatch(updateShowFriendSearchMain(true)) }}>
-                    <i className={styles["fa-solid fa-user-plus"]}></i>
+                    <i className={"fa-solid fa-user-plus"}></i>
                 </button>
                 <button name="create-group" onClick={() => { dispatch(updateShowCreationMain(true)) }}>
-                    <i className={styles["fa-solid fa-users"]}></i>
+                    <i className={"fa-solid fa-users"}></i>
                 </button>
                 <button name="setting">
-                    <i className={styles["fa-solid fa-gear"]}></i>
+                    <i className={"fa-solid fa-gear"}></i>
                 </button>
                 <button name="youtube">
-                    <i className={styles["fa-brands fa-youtube"]}></i>
+                    <i className={"fa-brands fa-youtube"}></i>
                 </button>
                 <button name="discord">
-                    <i className={styles["fa-brands fa-discord"]}></i>
+                    <i className={"fa-brands fa-discord"}></i>
                 </button>
             </div>
         </div>

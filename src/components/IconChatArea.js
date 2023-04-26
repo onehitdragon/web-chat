@@ -29,7 +29,7 @@ function IconChatArea(){
     return (
         <Fragment>
             <button type="button" name="icon" onClick={ (e) => { setShowing(!showing); e.stopPropagation(); } }>
-                <i className={styles["fa-solid fa-face-smile"]}></i>
+                <i className={"fa-solid fa-face-smile"}></i>
             </button>
             <div ref={ iconAreaElementRef } className={styles["icon-area"]} style={{ display: showing ? "flex" : "none" }}>
                 <div className={styles.main}>

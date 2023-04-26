@@ -26,12 +26,12 @@ function GroupCreationMain() {
     }
 
     return (
-        <div id="friend-search-area">
+        <div id={styles["friend-search-area"]}>
             <div className={styles["friend-search-main"]}>
                 <div className={styles.title}>
                     <span>Tạo nhóm</span>
                     <button name="close-friend-search" onClick={() => { dispatch(updateShowCreationMain(false)) }}>
-                        <i className={styles["fa-solid fa-xmark"]}></i>
+                        <i className={"fa-solid fa-xmark"}></i>
                     </button>
                 </div>
                 <div className={styles["input-area"]}>

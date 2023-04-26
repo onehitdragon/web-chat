@@ -62,7 +62,7 @@ function InputChatArea(){
                 onClick={() => { fileInputRef.current.click(); }}>
                 <input ref={fileInputRef} style={{display: "none"}}
                     type="file"onChange={() => { handleOnChangeFile(); }}/>
-                <i className={styles["fa-solid fa-circle-plus"]}></i>
+                <i className={"fa-solid fa-circle-plus"}></i>
             </button>
             <input ref={ textInputRef } type="text" placeholder="Nhập tin nhắn..." 
                 value={ currentContent }

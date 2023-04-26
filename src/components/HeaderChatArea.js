@@ -36,10 +36,10 @@ function HeaderChatArea({avatarUrl, title, status, type, menu, menuSearch}){
             </div>
             <div className={styles["button-area"]}>
                 <button type="button" name="profile" onClick={(e) => { e.stopPropagation(); setShowingSearchMenu(!showingSearchMenu); setShowingMenu(false);}}>
-                    <i className={styles["fa-solid fa-magnifying-glass"]}></i>
+                    <i className={"fa-solid fa-magnifying-glass"}></i>
                 </button>
                 <button type="button" name="menu" onClick={(e) => { e.stopPropagation(); setShowingMenu(!showingMenu); setShowingSearchMenu(false);}}>
-                    <i className={styles["fa-solid fa-ellipsis-vertical"]}></i>
+                    <i className={"fa-solid fa-ellipsis-vertical"}></i>
                 </button>
                 <div className={styles["conversation-menu"]} ref={conversationMenuRef}>
                     {showingMenu && menu}

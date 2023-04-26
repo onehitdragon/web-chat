@@ -50,7 +50,7 @@ function BaseConversation({id, title, lastMessage, participants, amountMessageNo
                 </p>
                 { 
                     amountMessageNotRead !== 0 &&
-                    <i className={styles["fa-solid fa-circle status"]}>
+                    <i className={"fa-solid fa-circle status"}>
                         <span>{amountMessageNotRead < 10 && amountMessageNotRead}</span>
                     </i>
                 }
