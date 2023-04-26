@@ -2,7 +2,7 @@ import { memo } from "react";
 import Conversations from "./Conversations";
 import SearchBar from "./SearchBar";
 import BodyLeftHeader from "./BodyLeftHeader";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux";
 import Friends from "./Friends";
 import { selectCurrentConversaionId } from "../features/chat/conversationsSlice";
 import styles from './Home.module.css';

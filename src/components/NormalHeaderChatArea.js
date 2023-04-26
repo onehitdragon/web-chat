@@ -1,6 +1,6 @@
 import { memo } from "react";
 import HeaderChatArea from "./HeaderChatArea";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux";
 import FirstMenu from "./FirstMenu";
 import { setCurrentConversationId } from "../features/chat/conversationsSlice";
 import { updateContentMessageKeyword } from "../features/search/searchSlice";
