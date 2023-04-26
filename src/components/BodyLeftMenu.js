@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTypeLeftContentShowing, updateShowFriendSearchMain, updateShowCreationMain } from "../features/menu/mainMenuSlice";
+import styles from './Home.module.css';
 
 let firstRender = true;
 
@@ -8,7 +9,7 @@ function BodyLeftMenu({isOpen}){
     const menuLeftRef = useRef();
     if(!isOpen){
         setTimeout(() => {
-            menuLeftRef.current.className = "menu-left menu-left--closed";
+            menuLeftRef.current.className= styles["menu-left"] + " " + styles["menu-left--closed"];
         }, 250);
     }
     useEffect(() => {
@@ -22,30 +23,30 @@ function BodyLeftMenu({isOpen}){
     }
 
     return (
-        <div className={`menu-left menu-left--${firstRender ? "closed" : (isOpen ? "open" : "closing")}`}
+        <div className={`${styles["menu-left"]} ${styles["menu-left--" + (firstRender ? "closed" : (isOpen ? "open" : "closing"))]}`}
             ref={menuLeftRef}>
-            <div className="menu-main">
+            <div className={styles["menu-main"]}>
                 <button name="friend" onClick={() => { handleOnButtonFriendClick() }}>
                     {
                         typeLeftContentShowing === "friends" ?
-                        (<i className="fa-solid fa-comments"></i>) :
-                        (<i className="fa-solid fa-user-group"></i>)
+                        (<i className={styles["fa-solid fa-comments"]}></i>) :
+                        (<i className={styles["fa-solid fa-user-group"]}></i>)
                     }
                 </button>
                 <button name="friend-search" onClick={() => { dispatch(updateShowFriendSearchMain(true)) }}>
-                    <i className="fa-solid fa-user-plus"></i>
+                    <i className={styles["fa-solid fa-user-plus"]}></i>
                 </button>
                 <button name="create-group" onClick={() => { dispatch(updateShowCreationMain(true)) }}>
-                    <i className="fa-solid fa-users"></i>
+                    <i className={styles["fa-solid fa-users"]}></i>
                 </button>
                 <button name="setting">
-                    <i className="fa-solid fa-gear"></i>
+                    <i className={styles["fa-solid fa-gear"]}></i>
                 </button>
                 <button name="youtube">
-                    <i className="fa-brands fa-youtube"></i>
+                    <i className={styles["fa-brands fa-youtube"]}></i>
                 </button>
                 <button name="discord">
-                    <i className="fa-brands fa-discord"></i>
+                    <i className={styles["fa-brands fa-discord"]}></i>
                 </button>
             </div>
         </div>

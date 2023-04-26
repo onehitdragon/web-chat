@@ -1,12 +1,13 @@
 import { memo } from "react";
+import styles from "./Home.module.css";
 
 function InfoArea({title, contentLastMessage}){
     return (
-        <div className="info-area">
-            <div className="name">
+        <div className={styles["info-area"]}>
+            <div className={styles.name}>
                 {title}
             </div>
-            <div className="last-mes">
+            <div className={styles["last-mes"]}>
                 {contentLastMessage}
             </div>
         </div>

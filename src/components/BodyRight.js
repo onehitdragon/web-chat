@@ -6,14 +6,15 @@ import InputChatArea from './InputChatArea';
 import { useSelector } from "react-redux";
 import { selectCurrentConversaion } from "../features/chat/conversationsSlice"
 import ListParticipantGroup from "./ListParticipantGroup";
+import styles from "./Home.module.css";
 
 function BodyRight(){
     const currentConversation = useSelector(selectCurrentConversaion);
 
     return (
         currentConversation != null &&
-        <div className="body-right">
-            <div className="body-right__before"></div>
+        <div className={styles["body-right"]}>
+            <div className={styles["body-right__before"]}></div>
             {currentConversation.participants.length === 2 ?
                 (<NormalHeaderChatArea conversation={currentConversation}/>) :
                 (<GroupHeaderChatArea conversation={currentConversation}/>)

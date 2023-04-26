@@ -5,14 +5,15 @@ import BodyLeftHeader from "./BodyLeftHeader";
 import { useSelector } from "react-redux/es/exports";
 import Friends from "./Friends";
 import { selectCurrentConversaionId } from "../features/chat/conversationsSlice";
+import styles from './Home.module.css';
 
 function BodyLeft(){
     const typeLeftContentShowing = useSelector(state => state.mainMenu.typeLeftContentShowing);
     const currentConversationId = useSelector(selectCurrentConversaionId);
 
     return (
-        <div className="body-left">
-            <div className="body-left__before"></div>
+        <div className={styles["body-left"]}>
+            <div className={styles["body-left__before"]}></div>
             <BodyLeftHeader />
             <SearchBar />
             {typeLeftContentShowing === "conversations" && <Conversations />}

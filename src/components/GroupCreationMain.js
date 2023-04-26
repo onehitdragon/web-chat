@@ -6,6 +6,7 @@ import GroupNameInput from "./GroupNameInput";
 import InviteFriendSearchBar from "./InviteFriendSearchBar";
 import { reset } from "../features/CreateGroup/createGroupSlice";
 import { createGroupConversation } from "../features/connection/socketSlice";
+import styles from "./Home.module.css";
 
 function GroupCreationMain() {
     const friends = useSelector(state => state.friends.friends);
@@ -26,21 +27,21 @@ function GroupCreationMain() {
 
     return (
         <div id="friend-search-area">
-            <div className="friend-search-main">
-                <div className="title">
+            <div className={styles["friend-search-main"]}>
+                <div className={styles.title}>
                     <span>Tạo nhóm</span>
                     <button name="close-friend-search" onClick={() => { dispatch(updateShowCreationMain(false)) }}>
-                        <i className="fa-solid fa-xmark"></i>
+                        <i className={styles["fa-solid fa-xmark"]}></i>
                     </button>
                 </div>
-                <div className="input-area">
+                <div className={styles["input-area"]}>
                     <GroupNameInput />
                     <InviteFriendSearchBar />
                 </div>
-                <div className="creation-group-area">
+                <div className={styles["creation-group-area"]}>
                     <FriendInvites friends={friends}/>
                 </div>
-                <div className="area-button">
+                <div className={styles["area-button"]}>
                     {
                         invites.length >= 2 && nameGroup !== "" &&
                         <button name="create-group-button" onClick={() => { handleOnCreateGroupClick() }}>Xác nhận</button>

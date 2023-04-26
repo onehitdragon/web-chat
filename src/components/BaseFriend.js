@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import HighLightSearchContent from "./HighLightSearchContent";
+import styles from "./Home.module.css";
 
 function BaseFriend({friend, friendMenu}){
     const keyword = useSelector(state => state.search.conversationKeyword);
@@ -13,13 +14,13 @@ function BaseFriend({friend, friendMenu}){
 
     return (
         show &&
-        <div className="list-item">
-            <div className="avatar-area">
-                <img className="avatar" src={friend.avatarUrl} alt="error"/>
-                <i className="fa-solid fa-circle icon-status--green"></i>
+        <div className={styles["list-item"]}>
+            <div className={styles["avatar-area"]}>
+                <img className={styles.avatar} src={friend.avatarUrl} alt="error"/>
+                <i className={styles["fa-solid fa-circle icon-status--green"]}></i>
             </div>
-            <div className="info-area info-area--friend">
-                <div className="name">
+            <div className={styles["info-area"] + " " + styles["info-area--friend"]}>
+                <div className={styles.name}>
                     <HighLightSearchContent content={name} startPos={result} amount={keyword.length} color="red"/>
                 </div>
                 {friendMenu}

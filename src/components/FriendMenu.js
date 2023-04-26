@@ -1,12 +1,13 @@
 import { memo } from "react";
+import styles from "./Home.module.css"
 
 function FriendMenu({rows}){
     return (
-        <div className="friends">
+        <div className={styles.friends}>
             {
                 rows.map((row, index) => {
                     return (
-                        <div key={index} className="friend" onClick={() => { row.handleOnClick(); }}>
+                        <div key={index} className={styles.friend} onClick={() => { row.handleOnClick(); }}>
                             <span>{row.title}</span>
                         </div>
                     );

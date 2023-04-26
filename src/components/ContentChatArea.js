@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setScroll, updateStateFileMessage } from '../features/chat/conversationsSlice';
 import checkFileType from '../tools/checkFileType';
 import { loadIconPromise, loadImagePromise, loadMusicPromise, loadVideoPromise } from '../tools/LoadFilePromise';
+import styles from "./Home.module.css";
 
 function ContentChatArea({conversation}){
     const you = useSelector(state => state.you.info);
@@ -108,7 +109,7 @@ function ContentChatArea({conversation}){
     useEffect(() => {
         if(!loading){
             const element = bodyElement.current;
-            element.classList.remove("body-right__messages--hide-messages");
+            element.classList.remove(styles["body-right__messages--hide-messages"]);
             if(scroll === undefined){
                 element.scroll(0, element.scrollHeight);
             }
@@ -126,26 +127,26 @@ function ContentChatArea({conversation}){
 
     return (
         <div ref={bodyElement}
-            className={"body-right__messages body-right__messages--hide-messages"}
+            className={styles["body-right__messages"] + " " + styles["body-right__messages--hide-messages"]}
             onScroll={ handleScroll }
             >
             {!loading && loadMessageNodes() }
             {!loading && loadTypingMessageNodes() }
             {loading && 
-                <div className='message-loading-area'>
-                    <div className='road'>
+                <div className={styles["message-loading-area"]}>
+                    <div className={styles.road}>
                         <img src='/img/icons/something.gif' alt='error'/>
                     </div>
-                    <div className="message-loading">
-                        <div className="content">
-                            <div className='content__mes'>
-                                <p className="loading">
-                                    <i className="fa-solid fa-circle"></i>
-                                    <i className="fa-solid fa-circle"></i>
-                                    <i className="fa-solid fa-circle"></i>
+                    <div className={styles["message-loading"]}>
+                        <div className={styles.content}>
+                            <div className={styles.content__mes}>
+                                <p className={styles.loading}>
+                                    <i className={styles["fa-solid fa-circle"]}></i>
+                                    <i className={styles["fa-solid fa-circle"]}></i>
+                                    <i className={styles["fa-solid fa-circle"]}></i>
                                 </p>
                             </div>
-                            <div className="name-time"></div>
+                            <div className={styles["name-time"]}></div>
                         </div>
                     </div>
                 </div>

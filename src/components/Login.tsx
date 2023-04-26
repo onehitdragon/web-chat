@@ -54,7 +54,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
                         data.user.photoLink,
                         (res) => {
                             res.then(() => {
-                                router.push("/Home");
+                                router.push("/home");
                             })
                         }
                     ));
@@ -78,7 +78,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
                         data.picture.data.url.replaceAll("&", "#"),
                         (res) => {
                             res.then(() => {
-                                router.push("/Home");
+                                router.push("/home");
                             })
                         }
                     ));
@@ -88,7 +88,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
         }
 
         const navigateToHome = () => {
-            router.push("/Home");
+            router.push("/home");
         };
         const showLoginPage = () => {
             setPageLoading(false);
@@ -127,7 +127,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
     }
 
     const handleLoginSuccess = () => {
-        router.push("/Home");
+        router.push("/home");
         hideDialog();
     }
 
@@ -139,11 +139,11 @@ function Login({showDialog, hideDialog}: LoginProps) {
                 <p className={styles["title-2"]}>Đăng nhập với</p>
                 <div className={styles["other-login"]}>
                     <div onClick={ loginFacebookHandle }>
-                        <i className="fa-brands fa-facebook-f"></i>
+                        <i className={styles["fa-brands fa-facebook-f"]}></i>
                         <a href="/" onClick={(e) => { e.preventDefault() }}>Facebook</a>
                     </div>
                     <div onClick={ loginGoogleHandle }>
-                        <i className="fa-brands fa-google"></i>
+                        <i className={styles["fa-brands fa-google"]}></i>
                         <a href="/" onClick={(e) => { e.preventDefault() }}>Google</a>
                     </div>
                 </div>

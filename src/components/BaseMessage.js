@@ -2,6 +2,7 @@ import { memo } from "react";
 import { useSelector } from "react-redux";
 import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 import HighLightSearchContent from "./HighLightSearchContent";
+import styles from "./Home.module.css";
 
 function BaseMessage({side = "left", sender, status = undefined, displayAvatar, displayTime, type, content, createAt}){
     const contentMessageKeyword = useSelector(state => state.search.contentMessageKeyword);
@@ -16,14 +17,14 @@ function BaseMessage({side = "left", sender, status = undefined, displayAvatar, 
 
     return (
         !hide &&
-        <div className={`message ${side === "right" ? "message--mymessage" : ""}`}>
-            {displayAvatar && <img className="avatar" alt="error" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" />}
-            {!displayAvatar && <div className="placeholder-square"></div>}
-            <div className="content">
-                <div className="content__mes">
+        <div className={styles["message"] + " " + styles[side === "right" ? "message--mymessage" : ""]}>
+            {displayAvatar && <img className={styles.avatar} alt="error" src="https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_series_character_avatar_ice_dragon-512.png" />}
+            {!displayAvatar && <div className={styles["placeholder-square"]}></div>}
+            <div className={styles.content}>
+                <div className={styles.content__mes}>
                     {
                         type === 0 && 
-                        <div className="text">
+                        <div className={styles.text}>
                             {
                                 <HighLightSearchContent content={content}
                                     startPos={result}
@@ -32,13 +33,13 @@ function BaseMessage({side = "left", sender, status = undefined, displayAvatar, 
                         </div>
                     }
                     {type === 1 && content}
-                    {status === 'load' && <i className="status-load fa-solid fa-circle-notch"></i>}
-                    {status === 'success' && <i className="status-success fa-solid fa-check"></i>}
+                    {status === 'load' && <i className={styles["status-load fa-solid fa-circle-notch"]}></i>}
+                    {status === 'success' && <i className={styles["status-success fa-solid fa-check"]}></i>}
                 </div>
-                {displayTime && <div className="name-time message--myname-time">
-                    <span className="name">{sender.lastName + " " + sender.firstName}</span>
-                    <i className="fa-solid fa-circle"></i>
-                    <span className="time">{convertTimeToDisplay(createAt)}</span>
+                {displayTime && <div className={styles["name-time"] + " " + styles["message--myname-time"]}>
+                    <span className={styles.name}>{sender.lastName + " " + sender.firstName}</span>
+                    <i className={styles["fa-solid fa-circle"]}></i>
+                    <span className={styles.time}>{convertTimeToDisplay(createAt)}</span>
                 </div>}
             </div>
         </div>

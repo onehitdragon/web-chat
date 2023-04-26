@@ -1,10 +1,11 @@
 import { memo, useEffect, useRef } from "react";
 import { useState } from "react";
+import styles from "./Home.module.css";
 
 function HeaderChatArea({avatarUrl, title, status, type, menu, menuSearch}){
-    let bodyRightHeadClassName = "body-right__head";
+    let bodyRightHeadClassName = styles["body-right__head"];
     if(type === "group"){
-        bodyRightHeadClassName += " body-right__head--group";
+        bodyRightHeadClassName += " " + styles["body-right__head--group"];
     }
     const conversationMenuRef = useRef();
     const conversationSearchMenuRef = useRef();
@@ -28,22 +29,22 @@ function HeaderChatArea({avatarUrl, title, status, type, menu, menuSearch}){
 
     return (
         <div className={bodyRightHeadClassName}>
-            {avatarUrl !== undefined && <img className="avatar" alt="error" src={avatarUrl} />}
-            <div className="info-area">
-                <p className="name">{title}</p>
-                <p className="status">{status}</p>
+            {avatarUrl !== undefined && <img className={styles.avatar} alt="error" src={avatarUrl} />}
+            <div className={styles["info-area"]}>
+                <p className={styles.name}>{title}</p>
+                <p className={styles.status}>{status}</p>
             </div>
-            <div className="button-area">
+            <div className={styles["button-area"]}>
                 <button type="button" name="profile" onClick={(e) => { e.stopPropagation(); setShowingSearchMenu(!showingSearchMenu); setShowingMenu(false);}}>
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <i className={styles["fa-solid fa-magnifying-glass"]}></i>
                 </button>
                 <button type="button" name="menu" onClick={(e) => { e.stopPropagation(); setShowingMenu(!showingMenu); setShowingSearchMenu(false);}}>
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                    <i className={styles["fa-solid fa-ellipsis-vertical"]}></i>
                 </button>
-                <div className="conversation-menu" ref={conversationMenuRef}>
+                <div className={styles["conversation-menu"]} ref={conversationMenuRef}>
                     {showingMenu && menu}
                 </div>
-                <div className="conversation-menu conversation-menu--search" ref={conversationSearchMenuRef}>
+                <div className={styles["conversation-menu"] + " " + styles["conversation-menu--search"]} ref={conversationSearchMenuRef}>
                     {showingSearchMenu && menuSearch}
                 </div>
             </div>

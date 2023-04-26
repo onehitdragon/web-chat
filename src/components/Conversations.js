@@ -3,15 +3,16 @@ import NormalConversation from './NormalConversation';
 import { selectConversations } from "../features/chat/conversationsSlice";
 import GroupConversation from "./GroupConversation";
 import { memo } from "react";
+import styles from "./Home.module.css";
 
 function Conversations(){
     const conversations = useSelector(selectConversations);
     
     return (
-        <div className="body-left__list">
-            <div className="list-header">
-                <span className="list-header__title">Trò Truyện</span>
-                <i className="fa-solid fa-angle-down"></i>
+        <div className={styles["body-left__list"]}>
+            <div className={styles["list-header"]}>
+                <span className={styles["list-header__title"]}>Trò Truyện</span>
+                <i className={styles["fa-solid fa-angle-down"]}></i>
             </div>
             {
                 conversations.map((conversation) => {

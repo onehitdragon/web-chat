@@ -5,6 +5,7 @@ import convertTimeToDisplay from "../tools/covertTimeToDisplay";
 import AvatarConversation from "./AvatarConversation";
 import HighLightSearchContent from "./HighLightSearchContent";
 import InfoArea from "./InfoArea";
+import styles from "./Home.module.css";
 
 function BaseConversation({id, title, lastMessage, participants, amountMessageNotRead}){
     const contentLastMessage = lastMessage != null ? lastMessage.content : 'Trò chuyện ngay';
@@ -28,7 +29,7 @@ function BaseConversation({id, title, lastMessage, participants, amountMessageNo
 
     return (
         show && 
-        <div className={'list-item ' + (isChoice ? 'list-item--choiced' : "")}
+        <div className={styles["list-item"] + " " + styles[(isChoice ? 'list-item--choiced' : "")]}
             onClick={ (e) => { handleClickConversaion(); } }>
             <AvatarConversation participants={participants}/>
             <InfoArea title={
@@ -40,16 +41,16 @@ function BaseConversation({id, title, lastMessage, participants, amountMessageNo
                         amount={keyword.length} color="blue"/>
                 }
             />
-            <div className="status-area">
-                <p className="time">
-                    <i className="fa-solid fa-check"></i>
+            <div className={styles["status-area"]}>
+                <p className={styles.time}>
+                    <i className={styles["fa-solid fa-check"]}></i>
                     <span>
                         {lastMessage != null && convertTimeToDisplay(lastMessage.createAt)}
                     </span>
                 </p>
                 { 
                     amountMessageNotRead !== 0 &&
-                    <i className="fa-solid fa-circle status">
+                    <i className={styles["fa-solid fa-circle status"]}>
                         <span>{amountMessageNotRead < 10 && amountMessageNotRead}</span>
                     </i>
                 }

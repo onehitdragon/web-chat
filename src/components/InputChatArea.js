@@ -2,6 +2,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import IconChatArea from "./IconChatArea";
 import { useDispatch, useSelector } from "react-redux";
 import { sendTextMessage, sendFileMessage } from "../features/chat/conversationsSlice";
+import styles from "./Home.module.css";
 
 function InputChatArea(){
     const currentConversationId = useSelector(state => state.conversations.currentConversationId);
@@ -56,12 +57,12 @@ function InputChatArea(){
     }
 
     return (
-        <div className="body-right__send">
+        <div className={styles["body-right__send"]}>
             <button type="button" name="add-file"
                 onClick={() => { fileInputRef.current.click(); }}>
                 <input ref={fileInputRef} style={{display: "none"}}
                     type="file"onChange={() => { handleOnChangeFile(); }}/>
-                <i className="fa-solid fa-circle-plus"></i>
+                <i className={styles["fa-solid fa-circle-plus"]}></i>
             </button>
             <input ref={ textInputRef } type="text" placeholder="Nhập tin nhắn..." 
                 value={ currentContent }
