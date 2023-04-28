@@ -176,28 +176,22 @@ const selectCurrentConversaion = createSelector(
 export { selectConversations, selectCurrentConversaionId, selectCurrentConversaion };
 
 // actions function
-const loadConversaions = (whenLoaded: Function) => {
-    const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
-        doRequestApi<{
-            you: User,
-            listConversation: Conversation[],
-            listFriending: User[],
-            listQuestingByOther: User[],
-            listQuestingByYou: User[]
-        }>('/home/index', 'GET')
-        .then((data) => {
-            console.log(data);
-            dispatch(loadedYou(data.you));
-            dispatch(loadedConversations(data.listConversation));
-            dispatch(loadedFriends(data.listFriending));
-            dispatch(loadedQuestingByOthers(data.listQuestingByOther));
-            dispatch(loadedQuestingByYous(data.listQuestingByYou));
-            whenLoaded();
-        })
-    }
+// const loadConversaions = (whenLoaded: Function) => {
+//     const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
+//         doRequestApi<>('/home/index', 'GET')
+//         .then((data) => {
+//             console.log(data);
+//             dispatch(loadedYou(data.you));
+//             dispatch(loadedConversations(data.listConversation));
+//             dispatch(loadedFriends(data.listFriending));
+//             dispatch(loadedQuestingByOthers(data.listQuestingByOther));
+//             dispatch(loadedQuestingByYous(data.listQuestingByYou));
+//             whenLoaded();
+//         })
+//     }
 
-    return thunk;
-}
+//     return thunk;
+// }
 const sendTextMessage = (content: string) => {
     const thunk: ThunkAction<void, RootState, any, any> = (dispatch, getState) => {
         const socket = getState().socket;
@@ -337,4 +331,4 @@ const updateAmountMessageNotRead: ThunkAction<void, RootState, any, any> = (disp
     }
 }
 
-export { loadConversaions, sendTextMessage, sendIconMessage, sendFileMessage, updateAmountMessageNotRead }
+export { sendTextMessage, sendIconMessage, sendFileMessage, updateAmountMessageNotRead }

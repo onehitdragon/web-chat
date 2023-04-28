@@ -3,8 +3,8 @@ import {useEffect, useState} from 'react';
 import Dialog from './Dialog';
 import { useDispatch } from "react-redux";
 import { checkStatus, login, loginFacebook, loginGoogle } from '../features/chat/youSlice';
-import { BASE_URL } from '../tools/doRequestApi';
-import { useRouter } from 'next/navigation';
+import { FE_DEV_URL } from '../tools/doRequestApi';
+import { useRouter } from 'next/router';
 
 interface LoginProps{
     showDialog: (dialogNeedShow: React.ReactNode) => any,
@@ -13,7 +13,6 @@ interface LoginProps{
 
 function Login({showDialog, hideDialog}: LoginProps) {
     const router = useRouter();
-    const [pageLoading, setPageLoading] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -23,7 +22,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
         window.open("https://accounts.google.com/o/oauth2/v2/auth?"
         +"scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&"
         +"response_type=token&"
-        +`redirect_uri=${BASE_URL}&`
+        +`redirect_uri=${FE_DEV_URL}&`
         +"client_id=493170822018-t5jhkkr1aqo6o7svs0j1gfg03ipfir6e.apps.googleusercontent.com&"
         +"state=loginGoogle"
         , "_top");
@@ -32,7 +31,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
     const loginFacebookHandle = () => {
         window.open("https://www.facebook.com/v15.0/dialog/oauth?"
         +"client_id=435845621984441&"
-        +`redirect_uri=${BASE_URL}&`
+        +`redirect_uri=${FE_DEV_URL}&`
         +"state=loginFacebook&"
         +"response_type=token",
         "_top");
@@ -91,7 +90,7 @@ function Login({showDialog, hideDialog}: LoginProps) {
             router.push("/home");
         };
         const showLoginPage = () => {
-            setPageLoading(false);
+            
         };
         dispatch<any>(checkStatus(navigateToHome, showLoginPage));
 
@@ -132,7 +131,6 @@ function Login({showDialog, hideDialog}: LoginProps) {
     }
 
     return (
-        !pageLoading &&
         <div className={styles["body"]}>
             <div className={styles["body__main"]}>
                 <p className={styles["title"]}>Đăng Nhập</p>

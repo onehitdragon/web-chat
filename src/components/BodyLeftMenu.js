@@ -7,11 +7,15 @@ let firstRender = true;
 
 function BodyLeftMenu({isOpen}){
     const menuLeftRef = useRef();
-    if(!isOpen){
-        setTimeout(() => {
-            menuLeftRef.current.className= styles["menu-left"] + " " + styles["menu-left--closed"];
-        }, 250);
-    }
+
+    useEffect(() => {
+        if(!isOpen){
+            setTimeout(() => {
+                menuLeftRef.current.className = styles["menu-left"] + " " + styles["menu-left--closed"];
+            }, 250);
+        }
+    })
+    
     useEffect(() => {
         firstRender = false;
     }, []);

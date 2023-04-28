@@ -42,3 +42,11 @@ interface Conversation{
     amountMessageNotRead: number,
     scroll?: number
 }
+
+interface UserData{
+    you: User,
+    listConversation: Conversation[],
+    listFriending: User[],
+    listQuestingByOther: User[],
+    listQuestingByYou: User[]
+}
